@@ -8,16 +8,15 @@ import InputGroup from "react-bootstrap/InputGroup";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "./header.css";
-import facebook from "../../assets/header/react.svg";
-import twitter from "../../assets/header/twitter.svg";
-import instagram from "../../assets/header/instagram.svg";
+import facebook from "../../../assets/img/header/react.svg";
+import twitter from "../../../assets/img/header/twitter.svg";
+import instagram from "../../../assets/img/header/instagram.svg";
 const Header = () => {
   return (
     <>
       <Navbar bg="light" expand="lg" className="justify-content-between">
         <Container fluid>
-          <Navbar.Brand href="#" className="d-flex align-self-start">
+          <Navbar.Brand href="/" className="d-flex align-self-start">
             Rolling Store
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -90,10 +89,14 @@ const Header = () => {
                   <Nav.Link href="#action10"> Registrarse</Nav.Link>
                   <Nav.Link href="#action11"> Login</Nav.Link>
                 </div>
-                <div className="d-lg-none bg-danger w-100 p-3 d-flex justify-content-evenly align-items-center">
-                  <img src="" alt="img-1" />
-                  <img src="" alt="img-2" />
-                  <img src="" alt="img-3" />
+                <div className="d-lg-none border-top w-100 p-3 d-flex justify-content-center align-items-center">
+                  <div className=" d-flex justify-content-around w-25">
+                  <img src={facebook}alt="img-1" />
+                  <img src={instagram} alt="img-2" />
+                  <img src={twitter} alt="img-3" />
+
+                  </div>
+               
                 </div>
               </Nav>
             </Nav>

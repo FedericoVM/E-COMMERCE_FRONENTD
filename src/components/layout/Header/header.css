@@ -1,0 +1,15 @@
+.redes-header img {
+    width: 1.2rem;
+}
+
+.redes-header img:hover{
+    transform: scale(1.3)
+}
+
+/* Break point */
+
+@media  (width > 768px) {
+    .search{
+      width: 50%;
+    }
+  }

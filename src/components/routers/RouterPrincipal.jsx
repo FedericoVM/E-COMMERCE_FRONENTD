@@ -1,8 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import Destacados from "../views/Destacados/Destacados";
+import DestacadosTest from "../views/Destacados/DestacadosTest";
 
 export const RouterPrincipal = () => {
-  const url = process.env.VITE_API_URL;
+  const url = "http://localhost:3001/productos";
+
 
   const [products, setProducts] = useState([]);
 
@@ -19,12 +22,14 @@ export const RouterPrincipal = () => {
       console.log(error);
     }
 
+  };
     return (
       <BrowserRouter>
         <Routes>
-          <Route />
+          <Route exact path="/destacados" element={<Destacados />} />
+          <Route exact path="/destacados-test" element={<DestacadosTest />} />
         </Routes>
       </BrowserRouter>
     );
-  };
+ 
 };

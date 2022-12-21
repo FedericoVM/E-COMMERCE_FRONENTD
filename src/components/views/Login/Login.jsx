@@ -17,9 +17,8 @@ const Login = () => {
   return (
     <>
       {values.map((v, idx) => (
-        <Button key={idx} className="me-2 mb-2 vh-100" onClick={() => handleShow(v)}>
-          Full screen
-          {typeof v === "string" && `below ${v.split("-")[0]}`}
+        <Button key={idx} className="me-2 mb-2" onClick={() => handleShow(v)}>
+          Login
         </Button>
       ))}
       <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
@@ -49,7 +48,7 @@ const Login = () => {
               </Button>
               <Form.Group className="my-1" controlId="formBasicPassword">
                 No tienes cuenta?  
-                <Link to="/login" className="link-form ms-2  ">Registrarse</Link>
+                <Link to="/login" className="link-form ms-2 text-decorate-none">Registrarse</Link>
               </Form.Group>
               <Form.Group className="mb-1" controlId="formBasicPassword">
                 <Link to="/recuperar-contrasenia" className="link-form " >Recuperar contraseña</Link>

@@ -6,12 +6,12 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import InputGroup from "react-bootstrap/InputGroup";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import {BsFacebook , BsTwitter, BsInstagram} from 'react-icons/bs'
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./header.css";
-import facebook from "../../assets/header/react.svg";
-import twitter from "../../assets/header/twitter.svg";
-import instagram from "../../assets/header/instagram.svg";
+import Registro from "../../views/Registro/Registro";
+import Login from "../../views/Login/Login";
 const Header = () => {
   return (
     <>
@@ -42,15 +42,13 @@ const Header = () => {
                 </Form>
                 <div className=" redes-header d-none  w-25 d-lg-flex justify-content-lg-around">
                   <Nav.Link href="https://es-la.facebook.com/" target="_blank">
-                    <img src={facebook} alt="img-1" />
+                    <BsFacebook className="fs-2"/>
                   </Nav.Link>
                   <Nav.Link href="https://twitter.com/" target="_blank">
-                    {" "}
-                    <img src={twitter} alt="img-2" />
+                    <BsTwitter className="fs-2"/>
                   </Nav.Link>
                   <Nav.Link href="https://www.instagram.com/" target="_blank">
-                    {" "}
-                    <img src={instagram} alt="img-3" />
+                    <BsInstagram className="fs-2"/>
                   </Nav.Link>
                 </div>
               </div>
@@ -62,7 +60,7 @@ const Header = () => {
                   <NavDropdown.Item href="#action5">opcion 2</NavDropdown.Item>
                 </NavDropdown>
                 <div className="d-lg-flex">
-                  <Nav.Link href="#action1">Home</Nav.Link>
+                  <Nav.Link href="/">Home</Nav.Link>
                   <NavDropdown
                     className="d-md-none  "
                     title="Categorias"
@@ -87,8 +85,8 @@ const Header = () => {
                 <div className=" d-lg-flex  align-self-lg-end">
                   <Nav.Link href="#action8"> Ayuda</Nav.Link>
                   <Nav.Link href="#action9"> Carrito</Nav.Link>
-                  <Nav.Link href="#action10"> Registrarse</Nav.Link>
-                  <Nav.Link href="#action11"> Login</Nav.Link>
+                  <Registro/>
+                  <Login/>
                 </div>
                 <div className="d-lg-none bg-danger w-100 p-3 d-flex justify-content-evenly align-items-center">
                   <img src="" alt="img-1" />

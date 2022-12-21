@@ -72,8 +72,12 @@ const ProductosCategorias = ({ productos, loading }) => {
             currentPage={currentPageMovil}
           />
           </div>
-          <div className='d-none container bg-success text-center d-lg-block col-2 d-flex align-self-center'>
-            Publicidad
+          <div className='d-none bg-success text-center d-lg-block col-2 d-flex'>
+          <img
+              className="publicidad-img w-100 h-100"
+             src="https://github.com/leanceballos30/Proyecto-Final/blob/home/src/assets/img/main/publicidad.jpg?raw=true"
+              alt="publicidad_intel"
+            />
           </div>
     </div>
   )

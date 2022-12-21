@@ -21,7 +21,7 @@ const Electrodomesticos = () => {
 
   return (
     <div className="">
-        <div className="">
+        <div>
             <ProductosCategorias productos={test} loading={loading}/>
         </div>
     </div>

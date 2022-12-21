@@ -44,7 +44,7 @@ const Destacados = () => {
   )
 }
 
-export default Destacados
+
 
 import React from 'react'
 import { Button, Card, Col, Row } from 'react-bootstrap';
@@ -89,4 +89,4 @@ const ProductosTest = ({ posts, loading }) => {
   )
 }
 
-export default ProductosTest
+

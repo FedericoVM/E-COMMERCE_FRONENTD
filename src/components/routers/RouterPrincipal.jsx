@@ -2,18 +2,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "../layout/footer/Footer";
 import React, { useEffect, useState } from "react";
 import Registro from "../views/Registro/Registro";
+import Header from "../layout/Header/Header";
+import Home from "../views/Home/Home";
 import Electrodomesticos from "../views/Categorias/Electrodomesticos";
-import Computacion from "../views/Categorias/computacion/Computacion";
-import AireLibre from "../views/Categorias/aireLibre/AireLibre";
-import Login from "../views/Login/Login";
-import Favoritos from "../views/Favoritos/Favoritos";
-import Contacto from "../views/Contacto/Contacto";
-import Destacados from "../views/Destacados/Destacados";
-import DestacadosTest from "../views/Destacados/DestacadosTest";
-
 
 export const RouterPrincipal = () => {
-  const url = "http://localhost:3001/productos";
+  const url = "http://localhost:4123/api/productos/obtener-productos";
 
   const [products, setProducts] = useState([]);
 
@@ -30,18 +24,12 @@ export const RouterPrincipal = () => {
       console.log(error);
     }
   };
-
-export const RouterPrincipal = () => {
   return (
     <BrowserRouter>
+    <Header/>
       <Routes>
-        <Route path="/" element={<Registro />} />
-        <Route  path='/electrodomesticos' element={<Electrodomesticos/>}/>
-        <Route  path='/computacion' element={<Computacion/>}/>
-        <Route  path='/aire-libre' element={<AireLibre/>}/>
-        <Route path="/" element={<Login />} />
-        <Route path="/" element={<Favoritos/>}/>
-        <Route path="/" element={<Contacto />} />
+        <Route path="/" element={<Home products={products}/>} />
+        <Route path="/electrodomesticos" element={<Electrodomesticos/>}/>
       </Routes>
         <Footer />
     </BrowserRouter>

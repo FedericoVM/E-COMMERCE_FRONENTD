@@ -31,3 +31,21 @@
      right: 0px;
  }
 
+.carrusel{
+    height: 40vh;
+    width: 100%;
+}
+
+.publicidad {
+    position: sticky;
+    top: 0;
+  }
+
+.appContenedor{
+    text-align: center;
+    min-height: 100vh;
+  }
+
+  .imagenCard{
+    height: 15vh;
+  }

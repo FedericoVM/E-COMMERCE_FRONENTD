@@ -11,16 +11,10 @@ import mail from "../../../assets/img/footer/contacto/mail.svg";
 import map from "../../../assets/img/footer/contacto/map-pin.svg";
 import data_fiscal from "../../../assets/img/footer/contacto/Data-fiscal-Web.jpg"
 
-
-
-
-
-
-
 const Footer = () => {
   return (
     <>
-      <Container fluid className="px-0 ">
+      <Container fluid className="px-0 footer-repar">
 
       <div className="footer">
         <div id="informacion" className="row d-flex flex-column align-items-center  d-lg-flex flex-lg-row p-0 py-2  p-lg-2  m-lg-0 m-0">

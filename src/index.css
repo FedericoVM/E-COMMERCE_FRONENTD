@@ -1,0 +1,16 @@
+
+.descripcion-card-producto{
+    height: 10vh;
+     overflow: auto;
+ }
+ 
+ .title-precio{
+     position: absolute;
+     top: 0px;
+     background: rgba(26, 5, 5, 0.637);
+ }
+ 
+ .boton-favorito{
+     position: absolute;
+     right: 0px;
+ }

@@ -6,6 +6,7 @@ import DestacadosTest from "../views/Destacados/DestacadosTest";
 export const RouterPrincipal = () => {
   const url = "http://localhost:3001/productos";
 
+
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -20,6 +21,7 @@ export const RouterPrincipal = () => {
     } catch (error) {
       console.log(error);
     }
+
   };
     return (
       <BrowserRouter>
@@ -29,5 +31,5 @@ export const RouterPrincipal = () => {
         </Routes>
       </BrowserRouter>
     );
-  
+ 
 };

@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Footer from "../layout/footer/Footer";
 import React, { useEffect, useState } from "react";
 import Registro from "../views/Registro/Registro";
 import Electrodomesticos from "../views/Categorias/Electrodomesticos";
@@ -30,6 +31,7 @@ export const RouterPrincipal = () => {
     }
   };
 
+export const RouterPrincipal = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -41,6 +43,7 @@ export const RouterPrincipal = () => {
         <Route path="/" element={<Favoritos/>}/>
         <Route path="/" element={<Contacto />} />
       </Routes>
+        <Footer />
     </BrowserRouter>
   );
 };

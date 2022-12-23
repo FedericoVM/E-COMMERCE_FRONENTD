@@ -5,6 +5,10 @@ import Registro from "../views/Registro/Registro";
 import Header from "../layout/Header/Header";
 import Home from "../views/Home/Home";
 import Electrodomesticos from "../views/Categorias/Electrodomesticos";
+import Computacion from "../views/Categorias/Computacion";
+import AireLibre from "../views/Categorias/AireLibre";
+import Contacto from "../views/Contacto/Contacto";
+import Destacados from "../views/Destacados/Destacados";
 
 export const RouterPrincipal = () => {
   const url = "http://localhost:4123/api/productos/obtener-productos";
@@ -29,7 +33,11 @@ export const RouterPrincipal = () => {
     <Header/>
       <Routes>
         <Route path="/" element={<Home products={products}/>} />
-        <Route path="/electrodomesticos" element={<Electrodomesticos/>}/>
+        <Route path="/electrodomesticos" element={<Electrodomesticos products={products}/>}/>
+        <Route path="/computacion" element={<Computacion products={products}/>}/>
+        <Route path="/aire-libre" element={<AireLibre products={products}/>}/>
+        <Route path="/contacto" element={<Contacto/>}/>
+        <Route path="/destacados" element={<Destacados/>}/>
       </Routes>
         <Footer />
     </BrowserRouter>

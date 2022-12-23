@@ -2,27 +2,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ProductosCategorias from "./Productos_categoria";
 
-const Electrodomesticos = () => {
-    const [test, setTest] = useState([]);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        fetchPosts();
-      }, []);
-    
-      const fetchPosts = async () => {
-        setLoading(true);
-        const res = await axios.get(
-          "https://jsonplaceholder.typicode.com/albums/1/photos"
-        );
-        setTest(res.data);
-        setLoading(false);
-      };
-
+const Electrodomesticos = ({products}) => {
+  const electrodomesticos = products.filter(productos => {
+    return productos.categoria === "electrodomesticos"
+  })
+  console.log(electrodomesticos)
   return (
     <div className="">
         <div>
-            <ProductosCategorias productos={test} loading={loading}/>
+            <ProductosCategorias products={electrodomesticos}/>
         </div>
     </div>
   )

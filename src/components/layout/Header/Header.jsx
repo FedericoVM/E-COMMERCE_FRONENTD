@@ -17,7 +17,7 @@ const Header = () => {
     <>
       <Navbar bg="light" expand="lg" className="justify-content-between">
         <Container fluid>
-          <Navbar.Brand href="#" className="d-flex align-self-start">
+          <Navbar.Brand href="/" className="d-flex align-self-start">
             Rolling Store
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -38,7 +38,7 @@ const Header = () => {
                     className="me-2"
                     aria-label="Search"
                   />
-                  {/* <Button variant="outline-success">Search</Button> */}
+                  <Button variant="outline-success">Search</Button> 
                 </Form>
                 <div className=" redes-header d-none  w-25 d-lg-flex justify-content-lg-around">
                   <Nav.Link href="https://es-la.facebook.com/" target="_blank">
@@ -55,9 +55,9 @@ const Header = () => {
 
               <Nav className="m-0 d-flex justify-content-around">
                 <NavDropdown title="Categorias" id="navbarScrollingDropdown">
-                  <NavDropdown.Item href="#action3">opcion 1</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">opcion 2</NavDropdown.Item>
-                  <NavDropdown.Item href="#action5">opcion 2</NavDropdown.Item>
+                  <NavDropdown.Item href="/computacion">Computacion</NavDropdown.Item>
+                  <NavDropdown.Item href="/electrodomesticos">Electrodomesticos</NavDropdown.Item>
+                  <NavDropdown.Item href="/aire-libre">Aire Libre</NavDropdown.Item>
                 </NavDropdown>
                 <div className="d-lg-flex">
                   <Nav.Link href="/">Home</Nav.Link>
@@ -77,8 +77,8 @@ const Header = () => {
                       Something else here
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link href="#action2">Destacados</Nav.Link>
-                  <Nav.Link href="#action6"> Contacto</Nav.Link>
+                  <Nav.Link href="/destacados">Destacados</Nav.Link>
+                  <Nav.Link href="/contacto"> Contacto</Nav.Link>
                   <Nav.Link href="#action7"> Favoritos</Nav.Link>
                 </div>
 

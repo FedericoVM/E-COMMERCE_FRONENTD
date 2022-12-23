@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import "./productCard.css";
 
 const ProductCard = ({ p}) => {
-  console.log(p)
   return (
     <Card  className="card shadow-lg border m-sx-3 ">
       <div>
@@ -25,7 +24,7 @@ const ProductCard = ({ p}) => {
         <div>
           <Link to="/product" className="text-decoration-none">
             <div className="d-flex justify-content-between text-center  h-100">
-              <Card.Title className="text-dark ">asd</Card.Title>
+              <Card.Title className="text-dark ">{p.nombre}</Card.Title>
             </div>
           </Link>
         </div>

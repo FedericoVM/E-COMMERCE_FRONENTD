@@ -5,7 +5,6 @@ import CarouselHome from "./CarouselHome/CarouselHome";
 import ListProducts from "./listProducts/ListProducts";
 
 const Home = ({products}) => {
-  console.log(products)
   return (
     <>
       <CarouselHome />

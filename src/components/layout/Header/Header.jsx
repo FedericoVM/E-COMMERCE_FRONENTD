@@ -4,18 +4,18 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import InputGroup from "react-bootstrap/InputGroup";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import {BsFacebook , BsTwitter, BsInstagram} from 'react-icons/bs'
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import "./header.css";
 import Registro from "../../views/Registro/Registro";
 import Login from "../../views/Login/Login";
-const Header = () => {
+import ContenedorLogin from "./ContenedorLogin";
+import { useState } from "react";
+
+const Header = ({usuarioOn, getUser, setUserLog}) => {
   return (
     <>
-      <Navbar bg="light" expand="lg" className="justify-content-between">
+      <Navbar bg="light" expand="lg" className="justify-content-between w-100">
         <Container fluid>
           <Navbar.Brand href="/" className="d-flex align-self-start">
             Rolling Store
@@ -53,7 +53,7 @@ const Header = () => {
                 </div>
               </div>
 
-              <Nav className="m-0 d-flex justify-content-around">
+              <Nav className="m-0 d-flex justify-content-around align-items-center">
                 <NavDropdown title="Categorias" id="navbarScrollingDropdown">
                   <NavDropdown.Item href="/computacion">Computacion</NavDropdown.Item>
                   <NavDropdown.Item href="/electrodomesticos">Electrodomesticos</NavDropdown.Item>
@@ -82,11 +82,11 @@ const Header = () => {
                   <Nav.Link href="#action7"> Favoritos</Nav.Link>
                 </div>
 
-                <div className=" d-lg-flex  align-self-lg-end">
+                <div className=" d-lg-flex  align-self-lg-end align-items-center">
                   <Nav.Link href="#action8"> Ayuda</Nav.Link>
                   <Nav.Link href="#action9"> Carrito</Nav.Link>
-                  <Registro/>
-                  <Login/>
+                  <div>{usuarioOn === null ? <div><Registro/><Login getUser={getUser}/></div>:<ContenedorLogin usuarioOn={usuarioOn} getUser={getUser} setUserLog={setUserLog}/>}
+                  </div>
                 </div>
                 <div className="d-lg-none bg-danger w-100 p-3 d-flex justify-content-evenly align-items-center">
                   <img src="" alt="img-1" />

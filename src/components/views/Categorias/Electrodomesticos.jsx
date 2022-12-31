@@ -6,7 +6,6 @@ const Electrodomesticos = ({products}) => {
   const electrodomesticos = products.filter(productos => {
     return productos.categoria === "electrodomesticos"
   })
-  console.log(electrodomesticos)
   return (
     <div className="">
         <div>

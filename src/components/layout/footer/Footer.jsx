@@ -13,8 +13,8 @@ import data_fiscal from "../../../assets/img/footer/contacto/Data-fiscal-Web.jpg
 
 const Footer = () => {
   return (
-    <>
-      <Container fluid className="px-0 footer-repar">
+    <div className=" footer-repar">
+      <Container fluid className="px-0">
 
       <div className="footer">
         <div id="informacion" className="row d-flex flex-column align-items-center  d-lg-flex flex-lg-row p-0 py-2  p-lg-2  m-lg-0 m-0">
@@ -71,7 +71,7 @@ const Footer = () => {
 
       </Container>
     
-    </>
+    </div>
   );
 };
 

@@ -6,7 +6,7 @@ import { RouterPrincipal } from './components/routers/RouterPrincipal'
 
 function App() {
   return (
-    <div className="App d-flex flex-column appContenedor">
+    <div className="App d-flex flex-column">
       <RouterPrincipal />
     </div>
   );

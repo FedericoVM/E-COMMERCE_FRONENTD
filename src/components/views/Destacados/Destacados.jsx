@@ -1,44 +1,43 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Productos from './Productos';
-import Pagination from './Pagination';
+import Pagination from '../Categorias/Pagination'
 
-const Destacados = () => {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(10);
-  
-       useEffect(() => {
-      const fetchPosts = async () => {
-        setLoading(true);
-        const res = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        setPosts(res.data);
-        setLoading(false);
-      };
-  
-      fetchPosts();
-    }, []);
+const Destacados = ({products}) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(6);
+const destacados = products.filter(productos => {
+      return productos.destacado === true
+    })
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-    const paginate = pageNumber => setCurrentPage(pageNumber);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = destacados.slice(indexOfFirstPost, indexOfLastPost) ;
+    
 
   return (
-    <div className='d-flex'>
-    <div className='container col-12 col-md-9'>
+    <div>
+      <div className='d-flex'>
+    <div className=' col-12 col-lg-9'>
         <h1 className='my-3'>Productos Destacados</h1>
         <hr/>
-        <Productos posts={currentPosts} loading={loading}/>
+        <Productos posts={currentPosts}/>
         <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={posts.length}
-        paginate={paginate}
-      />
+            postsPerPage={postsPerPage}
+            totalPosts={destacados.length}
+            paginate={paginate}
+            currentPage={currentPage}
+          />
     </div>
-    <h1 className='col-md-3 d-none d-md-block text-center align-self-center'>Side</h1>
+    <div className='d-none d-lg-block d-flex'>
+          <img
+              className="publicidad-img container h-100"
+             src="https://github.com/leanceballos30/Proyecto-Final/blob/home/src/assets/img/main/publicidad.jpg?raw=true"
+              alt="publicidad_intel"
+            />
+          </div>
+          </div>
     </div>
   )
 }

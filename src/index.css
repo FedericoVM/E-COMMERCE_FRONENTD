@@ -29,6 +29,7 @@
  .boton-favorito{
      position: absolute;
      right: 0px;
+     top: 0px;
  }
 
 .carrusel{
@@ -41,15 +42,28 @@
     top: 0;
   }
 
-.appContenedor{
-    text-align: center;
-    min-height: 100vh;
-  }
-
   .imagenCard{
     height: 15vh;
   }
 
 .imagen-card-electro{
     height: 18vh;
+}
+
+.card-destacados-img{
+    height: 40vh !important;
+}
+
+.imagenUsuarioHeader{
+    height: 8vh;
+    width: 8vh;
+}
+
+.tabla-de-productos{
+    vertical-align:middle;
+}
+
+.contenedor-tabla-productos{
+    overflow: auto;
+    height: 80vh;
 }

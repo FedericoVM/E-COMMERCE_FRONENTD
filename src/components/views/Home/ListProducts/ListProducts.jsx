@@ -28,6 +28,7 @@ const ListProducts = ({ products }) => {
 
   return (
     <>
+     
       <Row className="g-4 d-none d-md-none d-lg-flex mt-3">
         {currentPosts.map((p, index) => (
           <Col
@@ -38,14 +39,15 @@ const ListProducts = ({ products }) => {
             <ProductCard p={p} />
           </Col>
         ))}
-        <div className="d-flex justify-content-center align-items-center">
+      
+      </Row>
+      <div className="d-flex justify-content-center align-items-center">
           <Pagination
             postsPerPage={pageLg}
             totalPosts={products.length}
             paginate={paginate}
           />
         </div>
-      </Row>
       <Row className=" g-4 d-none d-lg-none d-md-flex mt-3">
         {currentPostsMd.map((p, index) =>
            (

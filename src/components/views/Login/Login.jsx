@@ -3,15 +3,41 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
+import instance from "../../../assets/api/axios";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({getUser}) => {
   const values = ["lg-down"];
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
 
+  const navigate = useNavigate();
+
   function handleShow(breakpoint) {
     setFullscreen(breakpoint);
     setShow(true);
+  }
+
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    let email = e.target.email.value;
+    let password = e.target.password.value;
+
+    const login = {
+      email,
+      password
+    }
+    try {
+      const res = await instance.post('/users/logear-usuario',login);
+      localStorage.setItem('token',JSON.stringify(res.data.token))
+      getUser()
+      navigate('/')
+      setShow(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -33,15 +59,15 @@ const Login = () => {
         <Modal.Body>
           <h4 className="text-center ">Bienvenido/a</h4>
           <div>
-            <Form >
+            <Form onSubmit={handleLogin}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>E-mail</Form.Label>
-                <Form.Control type="email"/>
+                <Form.Control type="email" name="email"/>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password"/>
+                <Form.Control type="password" name="password"/>
               </Form.Group>
               <Button className="w-100 text-center" variant="primary" type="submit">
                 Iniciar Sesión

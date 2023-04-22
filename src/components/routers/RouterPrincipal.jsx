@@ -13,6 +13,7 @@ import DestacadosTest from "../views/Destacados/DestacadosTest";
 
 export const RouterPrincipal = () => {
   const url = "http://localhost:3001/productos";
+
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -30,7 +31,6 @@ export const RouterPrincipal = () => {
 
   };
 
-
 export const RouterPrincipal = () => {
   return (
     <BrowserRouter>
@@ -42,6 +42,8 @@ export const RouterPrincipal = () => {
         <Route path="/" element={<Login />} />
         <Route path="/" element={<Favoritos/>}/>
         <Route path="/" element={<Contacto />} />
+        <Route exact path="/destacados" element={<Destacados />} />
+        <Route exact path="/destacados-test" element={<DestacadosTest />} />
       </Routes>
         <Footer />
     </BrowserRouter>

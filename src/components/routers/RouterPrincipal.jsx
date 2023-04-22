@@ -27,6 +27,7 @@ export const RouterPrincipal = () => {
     } catch (error) {
       console.log(error);
     }
+
   };
 
 
@@ -46,4 +47,5 @@ export const RouterPrincipal = () => {
     </BrowserRouter>
   );
 };
+
 

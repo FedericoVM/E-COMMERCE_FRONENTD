@@ -83,7 +83,6 @@ const Header = () => {
                   <Nav.Link href="#action6"> Contacto</Nav.Link>
                   <Nav.Link href="#action7"> Favoritos</Nav.Link>
                 </div>
-
                 <div className=" d-lg-flex  align-self-lg-end">
                   <Nav.Link href="#action8"> Ayuda</Nav.Link>
                   <Nav.Link href="#action9"> Carrito</Nav.Link>
@@ -95,9 +94,7 @@ const Header = () => {
                   <img src={facebook}alt="img-1" />
                   <img src={instagram} alt="img-2" />
                   <img src={twitter} alt="img-3" />
-
                   </div>
-             
                 </div>
               </Nav>
             </Nav>

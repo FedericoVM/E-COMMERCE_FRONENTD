@@ -8,9 +8,10 @@ import InputGroup from "react-bootstrap/InputGroup";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import facebook from "../../../assets/img/header/react.svg";
-import twitter from "../../../assets/img/header/twitter.svg";
-import instagram from "../../../assets/img/header/instagram.svg";
+import "./header.css";
+import facebook from "../../assets/header/react.svg";
+import twitter from "../../assets/header/twitter.svg";
+import instagram from "../../assets/header/instagram.svg";
 const Header = () => {
   return (
     <>
@@ -96,7 +97,7 @@ const Header = () => {
                   <img src={twitter} alt="img-3" />
 
                   </div>
-               
+             
                 </div>
               </Nav>
             </Nav>

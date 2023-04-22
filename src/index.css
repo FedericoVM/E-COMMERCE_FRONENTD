@@ -1,4 +1,22 @@
 
+.imagen-lista-productos{
+    height: 10vh;
+    width:10vh;
+}
+
+.td-favoritos{
+    height: 10vh !important;
+    vertical-align: middle;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+.pagination-style{
+    vertical-align: middle;
+}
+
+
+
 .descripcion-card-producto{
     height: 10vh;
      overflow: auto;
@@ -14,3 +32,4 @@
      position: absolute;
      right: 0px;
  }
+

@@ -1,14 +1,20 @@
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react'
 import './App.css'
-import { RouterPrincipal } from './components/routers/RouterPrincipal'
+import { RouterPrincipal } from './routers/RouterPrincipal'
+import "./components/layout/Header/header.css";
+
 
 function App() {
   return (
     <div className="App">
-        <RouterPrincipal/>
+      <RouterPrincipal/>
     </div>
   );
 }
-
 export default App;
+
+
+
+
+

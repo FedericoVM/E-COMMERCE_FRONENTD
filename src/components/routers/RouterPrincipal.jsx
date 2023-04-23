@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Footer from "../layout/footer/Footer";
 import React, { useEffect, useState } from "react";
 import Registro from "../views/Registro/Registro";
 import Electrodomesticos from "../views/Categorias/Electrodomesticos";
@@ -9,7 +10,6 @@ import Favoritos from "../views/Favoritos/Favoritos";
 import Contacto from "../views/Contacto/Contacto";
 import Destacados from "../views/Destacados/Destacados";
 import DestacadosTest from "../views/Destacados/DestacadosTest";
-
 
 export const RouterPrincipal = () => {
   const url = "http://localhost:3001/productos";
@@ -40,7 +40,11 @@ export const RouterPrincipal = () => {
         <Route path="/" element={<Login />} />
         <Route path="/" element={<Favoritos/>}/>
         <Route path="/" element={<Contacto />} />
+        <Route exact path="/destacados" element={<Destacados />} />
+        <Route exact path="/destacados-test" element={<DestacadosTest />} />
       </Routes>
+        <Footer />
     </BrowserRouter>
   );
 };
+

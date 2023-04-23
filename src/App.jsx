@@ -5,7 +5,6 @@ import { RouterPrincipal } from './routers/RouterPrincipal'
 import "./components/layout/Header/header.css";
 
 
-
 function App() {
   return (
     <div className="App">
@@ -14,6 +13,4 @@ function App() {
   );
 }
 export default App;
-
-
 

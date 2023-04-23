@@ -15,7 +15,6 @@
     vertical-align: middle;
 }
 
-
 .descripcion-card-producto{
     height: 10vh;
      overflow: auto;
@@ -31,4 +30,3 @@
      position: absolute;
      right: 0px;
  }
-

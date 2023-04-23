@@ -11,6 +11,7 @@ import Contacto from "../views/Contacto/Contacto";
 import Destacados from "../views/Destacados/Destacados";
 import DestacadosTest from "../views/Destacados/DestacadosTest";
 
+
 export const RouterPrincipal = () => {
   const url = "http://localhost:3001/productos";
 
@@ -28,7 +29,6 @@ export const RouterPrincipal = () => {
     } catch (error) {
       console.log(error);
     }
-
   };
 
 export const RouterPrincipal = () => {

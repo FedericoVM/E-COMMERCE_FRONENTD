@@ -30,7 +30,6 @@ export const RouterPrincipal = () => {
     }
   };
 
-export const RouterPrincipal = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -41,6 +40,8 @@ export const RouterPrincipal = () => {
         <Route path="/" element={<Login />} />
         <Route path="/" element={<Favoritos/>}/>
         <Route path="/" element={<Contacto />} />
+        <Route exact path="/destacados" element={<Destacados />} />
+        <Route exact path="/destacados-test" element={<DestacadosTest />} />
       </Routes>
         <Footer />
     </BrowserRouter>

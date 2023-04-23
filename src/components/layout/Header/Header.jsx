@@ -83,7 +83,6 @@ const Header = () => {
                   <Nav.Link href="#action6"> Contacto</Nav.Link>
                   <Nav.Link href="#action7"> Favoritos</Nav.Link>
                 </div>
-
                 <div className=" d-lg-flex  align-self-lg-end">
                   <Nav.Link href="#action8"> Ayuda</Nav.Link>
                   <Nav.Link href="#action9"> Carrito</Nav.Link>

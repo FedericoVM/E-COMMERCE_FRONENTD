@@ -1,9 +1,0 @@
-.publicidad {
-    position: sticky;
-    top: 0;
-  }
-  
-  .linea {
-    color: aliceblue;
-    background: linear-gradient(90deg, rgb(147, 69, 179) 0%, rgb(119, 15, 145));
-  }

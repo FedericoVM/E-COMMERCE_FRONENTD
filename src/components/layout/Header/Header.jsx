@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -9,10 +9,56 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./header.css";
-import facebook from "../../assets/header/react.svg";
-import twitter from "../../assets/header/twitter.svg";
-import instagram from "../../assets/header/instagram.svg";
+import facebook from "../../../assets/img/header/react.svg";
+import twitter from "../../../assets/img/header/twitter.svg";
+import instagram from "../../../assets/img/header/instagram.svg";
+import { Link, NavLink } from "react-router-dom";
+import Home from "../../views/home/Home";
+import Registro from "../../views/Registro/Registro";
+import Login from "../../views/Login/Login";
+import instance from "../../../axios/instance"
+import ControlUsuario from "../controlUsuario/ControlUsuario";
+import jwt_decode from "jwt-decode"
+import { useNavigate } from "react-router-dom";
+import ContenedorLogin from "../contenedorLogin/ContenedorLogin";
+
 const Header = () => {
+  const use_navigate = useNavigate()
+  const [datosUsuario, setDatosUsuario] = useState(null)
+  const [enLinea, setEnLinea] = useState(false)
+
+  const mostrarUsuario = async (token_usuario) => {
+    const config = {
+      headers: {
+        "authorization": `Bearer ${token_usuario}`
+      }
+    }
+
+    try {
+      const decodificado = await jwt_decode(token_usuario,config)
+      setDatosUsuario(decodificado)
+      
+    } catch (error) {
+      console.log(error);
+      // console.log(error.response.data.mensaje);
+
+    }
+    
+
+  }
+
+ 
+
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("tokenUsuario")
+    if (token) {
+      mostrarUsuario(token)
+    }
+  }, [])
+
+
   return (
     <>
       <Navbar bg="light" expand="lg" className="justify-content-between">
@@ -38,18 +84,16 @@ const Header = () => {
                     className="me-2"
                     aria-label="Search"
                   />
-                  {/* <Button variant="outline-success">Search</Button> */}
+                  <Button variant="outline-success">Search</Button>
                 </Form>
                 <div className=" redes-header d-none  w-25 d-lg-flex justify-content-lg-around">
                   <Nav.Link href="https://es-la.facebook.com/" target="_blank">
                     <img src={facebook} alt="img-1" />
                   </Nav.Link>
                   <Nav.Link href="https://twitter.com/" target="_blank">
-                    {" "}
                     <img src={twitter} alt="img-2" />
                   </Nav.Link>
                   <Nav.Link href="https://www.instagram.com/" target="_blank">
-                    {" "}
                     <img src={instagram} alt="img-3" />
                   </Nav.Link>
                 </div>
@@ -57,43 +101,32 @@ const Header = () => {
 
               <Nav className="m-0 d-flex justify-content-around">
                 <NavDropdown title="Categorias" id="navbarScrollingDropdown">
-                  <NavDropdown.Item href="#action3">opcion 1</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">opcion 2</NavDropdown.Item>
-                  <NavDropdown.Item href="#action5">opcion 2</NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Link to="/computacion">Computacion</Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.1">
+                    <Link to="/electrodomesticos">Electrodomesticos</Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Link to="/aireLibre">Aire Libre</Link>
+                  </NavDropdown.Item>
                 </NavDropdown>
                 <div className="d-lg-flex">
-                  <Nav.Link href="#action1">Home</Nav.Link>
-                  <NavDropdown
-                    className="d-md-none  "
-                    title="Categorias"
-                    id="navbarScrollingDropdown"
-                  >
-                    <NavDropdown.Item href="#action3">
-                      Categorias
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                  <Nav.Link href="#action2">Destacados</Nav.Link>
-                  <Nav.Link href="#action6"> Contacto</Nav.Link>
-                  <Nav.Link href="#action7"> Favoritos</Nav.Link>
+                  <NavLink to="/">Home</NavLink>
+                  <NavLink to="/destacados">Destacados</NavLink>
+                  <NavLink to="/contacto"> Contacto</NavLink>
+                  <NavLink to="/favoritos"> Favoritos</NavLink>
                 </div>
                 <div className=" d-lg-flex  align-self-lg-end">
                   <Nav.Link href="#action8"> Ayuda</Nav.Link>
                   <Nav.Link href="#action9"> Carrito</Nav.Link>
-                  <Nav.Link href="#action10"> Registrarse</Nav.Link>
-                  <Nav.Link href="#action11"> Login</Nav.Link>
+                   { enLinea ? <div> <ContenedorLogin  datosUsuario = {datosUsuario}/> </div> : <div> <Login setEnLinea = {setEnLinea} /> <Registro/> </div> }  
                 </div>
                 <div className="d-lg-none border-top w-100 p-3 d-flex justify-content-center align-items-center">
-                  <div className=" d-flex justify-content-around w-25">
-                  <img src={facebook}alt="img-1" />
-                  <img src={instagram} alt="img-2" />
-                  <img src={twitter} alt="img-3" />
+                  <div className=" d-flex justify-content-around w-50">
+                    <img src={facebook} alt="img-1" />
+                    <img src={instagram} alt="img-2" />
+                    <img src={twitter} alt="img-3" />
                   </div>
                 </div>
               </Nav>

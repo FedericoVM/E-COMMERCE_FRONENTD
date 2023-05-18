@@ -32,19 +32,18 @@ export const RouterPrincipal = () => {
 
   return (
     <BrowserRouter>
+      <Headers />
       <Routes>
-        <Route path="/" element={<Registro />} />
-        <Route  path='/electrodomesticos' element={<Electrodomesticos/>}/>
-        <Route  path='/computacion' element={<Computacion/>}/>
-        <Route  path='/aire-libre' element={<AireLibre/>}/>
-        <Route path="/" element={<Login />} />
-        <Route path="/" element={<Favoritos/>}/>
-        <Route path="/" element={<Contacto />} />
+        {/* <Route path="/" element={<Registro />} /> */}
+        <Route path="/electrodomesticos" element={<Electrodomesticos />} />
+        <Route path="/computacion" element={<Computacion />} />
+        <Route path="/aire-libre" element={<AireLibre />} />
+        <Route path="/" element={<Favoritos />} />
+        <Route path="/" element={<Contacto />} /> 
         <Route exact path="/destacados" element={<Destacados />} />
         <Route exact path="/destacados-test" element={<DestacadosTest />} />
       </Routes>
-        <Footer />
+      <Footer />
     </BrowserRouter>
   );
 };
-

@@ -3,29 +3,30 @@ import { Col, Row } from "react-bootstrap";
 import publicidad from "../../../assets/img/main/publicidad.jpg";
 import CarouselHome from "./carouselHome/carouselHome";
 import ListProducts from "./listProducts/ListProducts";
-import Pagination from "./pagination/Pagination";
+import Pagination from "../Destacados/Pagination";
 import ProductCard from "./productCard/ProductCard";
+import instance from "../../../axios/instance"
 
-const Home = ({products}) => {
+const Home = ({productos}) => {
 
-
+ 
   return (
     <>
       <CarouselHome />
-      <div className="vh-100">
-        <Row className=" mx-0">
-          <div className="linea p-4"></div>
-          <Col className=" " lg={10}>
-             <ListProducts products={products} />
+      <div >
+        <Row className=" mx-0 d-flex">
+          <Col  lg={10}>
+             <ListProducts productos={productos} />
           </Col>
-          <Col lg={2} className="d-none d-lg-inline publicidad  vh-100  ">
+          <Col lg={2} className="d-none bg-danger d-lg-inline publicidad">
             <img
-              className="publicidad-img w-100 h-100"
+              className="publicidad-img img-fluid h-100"
               src={publicidad}
               alt="publicidad_intel"
             />
           </Col>
         </Row>
+
       </div>
     </>
   );

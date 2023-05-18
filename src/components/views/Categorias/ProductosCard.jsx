@@ -11,11 +11,11 @@ const ProductosCard = ({producto, loading}) => {
       <Card.Img
         className="card-img border-bottom img-fluid"
         variant="top"
-        src={producto.url}
+        src={producto.imagen}
       />
-      <Card.Title className="text-white title-precio rounded">
-        ${producto.id}
-      </Card.Title>
+      {/* <Card.Title className="text-white title-precio rounded">
+        ${producto.nombre}
+      </Card.Title> */}
       <Button variant="primary" className="boton-favorito">
         F
       </Button>
@@ -24,7 +24,7 @@ const ProductosCard = ({producto, loading}) => {
       <div>
         <Link to="/product" className="text-decoration-none">
           <div className="d-flex justify-content-between container p-0 text-center  h-100">
-            <Card.Title className="text-dark descripcion-card-producto">{producto.title}</Card.Title>
+            <Card.Title className="text-dark descripcion-card-producto">{producto.nombre}</Card.Title>
           </div>
         </Link>
       </div>

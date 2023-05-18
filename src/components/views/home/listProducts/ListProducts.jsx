@@ -4,28 +4,29 @@ import ProductCard from "../productCard/ProductCard";
 import Container from "react-bootstrap/Container";
 import Pagination from "../pagination/Pagination";
 
-const ListProducts = ({ products }) => {
-  const [pageLg] = useState(15);
-  const [currentPage, setCurrentPage] = useState(1);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+ const ListProducts = ({ productos }) => {
+   const [pageLg] = useState(15);
+   const [currentPage, setCurrentPage] = useState(1);
+   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const indexOfLastPostLg = currentPage * pageLg;
-  const indexOfFirstPost = indexOfLastPostLg - pageLg;
-  const currentPosts = products.slice(indexOfFirstPost, indexOfLastPostLg);
+   const indexOfLastPostLg = currentPage * pageLg;
+   const indexOfFirstPost = indexOfLastPostLg - pageLg;
+   const currentPosts = productos.slice(indexOfFirstPost, indexOfLastPostLg);
+  
 
   const [pageMd] = useState(12);
   const [currentPageMd, setCurrentPageMd] = useState(1);
   const paginateMd = (pageNumber) => setCurrentPageMd(pageNumber);
   const indexOfLastPostMd = currentPageMd * pageMd;
   const indexOfFirstPostMd = indexOfLastPostMd - pageMd;
-  const currentPostsMd = products.slice(indexOfFirstPostMd, indexOfLastPostMd);
+  const currentPostsMd = productos.slice(indexOfFirstPostMd, indexOfLastPostMd);
 
   const [pageSm] = useState(10);
   const [currentPageSm, setCurrentPageSm] = useState(1);
   const paginateSm = (pageNumber) => setCurrentPageSm(pageNumber);
   const indexOfLastPostSm = currentPageSm * pageSm;
   const indexOfFirstPostSm = indexOfLastPostSm - pageSm;
-  const currentPostsSm = products.slice(indexOfFirstPostSm, indexOfLastPostSm);
+  const currentPostsSm = productos.slice(indexOfFirstPostSm, indexOfLastPostSm);
 
   return (
     <>
@@ -38,7 +39,7 @@ const ListProducts = ({ products }) => {
         <div className="d-flex justify-content-center align-items-center">
           <Pagination
             postsPerPage={pageLg}
-            totalPosts={products.length}
+            totalPosts={productos.length}
             paginate={paginate}
           />
         </div>
@@ -52,7 +53,7 @@ const ListProducts = ({ products }) => {
         <div className="d-flex justify-content-center align-items-center">
           <Pagination
             postsPerPage={pageMd}
-            totalPosts={products.length}
+            totalPosts={productos.length}
             paginate={paginateMd}
           />
         </div>
@@ -66,7 +67,7 @@ const ListProducts = ({ products }) => {
         <div className="d-flex justify-content-center align-items-center">
           <Pagination
             postsPerPage={pageSm}
-            totalPosts={products.length}
+            totalPosts={productos.length}
             paginate={paginateSm}
           />
         </div>

@@ -9,13 +9,16 @@ import Electrodomesticos from "../components/views/Categorias/electrodomesticos/
 import AireLibre from "../components/views/Categorias/aireLibre/AireLibre"
 import Contacto from "../components/views/Contacto/Contacto"
 import Destacados from "../components/views/Destacados/Destacados"
-import Registro from "../components/views/Registro/Registro"
-import Login from "../components/views/Login/Login"
 import Favoritos from "../components/views/Favoritos/Favoritos"
+import AdminUsuario from "../components/views/crudUsuarios/AdminUsuario";
+import AdminProductos from "../components/views/crudProductos/AdminProductos";
+import EditarProducto from "../components/views/crudProductos/EditarProducto";
 
-export const RouterPrincipal = () => {
+export const RouterPrincipal =  () => {
 
   const [productos, setProductos] = useState([]);
+  const [token,setToken] = useState(null)
+
 
   const verProductos = async  () => {
     try {
@@ -35,7 +38,7 @@ export const RouterPrincipal = () => {
     return (
       <>
         <BrowserRouter>
-          <Header/>
+          <Header setToken = {setToken} />
           <Routes>
             <Route path="/" element={<Home productos = {productos} />} />
             <Route path="/computacion" element={<Computacion productos = {productos}  />} />
@@ -44,6 +47,9 @@ export const RouterPrincipal = () => {
             <Route path="/contacto" element={<Contacto/>} />
             <Route path="/destacados" element={<Destacados/>} />
             <Route path="/favoritos" element={<Favoritos/>} />
+            <Route path="/admin-usuarios" element={<AdminUsuario  token = {token}/>} />
+            <Route path="/admin-productos" element={<AdminProductos token = {token} productos= { productos}/>} />
+            <Route path="/editar-producto/:id" element={<EditarProducto token = {token} productos= { productos} />} />
           </Routes>
         </BrowserRouter>
         <Footer/>

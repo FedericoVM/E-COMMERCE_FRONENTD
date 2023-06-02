@@ -3,14 +3,14 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useNavigate } from "react-router-dom";
 
-const ControlAdmin = ({usuario}) => {
-  console.log(usuario);
+const ControlAdmin = ({usuario,setToken}) => {
   const navigate = useNavigate();
 
   const cerrarSesion = () => {
     
     try {
       localStorage.clear();
+      setToken(null)
       navigate('/')
       return console.log("Su sesion fue finalizada")
     } catch (error) {
@@ -19,13 +19,15 @@ const ControlAdmin = ({usuario}) => {
     
   }
 
-  const tablaProductos = () => {
-    navigate('/tabla-productos')
+  const adminProductos = () => {
+    navigate('/admin-productos')
   }
 
-  const usuariosTable = () => {
-    navigate('/tabla-usuarios')
+  const adminUsuarios = () => {
+    navigate('/admin-usuarios')
   }
+
+
   return (
     <div className='d-flex align-items-center'>
       <div>
@@ -38,8 +40,8 @@ const ControlAdmin = ({usuario}) => {
             variant="secondary"
             title = {`Hola ${usuario.nombre}`}
           >
-            <Dropdown.Item eventKey="1" onClick={tablaProductos}>Productos</Dropdown.Item>
-            <Dropdown.Item eventKey="2" onClick={usuariosTable}>Usuarios</Dropdown.Item>
+            <Dropdown.Item eventKey="1" onClick={adminProductos}>Productos</Dropdown.Item>
+            <Dropdown.Item eventKey="2" onClick={adminUsuarios}>Usuarios</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item eventKey="3" onClick={cerrarSesion}>Salir</Dropdown.Item>
           </DropdownType>

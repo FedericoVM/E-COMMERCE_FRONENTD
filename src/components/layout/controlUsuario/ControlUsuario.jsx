@@ -6,7 +6,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 const ControlUsuario = ({usuario}) => {
 
   const miCuenta = () => {
-    console.log(usuario);
+  
   }
 
   const cerrarSesion = () => {

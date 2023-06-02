@@ -22,7 +22,7 @@ import jwt_decode from "jwt-decode"
 import { useNavigate } from "react-router-dom";
 import ContenedorLogin from "../contenedorLogin/ContenedorLogin";
 
-const Header = () => {
+const Header = ({setToken}) => {
   const use_navigate = useNavigate()
   const [datosUsuario, setDatosUsuario] = useState(null)
   const [enLinea, setEnLinea] = useState(false)
@@ -37,25 +37,24 @@ const Header = () => {
     try {
       const decodificado = await jwt_decode(token_usuario,config)
       setDatosUsuario(decodificado)
-      
     } catch (error) {
       console.log(error);
-      // console.log(error.response.data.mensaje);
-
     }
     
 
   }
 
- 
+  
 
 
 
   useEffect(() => {
-    const token = localStorage.getItem("tokenUsuario")
-    if (token) {
-      mostrarUsuario(token)
+  
+    const tokenL = localStorage.getItem("tokenUsuario")
+    if (tokenL) {
+      mostrarUsuario(tokenL)
     }
+   
   }, [])
 
 
@@ -120,7 +119,7 @@ const Header = () => {
                 <div className=" d-lg-flex  align-self-lg-end">
                   <Nav.Link href="#action8"> Ayuda</Nav.Link>
                   <Nav.Link href="#action9"> Carrito</Nav.Link>
-                   { enLinea ? <div> <ContenedorLogin  datosUsuario = {datosUsuario}/> </div> : <div> <Login setEnLinea = {setEnLinea} /> <Registro/> </div> }  
+                   { enLinea ? <div> <ContenedorLogin  datosUsuario = {datosUsuario} setToken = {setToken} /> </div> : <div> <Login setToken = {setToken} setEnLinea = {setEnLinea} /> <Registro/> </div> }  
                 </div>
                 <div className="d-lg-none border-top w-100 p-3 d-flex justify-content-center align-items-center">
                   <div className=" d-flex justify-content-around w-50">

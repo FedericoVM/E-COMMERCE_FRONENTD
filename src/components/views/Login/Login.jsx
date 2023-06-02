@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router-dom";
 import instance from "../../../axios/instance"
 
-const Login = ({setEnLinea}) => {
+const Login = ({setEnLinea,setToken}) => {
   const use_navigate = useNavigate() 
   const values = ["lg-down"];
   const [fullscreen, setFullscreen] = useState(true);
@@ -33,21 +33,23 @@ const Login = ({setEnLinea}) => {
       const token_usuario = respuesta.data.token
       localStorage.setItem("tokenUsuario", token_usuario)
       setShow(false)
-      
+      setToken(token_usuario)
+      console.log(token_usuario);
+    
    
     } catch (error) {
-      //  console.log(error.response.data.mensaje);
-      console.log(error.response.data.mensaje);
+       console.log(error.response.data.mensaje);
+      // console.log(error);
     }
 
- 
-  
   }
 
  
   useEffect(() => {
     if (localStorage.length > 0) {
       setEnLinea(true)
+      const token = localStorage.getItem("tokenUsuario")
+      setToken(token)
     } 
   }, [])
   

@@ -4,13 +4,13 @@ import ControlUsuario from '../controlUsuario/ControlUsuario'
 
 
 
-const ContenedorLogin = ({datosUsuario}) => {
+const ContenedorLogin = ({datosUsuario,setToken}) => {
 
   return (
     
     <div className='d-flex'> 
     {
-    datosUsuario.role === "admin" ? <ControlAdmin usuario = {datosUsuario} /> : <ControlUsuario  usuario = {datosUsuario} />
+    datosUsuario.role === "admin" ? <ControlAdmin usuario = {datosUsuario} setToken={setToken}  /> : <ControlUsuario  usuario = {datosUsuario} setToken={setToken} />
     }
     </div>
   )

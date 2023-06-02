@@ -2,18 +2,26 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import  Table  from 'react-bootstrap/Table';
 import {Link} from 'react-router-dom';
-import instance from '../../../assets/api/axios';
+import instance from '../../../axios/instance';
 
-const TablaProductos = ({products, getApi}) => {
+const TablaProductos = ({productos,token}) => {
 
   const eliminarProducto = async(codigo) => {
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }
+
     try {
-      await instance.delete(`/productos/${codigo}`)
-      getApi()
+      const resp = await instance.delete(`/productos/${codigo}`,config)
+      console.log(resp.data.msg);
     } catch (error) {
       console.log(error)
     }
   }
+
+ 
 
   return (
     <div className='my-3 contenedor-tabla-productos'>
@@ -30,7 +38,7 @@ const TablaProductos = ({products, getApi}) => {
         </tr>
       </thead>
       <tbody>
-        {products.map((producto, index) => (
+        {productos.map((producto, index) => (
             <tr key={index}>
                 <td>{producto.codigo}</td>
                 <td>{producto.nombre}</td>
@@ -38,7 +46,8 @@ const TablaProductos = ({products, getApi}) => {
                 <td>{producto.categoria}</td>
                 <td>{producto.marca}</td>
                 <td>{producto.stock}</td>
-                <td><div className='d-flex'><Button className='mx-1' onClick={()=>{eliminarProducto(producto._id)}}>E</Button><Link to={`/editar-producto/${producto.codigo}`} className="btn btn-primary mx-1">U</Link></div></td>
+                <td><div className='d-flex'><Button className='mx-1' onClick={()=>{eliminarProducto(producto._id)}}>X</Button>
+                <Link to={`/editar-producto/${producto.codigo}`} className="btn btn-primary mx-1">U</Link></div></td>
             </tr>
         ))}
       </tbody>

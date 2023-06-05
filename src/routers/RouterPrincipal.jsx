@@ -13,6 +13,7 @@ import Favoritos from "../components/views/Favoritos/Favoritos"
 import AdminUsuario from "../components/views/crudUsuarios/AdminUsuario";
 import AdminProductos from "../components/views/crudProductos/AdminProductos";
 import EditarProducto from "../components/views/crudProductos/EditarProducto";
+import CuentaUsuario from "../components/views/cuentaUsuario/CuentaUsuario";
 
 export const RouterPrincipal =  () => {
 
@@ -50,6 +51,7 @@ export const RouterPrincipal =  () => {
             <Route path="/admin-usuarios" element={<AdminUsuario  token = {token}/>} />
             <Route path="/admin-productos" element={<AdminProductos token = {token} productos= { productos}/>} />
             <Route path="/editar-producto/:id" element={<EditarProducto token = {token} productos= { productos} />} />
+            <Route path="/:info" element={<CuentaUsuario token = {token}/> }/>
           </Routes>
         </BrowserRouter>
         <Footer/>

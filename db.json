@@ -1,0 +1,125 @@
+{
+    "productos":[
+      {
+          "id": 1,
+          "titulo": "Televisor",
+          "precio": "12312",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg",
+          "categoria":"Televisores",
+          "stock": 2
+      },
+      {
+          "id": 2,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 3,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 4,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 5,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 6,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 7,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 8,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 9,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 10,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 11,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 12,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 13,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 14,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 15,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 16,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },   {
+          "id": 17,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },   {
+          "id": 18,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 19,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      },
+      {
+          "id": 20,
+          "titulo": "Titulo",
+          "precio": "1231",
+          "imagen":"https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg"
+      }
+    ]
+  }
+  

@@ -1,5 +1,4 @@
 
-
 .miCuenta {
     width: 20%;
     padding: 1rem;
@@ -9,6 +8,7 @@
     align-items: center;
     
 }
+
 
 .grupo {
     display: flex;
@@ -21,6 +21,7 @@
 .avatar{
     margin: 2rem;
 }
+
 
 Button {
     padding: 0.6rem;
@@ -39,5 +40,7 @@ Button {
     .miCuenta {
         width: 80%;
     }
+
 }
+
 

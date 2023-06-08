@@ -41,32 +41,32 @@ const CuentaUsuario = ({token}) => {
             <h2>Mi Cuenta</h2>
             <div className='avatar'>
                 <Col xs={6} md={4}>
-                    <Image src={`${usuario.avatar}`} alt='foto-perfil' roundedCircle />
+                    <Image src="" alt='foto-perfil' roundedCircle />
                 </Col>
             </div>
             <div className='formulario'>
                 <Form>
                     <Form.Group className='grupo' controlId="formBasicEmail">
                         <Form.Label>Nombre</Form.Label>
-                        <Form.Control type="text" placeholder= {`${usuario.nombre}`} disabled />
+                        <Form.Control type="text" placeholder='' disabled />
                     </Form.Group>
                     <Form.Group className='grupo' controlId="formBasicEmail">
                         <Form.Label>Apellido</Form.Label>
-                        <Form.Control type="text" placeholder= {`${usuario.apellido}`} disabled/>
+                        <Form.Control type="text" disabled />
                     </Form.Group>
                     <Form.Group className='grupo' controlId="formBasicEmail">
                         <Form.Label>Edad</Form.Label>
-                        <Form.Control type="text" placeholder= {`${usuario.edad}`} disabled />
+                        <Form.Control type="text" disabled />
                     </Form.Group>
                     <Form.Group className='grupo' controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="text" placeholder= {`${usuario.email}`} disabled />
+                        <Form.Control type="text" disabled />
                     </Form.Group>
                     <Form.Group className='grupo' controlId="formBasicEmail">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="text" placeholder= {`${usuario.password}`} disabled />
+                        <Form.Control type="text" disabled />
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={editarCuenta}>
+                    <Button variant="primary" type="submit">
                         Editar
                     </Button>
                 </Form>

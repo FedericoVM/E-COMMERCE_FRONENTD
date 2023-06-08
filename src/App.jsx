@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react'
 import './App.css'
 import { RouterPrincipal } from './routers/RouterPrincipal'
 import "./components/layout/Header/header.css";

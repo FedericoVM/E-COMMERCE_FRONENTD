@@ -1,0 +1,38 @@
+.grupo {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 1rem;
+}
+
+
+.miCuenta {
+    width: 20%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+Button {
+    padding: 0.6rem;
+    margin: 1rem 0;
+    align-self: center;
+
+}
+
+ @media (max-width:1024px) {
+    .miCuenta {
+        width: 30%;
+    }
+} 
+
+@media (max-width:653px) {
+    .miCuenta {
+        width: 80%;
+    }
+}
+
+

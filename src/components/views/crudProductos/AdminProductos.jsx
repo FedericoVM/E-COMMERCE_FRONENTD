@@ -3,20 +3,18 @@ import Form from "react-bootstrap/Form";
 import TablaProductos from "./TablaProductos";
 import instanceFormData from "../../../axios/instanceFormData";
 import instance from "../../../axios/instance";
+import { useEffect, useState } from "react";
 
-const AdminProductos = ({ productos, token }) => {
-
+const AdminProductos = ({ productos, token,setProductos,verProductos}) => {
 
   const crearProducto = async (e) => {
-
     e.preventDefault();
 
     const config = {
       headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    }
-
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
     let codigo = e.target.codigoProducto.value;
     let nombre = e.target.nombreProducto.value;
@@ -26,31 +24,36 @@ const AdminProductos = ({ productos, token }) => {
     let categoria = e.target.categoriaProducto.value;
     let imagen = e.target.imagen.files[0];
     let descripcion = e.target.descripcionProducto.value;
+    let destacado;
+    e.target.destacarProducto.value === "Si"
+      ? (destacado = true)
+      : (destacado = false);
 
+    const formData = new FormData();
 
-
-    const formData = new FormData()
-
-
-
-
-    formData.append('nombre', nombre);
-    formData.append('codigo', codigo);
-    formData.append('marca', marca);
-    formData.append('stock', stock);
-    formData.append('precio', precio)
-    formData.append('categoria', categoria)
-    formData.append('imagen',imagen);
-    formData.append('descripcion', descripcion)
-
+    formData.append("nombre", nombre);
+    formData.append("codigo", codigo);
+    formData.append("marca", marca);
+    formData.append("stock", stock);
+    formData.append("precio", precio);
+    formData.append("categoria", categoria);
+    formData.append("imagen", imagen);
+    formData.append("descripcion", descripcion);
+    formData.append("destacado", destacado);
 
     try {
       const resp = await instanceFormData.post("/productos", formData, config);
+      verProductos();
       console.log(resp.data.msg);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    verProductos()
+  }, [])
+  
 
   return (
     <div className="container d-flex flex-column">
@@ -107,10 +110,7 @@ const AdminProductos = ({ productos, token }) => {
           </Form.Select>
           <Form.Group className="position-relative mb-3">
             <Form.Label>Foto del producto</Form.Label>
-            <Form.Control
-              type="file"
-              name="imagen"
-            />
+            <Form.Control type="file" name="imagen" />
           </Form.Group>
           <Form.Label>Descripcion</Form.Label>
           <Form.Control
@@ -120,6 +120,15 @@ const AdminProductos = ({ productos, token }) => {
             placeholder="Descripcion"
             className="mb-1"
           />
+          <Form.Label>Producto Destacado</Form.Label>
+          <Form.Select
+            defaultValue="Seleccione una opcion"
+            name="destacarProducto"
+          >
+            <option disabled={true}>Seleccione una opcion</option>
+            <option>Si</option>
+            <option>No</option>
+          </Form.Select>
           <Button variant="primary" type="submit" className="my-3">
             Guardar
           </Button>
@@ -127,7 +136,7 @@ const AdminProductos = ({ productos, token }) => {
       </div>
       <hr />
       <div>
-        <TablaProductos productos={productos} token = {token} />
+        <TablaProductos productos={productos} token={token} setProductos = {setProductos}/>
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+
+const Paginacion = ({ postsPerPage, totalPosts, paginate }) => {
     const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
   }
   return (
-    <nav>
+    <nav className='mt-3'>
     <ul className='pagination'>
       {pageNumbers.map(number => (
         <li key={number} className='page-item'>
@@ -21,4 +22,6 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
   )
 }
 
-export default Pagination
+
+
+export default Paginacion

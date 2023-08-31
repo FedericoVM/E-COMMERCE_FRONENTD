@@ -3,9 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import publicidad from "../../../assets/img/main/publicidad.jpg";
 import CarouselHome from "./carouselHome/carouselHome";
 import ListProducts from "./listProducts/ListProducts";
-import Pagination from "../Destacados/Pagination";
-import ProductCard from "./productCard/ProductCard";
-import instance from "../../../axios/instance"
+
 
 const Home = ({productos}) => {
 

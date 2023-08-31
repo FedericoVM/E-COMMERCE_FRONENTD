@@ -8,7 +8,6 @@ const Electrodomesticos = ({productos}) => {
      return  p.categoria === "Electrodomesticos"
     } )
 
-    console.log(productosElect);
   return (
     <div className="">
         <div className="" >

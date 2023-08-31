@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import ProductCard from "../productCard/ProductCard";
-import Container from "react-bootstrap/Container";
 import Pagination from "../pagination/Pagination";
+import Paginacion from "../../paginacion/Paginacion";
 
  const ListProducts = ({ productos }) => {
    const [pageLg] = useState(15);
@@ -65,7 +65,7 @@ import Pagination from "../pagination/Pagination";
           </Col>
         ))}
         <div className="d-flex justify-content-center align-items-center">
-          <Pagination
+          <Paginacion
             postsPerPage={pageSm}
             totalPosts={productos.length}
             paginate={paginateSm}

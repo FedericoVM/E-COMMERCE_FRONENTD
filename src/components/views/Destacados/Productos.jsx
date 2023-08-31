@@ -3,29 +3,25 @@ import { Button, Card, Col, Row } from 'react-bootstrap';
 import { BsSuitHeartFill } from "react-icons/bs";
 import { MdShoppingCart } from "react-icons/md";
 
-const Productos = ({ posts, loading }) => {
-    if (loading) {
-        return <h2>Loading...</h2>;
-      }
-
+const Productos = ({ nuevoArray }) => {
   return (
     <Row className="g-4">
-      {posts.map(( post, idx) => (
+      {nuevoArray.map(( producto, idx) => (
         <Col xs={12} sm={6} md={4} key={idx}>
           <Card>
             <div>
-            <Card.Img className='border-bottom' variant="top" src="https://as01.epimg.net/meristation/imagenes/2021/07/15/mexico/1626328445_984933_1626329813_sumario_normal.jpg" />
-            <Card.Title className='text-white title-precio rounded'>$18.999</Card.Title>
+            <Card.Img className='border-bottom' variant="top" src={producto.imagen} />
+            <Card.Title className='text-white title-precio rounded'>{producto.precio}</Card.Title>
             <Button variant='primary' className='boton-favorito'><BsSuitHeartFill/></Button>
             </div>
             <Card.Body className='d-flex flex-column'>
                 <div className=''>
                     <div className='d-flex justify-content-between container'>
-              <Card.Title className='text-primary'>Card title</Card.Title>
+              <Card.Title className='text-primary'>{producto.nombre}</Card.Title>
               
               </div>
               <p className='bg-primary bg-opacity-10 rounded descripcion-card-producto'>
-                {post.body}
+                {producto.descripcion}
               </p>
               </div>
               <div className='d-flex justify-content-around'>

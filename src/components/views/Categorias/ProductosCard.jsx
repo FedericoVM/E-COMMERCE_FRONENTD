@@ -13,9 +13,6 @@ const ProductosCard = ({producto, loading}) => {
         variant="top"
         src={producto.imagen}
       />
-      {/* <Card.Title className="text-white title-precio rounded">
-        ${producto.nombre}
-      </Card.Title> */}
       <Button variant="primary" className="boton-favorito">
         F
       </Button>

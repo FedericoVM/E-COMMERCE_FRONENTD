@@ -1,35 +1,31 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
-import Pagination from "./Pagination";
 import Productos from "./Productos";
 import {BsSearch} from "react-icons/bs"
 import {TiRefreshOutline} from 'react-icons/ti'
+import Paginacion from "../paginacion/Paginacion";
 
 const Favoritos = () => {
   const [arraySearch, setArraySearch] = useState([])
   const [test, setTest] = useState([]);
   const [loading, setLoading] = useState(false);
+  // Pagina actual
   const [currentPage, setCurrentPage] = useState(1);
+  // PUBLICACION POR PAGINA
   const [postsPerPage] = useState(5);
 
   
   useEffect(() => {
-    fetchPosts();
+
   }, []);
 
-  const fetchPosts = async () => {
-    setLoading(true);
-    const res = await axios.get(
-      "https://jsonplaceholder.typicode.com/albums/1/photos"
-    );
-    setTest(res.data);
-    setLoading(false);
-  };
 
 
+  // iNDICE DE LA ULTIMA PUBLICACION 
   const indexOfLastPost = currentPage * postsPerPage;
+  // INDICE DE LA PRIMERA PUBLICACION
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  // pUBLICACIONES ACTUALES
   const currentPosts = arraySearch.length > 0 ? arraySearch.slice(indexOfFirstPost, indexOfLastPost) : test.slice(indexOfFirstPost, indexOfLastPost) ;
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -47,7 +43,7 @@ const Favoritos = () => {
     <div className="">
       <div className="d-flex container justify-content-around mt-2">
         <div className="d-none d-lg-block col-6 justify-content-center align-items-center">
-          <Pagination
+          <Paginacion
             postsPerPage={postsPerPage}
             totalPosts={arraySearch.length > 0 ? arraySearch.length : test.length}
             paginate={paginate}
@@ -68,7 +64,7 @@ const Favoritos = () => {
       </div>
       <Productos posts={currentPosts} loading={loading} />
       <div className="d-block d-flex justify-content-center container d-lg-none">
-        <Pagination
+        <Paginacion
           postsPerPage={postsPerPage}
           totalPosts={arraySearch.length > 0 ? arraySearch.length : test.length}
           paginate={paginate}

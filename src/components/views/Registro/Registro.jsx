@@ -27,7 +27,6 @@ const Registro = () => {
 
     e.preventDefault()
 
-    // Formulario
     const nombre = e.target.nombre.value
     const apellido = e.target.apellido.value
     const edad = e.target.edad.value

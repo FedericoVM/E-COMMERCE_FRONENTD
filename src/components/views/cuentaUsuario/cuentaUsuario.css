@@ -16,6 +16,12 @@
     
 }
 
+.usuario-avatar {
+    width: 9em;
+    margin: 2rem;
+    border: 2px solid black;
+}
+
 Button {
     padding: 0.6rem;
     margin: 1rem 0;

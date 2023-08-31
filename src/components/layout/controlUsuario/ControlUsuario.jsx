@@ -4,18 +4,25 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useNavigate } from "react-router-dom";
 
 
-const ControlUsuario = ({usuario}) => {
+
+const ControlUsuario = ({usuario,setEnLinea,setToken,setDatosUsuario,setRol}) => {
+
 
   const navigate = useNavigate()
 
   const miCuenta = () => {
-    navigate('/mi-cuenta'); 
+    navigate('/cuenta-usuario'); 
   }
 
   const cerrarSesion = () => {
     
     try {
       localStorage.clear();
+      setEnLinea(false)
+      setToken(null)
+      setDatosUsuario(null)
+      setRol([])
+      navigate("/")
       return console.log("Su sesion fue finalizada")
     } catch (error) {
       console.log(error);

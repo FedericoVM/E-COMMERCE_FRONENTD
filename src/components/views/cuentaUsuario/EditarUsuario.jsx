@@ -1,42 +1,98 @@
-import React from 'react'
-import { Button, Col, Form, Image } from 'react-bootstrap'
-import "./cuentaUsuario.css"
 
-const EditarUsuario = () => {
+import { Button,Form} from 'react-bootstrap'
+import "./cuentaUsuario.css"
+import { useNavigate} from 'react-router-dom'
+import jwt_decode from "jwt-decode"
+import instanceFormData from '../../../axios/instanceFormData'
+
+const EditarUsuario = ({datosUsuario,setDatosUsuario, token,setToken }) => {
+
+
+    const use_navigate = useNavigate()
+
+    const regresar = ()=>{
+        use_navigate('/cuenta-usuario')
+    }
+
+    const editarUsuario = async (e) => {
+
+        e.preventDefault()
+
+        const config = {
+            headers: {
+                "authorization": `Bearer ${token}`
+            }
+        }
+
+
+
+        let nombre = e.target.nombre.value;
+        let apellido = e.target.apellido.value;
+        let edad = e.target.edad.value;
+        let email = e.target.email.value;
+        let avatar = e.target.avatar.files[0];
+
+
+        const formData = new FormData()
+
+        formData.append('nombre', nombre);
+        formData.append('apellido', apellido);
+        formData.append('edad', edad);
+        formData.append('email', email);
+        formData.append('avatar', avatar);
+
+
+        try {
+            const resp = await instanceFormData.put(`/usuario/${datosUsuario.id_usuario}`, formData,config)
+            const nuevoToken = resp.data.token
+            console.log(nuevoToken);
+            setToken(nuevoToken)
+            console.log(localStorage.getItem("tokenUsuario"));
+            localStorage.setItem("tokenUsuario", nuevoToken)
+            console.log(1, localStorage.getItem("tokenUsuario"));
+            const u = jwt_decode(nuevoToken)
+            setDatosUsuario(u)
+           return use_navigate(`/cuenta-usuario`)
+        } catch (error) {
+            return console.log(error.message);
+        }
+
+    
+
+    }
+
+
     return (
         <div className='miCuenta'>
             <h2>Mi Cuenta</h2>
-            <div className='avatar'>
-                <Col xs={6} md={4}>
-                    <Image src="" alt='foto-perfil' roundedCircle />
-                </Col>
-            </div>
             <div className='formulario'>
-                <Form>
+                <Form onSubmit={editarUsuario}>
                     <Form.Group className='grupo' controlId="formBasicEmail">
                         <Form.Label>Nombre</Form.Label>
-                        <Form.Control type="text" defaultValue={""} />
+                        <Form.Control name='nombre' type="text" defaultValue={datosUsuario && datosUsuario.nombre} />
                     </Form.Group>
                     <Form.Group className='grupo' controlId="formBasicEmail">
                         <Form.Label>Apellido</Form.Label>
-                        <Form.Control type="text" defaultValue={""} />
+                        <Form.Control type="text" name='apellido' defaultValue={datosUsuario && datosUsuario.apellido} />
                     </Form.Group>
                     <Form.Group className='grupo' controlId="formBasicEmail">
                         <Form.Label>Edad</Form.Label>
-                        <Form.Control type="text" defaultValue={""} />
-                    </Form.Group>
-                    <Form.Group className='grupo' defaultValue={""} controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="text" />
-                    </Form.Group>
-                    <Form.Group className='grupo' defaultValue={""} controlId="formBasicEmail">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="text" />
+                        <Form.Control type="text" name='edad' defaultValue={datosUsuario && datosUsuario.edad} />
                     </Form.Group>
                     <Form.Group className='grupo' controlId="formBasicEmail">
-                        <Form.Label>Avatar</Form.Label>
-                        <Form.File id="exampleFormControlFile1" label="Example file input" />
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="text" name='email' defaultValue={datosUsuario && datosUsuario.email} />
                     </Form.Group>
+                    <Form.Group className='grupo' controlId="formBasicEmail">
+                        <Form.Label>Foto de perfil</Form.Label>
+                        <Form.Control
+                            type="file"
+                            name="avatar"
+                        />
+                    </Form.Group>
+                    <Button variant="danger" type="submit" onClick={regresar} > 
+                        Cancelar
+                    </Button>
                     <Button variant="primary" type="submit">
                         Guardar
                     </Button>

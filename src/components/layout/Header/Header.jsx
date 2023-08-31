@@ -1,62 +1,19 @@
-import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import InputGroup from "react-bootstrap/InputGroup";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import "./header.css";
 import facebook from "../../../assets/img/header/react.svg";
 import twitter from "../../../assets/img/header/twitter.svg";
 import instagram from "../../../assets/img/header/instagram.svg";
 import { Link, NavLink } from "react-router-dom";
-import Home from "../../views/home/Home";
 import Registro from "../../views/Registro/Registro";
 import Login from "../../views/Login/Login";
-import instance from "../../../axios/instance"
-import ControlUsuario from "../controlUsuario/ControlUsuario";
-import jwt_decode from "jwt-decode"
-import { useNavigate } from "react-router-dom";
 import ContenedorLogin from "../contenedorLogin/ContenedorLogin";
 
-const Header = ({setToken}) => {
-  const use_navigate = useNavigate()
-  const [datosUsuario, setDatosUsuario] = useState(null)
-  const [enLinea, setEnLinea] = useState(false)
-
-  const mostrarUsuario = async (token_usuario) => {
-    const config = {
-      headers: {
-        "authorization": `Bearer ${token_usuario}`
-      }
-    }
-
-    try {
-      const decodificado = await jwt_decode(token_usuario,config)
-      setDatosUsuario(decodificado)
-    } catch (error) {
-      console.log(error);
-    }
-    
-
-  }
-
-  
-
-
-
-  useEffect(() => {
-  
-    const tokenL = localStorage.getItem("tokenUsuario")
-    if (tokenL) {
-      mostrarUsuario(tokenL)
-    }
-   
-  }, [])
-
+const Header = ({setEnLinea, enLinea,setToken,datosUsuario,setDatosUsuario,setRol}) => {
 
   return (
     <>
@@ -119,7 +76,7 @@ const Header = ({setToken}) => {
                 <div className=" d-lg-flex  align-self-lg-end">
                   <Nav.Link href="#action8"> Ayuda</Nav.Link>
                   <Nav.Link href="#action9"> Carrito</Nav.Link>
-                   { enLinea ? <div> <ContenedorLogin  datosUsuario = {datosUsuario} setToken = {setToken} /> </div> : <div> <Login setToken = {setToken} setEnLinea = {setEnLinea} /> <Registro/> </div> }  
+                   { enLinea ? <div> <ContenedorLogin  datosUsuario = {datosUsuario} setToken = {setToken} setEnLinea={setEnLinea} setDatosUsuario={setDatosUsuario} setRol = {setRol}/> </div> : <div> <Login setToken = {setToken} setEnLinea = {setEnLinea} setDatosUsuario={setDatosUsuario}/> <Registro/> </div> }  
                 </div>
                 <div className="d-lg-none border-top w-100 p-3 d-flex justify-content-center align-items-center">
                   <div className=" d-flex justify-content-around w-50">

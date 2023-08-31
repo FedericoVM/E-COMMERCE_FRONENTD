@@ -1,17 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import instanceFormData from "../../../axios/instanceFormData";
 
-const EditarProducto = ({ productos, token }) => {
+const EditarProducto = ({ productos, token,setProductos }) => {
 
   const [productoEdit, setProductoEdit] = useState(null);
   const { id } = useParams();
 
   const navigate = useNavigate()
+  const verProductos = async () => {
+    try {
+      const respuesta = await instance.get("/productos")
+      setProductos(respuesta.data)
 
+    } catch (error) {
+      console.log(error);
+    }
+  }
   if (productoEdit === null) {
     const productoFind = productos.find(producto => {
       return producto.codigo === id
@@ -24,7 +32,6 @@ const EditarProducto = ({ productos, token }) => {
 
   }
   const editarProducto = async (e) => {
-
     e.preventDefault()
 
     const config = {
@@ -43,7 +50,9 @@ const EditarProducto = ({ productos, token }) => {
     let categoria = e.target.categoriaProducto.value;
     let imagen = e.target.imagen.files[0];
     let descripcion = e.target.descripcionProducto.value;
-
+    let destacado; 
+    e.target.destacarProducto.value === "Si" ? destacado = true : destacado = false;
+console.log(destacado);
 
     const formData = new FormData()
 
@@ -55,18 +64,22 @@ const EditarProducto = ({ productos, token }) => {
     formData.append('categoria', categoria)
     formData.append('imagen',imagen);
     formData.append('descripcion', descripcion)
+    formData.append('destacado', destacado)
 
     try {
       const resp = await instanceFormData.put(`/productos/${productoEdit._id}`,formData,config)
-      console.log(resp.data.msg);
-      navigate('/tabla-productos')
+      verProductos()
+      navigate('/admin-productos')
     } catch (error) {
       console.log(error.response.data)
     }
 
   }
 
-
+  useEffect(() => {
+    verProductos()
+  }, [])
+  
   return (
     <div>
       <h1 className='text-center'>Administrar Productos</h1>
@@ -99,6 +112,12 @@ const EditarProducto = ({ productos, token }) => {
           </Form.Group>
           <Form.Label>Descripcion</Form.Label>
           <Form.Control as="textarea" name="descripcionProducto" rows={3} placeholder="Descripcion" className="mb-1" defaultValue={productoEdit && productoEdit.descripcion} />
+          <Form.Label>Destacar Producto</Form.Label>
+          <Form.Select defaultValue="Seleccione una respuesta" name="destacarProducto">
+            <option disabled={true}>Seleccione una respuesta</option>
+            <option >Si</option>
+            <option >No</option>
+          </Form.Select>
           <Button variant="primary" type="submit" className="my-3">
             Guardar
           </Button>

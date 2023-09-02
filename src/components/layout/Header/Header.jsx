@@ -13,7 +13,7 @@ import Registro from "../../views/Registro/Registro";
 import Login from "../../views/Login/Login";
 import ContenedorLogin from "../contenedorLogin/ContenedorLogin";
 
-const Header = ({setEnLinea, enLinea,setToken,datosUsuario,setDatosUsuario,setRol}) => {
+const Header = ({ setEnLinea, enLinea, setToken, datosUsuario, setDatosUsuario, setRol }) => {
 
   return (
     <>
@@ -76,7 +76,7 @@ const Header = ({setEnLinea, enLinea,setToken,datosUsuario,setDatosUsuario,setRo
                 <div className=" d-lg-flex  align-self-lg-end">
                   <Nav.Link href="#action8"> Ayuda</Nav.Link>
                   <Nav.Link href="#action9"> Carrito</Nav.Link>
-                   { enLinea ? <div> <ContenedorLogin  datosUsuario = {datosUsuario} setToken = {setToken} setEnLinea={setEnLinea} setDatosUsuario={setDatosUsuario} setRol = {setRol}/> </div> : <div> <Login setToken = {setToken} setEnLinea = {setEnLinea} setDatosUsuario={setDatosUsuario}/> <Registro/> </div> }  
+                  {enLinea ? <div> <ContenedorLogin datosUsuario={datosUsuario} setToken={setToken} setEnLinea={setEnLinea} setDatosUsuario={setDatosUsuario} setRol={setRol} /> </div> : <div> <Login setToken={setToken} setEnLinea={setEnLinea} setDatosUsuario={setDatosUsuario} /> <Registro /> </div>}
                 </div>
                 <div className="d-lg-none border-top w-100 p-3 d-flex justify-content-center align-items-center">
                   <div className=" d-flex justify-content-around w-50">

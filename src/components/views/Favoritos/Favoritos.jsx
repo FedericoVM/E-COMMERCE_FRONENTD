@@ -9,9 +9,7 @@ const Favoritos = () => {
   const [arraySearch, setArraySearch] = useState([])
   const [test, setTest] = useState([]);
   const [loading, setLoading] = useState(false);
-  // Pagina actual
   const [currentPage, setCurrentPage] = useState(1);
-  // PUBLICACION POR PAGINA
   const [postsPerPage] = useState(5);
 
   
@@ -19,13 +17,8 @@ const Favoritos = () => {
 
   }, []);
 
-
-
-  // iNDICE DE LA ULTIMA PUBLICACION 
   const indexOfLastPost = currentPage * postsPerPage;
-  // INDICE DE LA PRIMERA PUBLICACION
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  // pUBLICACIONES ACTUALES
   const currentPosts = arraySearch.length > 0 ? arraySearch.slice(indexOfFirstPost, indexOfLastPost) : test.slice(indexOfFirstPost, indexOfLastPost) ;
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -47,6 +40,7 @@ const Favoritos = () => {
             postsPerPage={postsPerPage}
             totalPosts={arraySearch.length > 0 ? arraySearch.length : test.length}
             paginate={paginate}
+            currentPage={currentPage}
           />
         </div>
         <form onSubmit={buscarProducto} className="d-flex flex-column col-12 justify-content-around col-md-6 my-2 align-items-center">
@@ -68,6 +62,7 @@ const Favoritos = () => {
           postsPerPage={postsPerPage}
           totalPosts={arraySearch.length > 0 ? arraySearch.length : test.length}
           paginate={paginate}
+          currentPage={currentPage}
         />
       </div>
     </div>

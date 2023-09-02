@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import ProductCard from "../productCard/ProductCard";
-import Pagination from "../pagination/Pagination";
 import Paginacion from "../../paginacion/Paginacion";
 
  const ListProducts = ({ productos }) => {
-   const [pageLg] = useState(15);
+   const [pageLg] = useState(8);
    const [currentPage, setCurrentPage] = useState(1);
    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -37,10 +36,11 @@ import Paginacion from "../../paginacion/Paginacion";
           </Col>
         ))}
         <div className="d-flex justify-content-center align-items-center">
-          <Pagination
+          <Paginacion
             postsPerPage={pageLg}
             totalPosts={productos.length}
             paginate={paginate}
+            currentPage={currentPage}
           />
         </div>
       </Row>
@@ -51,10 +51,11 @@ import Paginacion from "../../paginacion/Paginacion";
           </Col>
         ))}
         <div className="d-flex justify-content-center align-items-center">
-          <Pagination
+        <Paginacion
             postsPerPage={pageMd}
             totalPosts={productos.length}
             paginate={paginateMd}
+            currentPage={currentPageMd}
           />
         </div>
       </Row>
@@ -69,6 +70,7 @@ import Paginacion from "../../paginacion/Paginacion";
             postsPerPage={pageSm}
             totalPosts={productos.length}
             paginate={paginateSm}
+            currentPage={currentPageSm}
           />
         </div>
       </Row>

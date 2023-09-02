@@ -3,8 +3,18 @@ import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 import instance from "../../../axios/instance";
+import Paginacion from "../paginacion/Paginacion";
 
 const TablaProductos = ({ productos, token,setProductos }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(6);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = productos.slice(indexOfFirstPost, indexOfLastPost);
+
   const verProductos = async () => {
     try {
       const respuesta = await instance.get("/productos")
@@ -52,7 +62,7 @@ const TablaProductos = ({ productos, token,setProductos }) => {
           </tr>
         </thead>
         <tbody>
-          {productos.map((producto, index) => (
+          {currentPosts.map((producto, index) => (
             <tr key={index}>
               <td>{producto.codigo}</td>
               <td>{producto.nombre}</td>
@@ -83,6 +93,9 @@ const TablaProductos = ({ productos, token,setProductos }) => {
           ))}
         </tbody>
       </Table>
+      <div>
+      <Paginacion postsPerPage={postsPerPage} totalPosts={productos.length} paginate={paginate} currentPage={currentPage} />
+      </div>
     </div>
   );
 };

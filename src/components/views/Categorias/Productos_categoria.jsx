@@ -38,7 +38,7 @@ const ProductosCategorias = ({ productos, loading }) => {
               <ProductosCard producto={producto} loading={loading} />
             </Col>))}
         </Row>
-        <Paginacion postsPerPage={postsPerPage} totalPosts={productos.length} paginate={paginate} />
+        <Paginacion postsPerPage={postsPerPage} totalPosts={productos.length} currentPage={currentPage} paginate={paginate} />
       </div>
       <div className='d-none d-sm-block d-lg-none vh-100'>
         <Row md={3}>
@@ -48,7 +48,7 @@ const ProductosCategorias = ({ productos, loading }) => {
             </Col>
           ))}
         </Row>
-        <Paginacion postsPerPage={postsPerPageTablet} totalPosts={productos.length} paginate={paginateTablet} />
+        <Paginacion postsPerPage={postsPerPageTablet} totalPosts={productos.length} paginate={paginateTablet} currentPage={currentPageTablet} />
       </div>
       <div className='d-block d-sm-none'>
         <Row xs={2} className="">
@@ -57,7 +57,7 @@ const ProductosCategorias = ({ productos, loading }) => {
               <ProductosCard producto={producto} loading={loading} />
             </Col>))}
         </Row>
-        <Paginacion postsPerPage={postsPerPageMovil} totalPosts={productos.length} paginate={paginateMovil} />
+        <Paginacion postsPerPage={postsPerPageMovil} totalPosts={productos.length} paginate={paginateMovil} currentPage={currentPageMovil} />
       </div>
       <div className='d-none container bg-success text-center d-lg-block col-2 d-flex align-self-center'>
         Publicidad

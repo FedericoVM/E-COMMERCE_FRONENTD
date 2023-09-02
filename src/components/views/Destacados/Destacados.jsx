@@ -30,6 +30,7 @@ const Destacados = ({productos}) => {
         {/* <Productos nuevoArray={nuevoArray} posts={currentPosts} loading={loading}/> */}
         <Productos nuevoArray={nuevoArray}/>
         <Paginacion
+        currentPage={currentPage}
         postsPerPage={postsPerPage}
         totalPosts={posts.length}
         paginate={paginate}

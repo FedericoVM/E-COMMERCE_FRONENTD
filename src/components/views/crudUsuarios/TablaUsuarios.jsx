@@ -4,7 +4,7 @@ import instance from "../../../axios/instance";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import instanceFormData from "../../../axios/instanceFormData";
-import Paginacion from "../paginacion/Paginacion";
+import PaginacionControl from "../paginacion/PaginacionControl";
 
 const TablaUsuarios = ({ token, usuarios, arrayBuscar, mostrarUsuarios }) => {
 
@@ -71,93 +71,95 @@ const TablaUsuarios = ({ token, usuarios, arrayBuscar, mostrarUsuarios }) => {
 
 
   return (
-    <div className="d-flex flex-column w-100">
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Nombre y Apellido</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Activo</th>
-            <th>Admin.</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {arrayBuscar.length == 0
-            ? currentPosts.map((usuario, index) => (
-              <tr key={index}>
-                <td className="col-4 text-center td-favoritos">
-                  {usuario._id}
-                </td>
-                <td className="col-2 text-center td-favoritos">
-                  {usuario.nombre} {usuario.apellido}
-                </td>
-                <td className="col-4 text-center td-favoritos">
-                  {usuario.email}
-                </td>
-                <td className="col-3 text-center td-favoritos">
-                  {usuario.role}
-                </td>
-                <td className="col-2 text-center td-favoritos">
-                  {usuario.active ? "Activo" : "Inactivo"}
-                </td>
+    <>
+    </>
+    // <div className="d-flex flex-column w-100">
+    //   <Table striped bordered hover>
+    //     <thead>
+    //       <tr>
+    //         <th>id</th>
+    //         <th>Nombre y Apellido</th>
+    //         <th>Email</th>
+    //         <th>Rol</th>
+    //         <th>Activo</th>
+    //         <th>Admin.</th>
+    //         <th>Eliminar</th>
+    //       </tr>
+    //     </thead>
+    //     <tbody>
+    //       {arrayBuscar.length == 0
+    //         ? currentPosts.map((usuario, index) => (
+    //           <tr key={index}>
+    //             <td className="col-4 text-center td-favoritos">
+    //               {usuario._id}
+    //             </td>
+    //             <td className="col-2 text-center td-favoritos">
+    //               {usuario.nombre} {usuario.apellido}
+    //             </td>
+    //             <td className="col-4 text-center td-favoritos">
+    //               {usuario.email}
+    //             </td>
+    //             <td className="col-3 text-center td-favoritos">
+    //               {usuario.role}
+    //             </td>
+    //             <td className="col-2 text-center td-favoritos">
+    //               {usuario.active ? "Activo" : "Inactivo"}
+    //             </td>
 
-                <td className="col-1 text-center td-favoritos">
-                  <Button onClick={() => { cambiarRol(usuario.role, usuario._id) }}> {usuario.role === "admin" ? "Desactivar" : "Activar"} </Button>
-                </td>
+    //             <td className="col-1 text-center td-favoritos">
+    //               <Button onClick={() => { cambiarRol(usuario.role, usuario._id) }}> {usuario.role === "admin" ? "Desactivar" : "Activar"} </Button>
+    //             </td>
 
-                <td className="col-1 text-center td-favoritos">
-                  <Button
-                    onClick={() => {
-                      borrarUsuario(usuario._id);
-                    }}
-                    variant="danger"
-                  >
-                    X
-                  </Button>
-                </td>
-              </tr>
-            ))
-            : arrayBuscar.map((usuario, index) => (
-              <tr key={index}>
-                <td className="col-4 text-center td-favoritos">
-                  {usuario._id}
-                </td>
-                <td className="col-2 text-center td-favoritos">
-                  {usuario.nombre} {usuario.apellido}
-                </td>
-                <td className="col-4 text-center td-favoritos">
-                  {usuario.email}
-                </td>
-                <td className="col-3 text-center td-favoritos">
-                  {usuario.role}
-                </td>
-                <td className="col-2 text-center td-favoritos">
-                  {usuario.active ? "Activo" : "Inactivo"}
-                </td>
-                <td className="col-1 text-center td-favoritos">
-                  <Button onClick={() => { cambiarRol(usuario.role, usuario._id) }}> {usuario.role === "admin" ? "Desactivar" : "Activar"} </Button>
-                </td>
-                <td className="col-1 text-center td-favoritos">
-                  <Button
-                    onClick={() => {
-                      borrarUsuario(usuario._id);
-                    }}
-                    variant="danger"
-                  >
-                    X
-                  </Button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
-      <div>
-        <Paginacion postsPerPage={postsPerPage} totalPosts={arrayBuscar.length > 0 ? arrayBuscar.length : usuarios.length} paginate={paginate} currentPage={currentPage} />
-      </div>
-    </div>
+    //             <td className="col-1 text-center td-favoritos">
+    //               <Button
+    //                 onClick={() => {
+    //                   borrarUsuario(usuario._id);
+    //                 }}
+    //                 variant="danger"
+    //               >
+    //                 X
+    //               </Button>
+    //             </td>
+    //           </tr>
+    //         ))
+    //         : arrayBuscar.map((usuario, index) => (
+    //           <tr key={index}>
+    //             <td className="col-4 text-center td-favoritos">
+    //               {usuario._id}
+    //             </td>
+    //             <td className="col-2 text-center td-favoritos">
+    //               {usuario.nombre} {usuario.apellido}
+    //             </td>
+    //             <td className="col-4 text-center td-favoritos">
+    //               {usuario.email}
+    //             </td>
+    //             <td className="col-3 text-center td-favoritos">
+    //               {usuario.role}
+    //             </td>
+    //             <td className="col-2 text-center td-favoritos">
+    //               {usuario.active ? "Activo" : "Inactivo"}
+    //             </td>
+    //             <td className="col-1 text-center td-favoritos">
+    //               <Button onClick={() => { cambiarRol(usuario.role, usuario._id) }}> {usuario.role === "admin" ? "Desactivar" : "Activar"} </Button>
+    //             </td>
+    //             <td className="col-1 text-center td-favoritos">
+    //               <Button
+    //                 onClick={() => {
+    //                   borrarUsuario(usuario._id);
+    //                 }}
+    //                 variant="danger"
+    //               >
+    //                 X
+    //               </Button>
+    //             </td>
+    //           </tr>
+    //         ))}
+    //     </tbody>
+    //   </Table>
+    //   <div>
+    //     <PaginacionControl postsPerPage={postsPerPage} totalPosts={arrayBuscar.length > 0 ? arrayBuscar.length : usuarios.length} paginate={paginate} currentPage={currentPage} />
+    //   </div>
+    // </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Productos from './Productos';
-import Paginacion from '../paginacion/Paginacion';
+import PaginacionControl from '../paginacion/PaginacionControl';
 
 const Destacados = ({productos}) => {
 
@@ -29,7 +29,7 @@ const Destacados = ({productos}) => {
         <hr/>
         {/* <Productos nuevoArray={nuevoArray} posts={currentPosts} loading={loading}/> */}
         <Productos nuevoArray={nuevoArray}/>
-        <Paginacion
+        <PaginacionControl
         currentPage={currentPage}
         postsPerPage={postsPerPage}
         totalPosts={posts.length}

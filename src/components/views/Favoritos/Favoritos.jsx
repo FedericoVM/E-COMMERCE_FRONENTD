@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import Productos from "./Productos";
 import {BsSearch} from "react-icons/bs"
 import {TiRefreshOutline} from 'react-icons/ti'
-import Paginacion from "../paginacion/Paginacion";
+import PaginacionControl from "../paginacion/PaginacionControl";
 
 const Favoritos = () => {
   const [arraySearch, setArraySearch] = useState([])
@@ -36,7 +36,7 @@ const Favoritos = () => {
     <div className="">
       <div className="d-flex container justify-content-around mt-2">
         <div className="d-none d-lg-block col-6 justify-content-center align-items-center">
-          <Paginacion
+          <PaginacionControl
             postsPerPage={postsPerPage}
             totalPosts={arraySearch.length > 0 ? arraySearch.length : test.length}
             paginate={paginate}
@@ -58,7 +58,7 @@ const Favoritos = () => {
       </div>
       <Productos posts={currentPosts} loading={loading} />
       <div className="d-block d-flex justify-content-center container d-lg-none">
-        <Paginacion
+        <PaginacionControl
           postsPerPage={postsPerPage}
           totalPosts={arraySearch.length > 0 ? arraySearch.length : test.length}
           paginate={paginate}

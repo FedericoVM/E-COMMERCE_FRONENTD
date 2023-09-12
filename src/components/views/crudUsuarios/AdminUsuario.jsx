@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import TablaUsuarios from "./TablaUsuarios";
 import instance from "../../../axios/instance";
+import Paginacion from "../paginacion/Paginacion";
 
 const AdminUsuario = ({datosUsuario,setDatosUsuario, token,setToken }) => {
   const [arrayBuscar, setArrayBuscar] = useState([]);
@@ -75,12 +76,13 @@ const AdminUsuario = ({datosUsuario,setDatosUsuario, token,setToken }) => {
         </form>
       </div>
       <div className="w-100">
-        <TablaUsuarios
+        {/* <TablaUsuarios
           token={token}
           usuarios={usuarios}
           arrayBuscar={arrayBuscar}
           mostrarUsuarios = {()=>mostrarUsuarios(token)}
-        />
+        /> */}
+        <Paginacion lista={usuarios} card = "usuarios" />
       </div>
       <div className="col-12 d-flex d-block d-md-none container justify-content-center align-items-center"></div>
     </div>

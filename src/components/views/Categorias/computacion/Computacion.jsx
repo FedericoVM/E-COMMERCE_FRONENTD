@@ -4,7 +4,7 @@ import ProductosCategorias from "../Productos_categoria";
 
 
 const Computacion = ({productos}) => {
-    const [loading, setLoading] = useState(false);
+    
 
     const productosComp = productos.filter(  p => {
      return  p.categoria === "Computacion"
@@ -13,7 +13,7 @@ const Computacion = ({productos}) => {
   return (
     <div className="">
         <div className="">
-            <ProductosCategorias productos={productosComp} loading={loading}/>
+        {productos.length > 0 ? <ProductosCategorias productos={productosComp} card="categoria" /> :"" }  
         </div>
     </div>
   )

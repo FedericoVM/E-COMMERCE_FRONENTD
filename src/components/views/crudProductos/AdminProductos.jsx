@@ -4,9 +4,10 @@ import TablaProductos from "./TablaProductos";
 import instanceFormData from "../../../axios/instanceFormData";
 import instance from "../../../axios/instance";
 import { useEffect, useState } from "react";
+import Paginacion from "../paginacion/Paginacion";
 
 const AdminProductos = ({ productos, token,setProductos,verProductos}) => {
-
+  console.log(productos);
   const crearProducto = async (e) => {
     e.preventDefault();
 
@@ -136,7 +137,8 @@ const AdminProductos = ({ productos, token,setProductos,verProductos}) => {
       </div>
       <hr />
       <div>
-        <TablaProductos productos={productos} token={token} setProductos = {setProductos}/>
+        {/* <TablaProductos productos={productos} token={token} setProductos = {setProductos}/> */}
+        {productos.length > 0 ? <Paginacion lista = {productos}  card = "listaProductosAdmin" /> : "" }    
       </div>
     </div>
   );

@@ -1,13 +1,12 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import TablaProductos from "./TablaProductos";
 import instanceFormData from "../../../axios/instanceFormData";
 import instance from "../../../axios/instance";
 import { useEffect, useState } from "react";
 import Paginacion from "../paginacion/Paginacion";
 
 const AdminProductos = ({ productos, token,setProductos,verProductos}) => {
-  console.log(productos);
+ 
   const crearProducto = async (e) => {
     e.preventDefault();
 
@@ -47,7 +46,7 @@ const AdminProductos = ({ productos, token,setProductos,verProductos}) => {
       verProductos();
       console.log(resp.data.msg);
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.msg);
     }
   };
 
@@ -137,8 +136,7 @@ const AdminProductos = ({ productos, token,setProductos,verProductos}) => {
       </div>
       <hr />
       <div>
-        {/* <TablaProductos productos={productos} token={token} setProductos = {setProductos}/> */}
-        {productos.length > 0 ? <Paginacion lista = {productos}  card = "listaProductosAdmin" /> : "" }    
+        {productos.length > 0 ? <Paginacion lista = {productos}  card = "listaProductosAdmin" token={token} setProductos={setProductos} /> : "" }    
       </div>
     </div>
   );

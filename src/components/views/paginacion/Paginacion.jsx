@@ -4,9 +4,9 @@ import ListProducts from "../home/listProducts/ListProducts";
 import CardsProductos from "./CardsProductos";
 import ContenedorArray from "./ContenedorArray";
 
-const Paginacion = ({lista,card}) => {
-   console.log(lista);
-    const [page,setPage] = useState(2);
+const Paginacion = ({lista,card,token, setProductos}) => {
+   
+    const [page,setPage] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -16,7 +16,7 @@ const Paginacion = ({lista,card}) => {
     
 
     return (
-        <ContenedorArray card ={card} paginate ={paginate} page={page} currentPage={currentPage} totalPosts = {lista.length} currentPosts ={currentPosts}  />
+        <ContenedorArray card ={card} paginate ={paginate} page={page} currentPage={currentPage} totalPosts = {lista.length} currentPosts ={currentPosts} token={token} setProductos = {setProductos} />
 
     );
 };

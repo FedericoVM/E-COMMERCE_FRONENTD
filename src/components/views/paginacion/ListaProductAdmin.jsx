@@ -1,10 +1,42 @@
 import { Button } from 'react-bootstrap';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PaginacionControl from './PaginacionControl';
+import instance from '../../../axios/instance';
 
-const ListaProductAdmin = ({currentPosts,paginate,currentPage,totalPosts,page}) => {
+const ListaProductAdmin = ({currentPosts,paginate,currentPage,totalPosts,page,token,setProductos}) => {
+    
+
+    const verProductos = async () => {
+        try {
+          const respuesta = await instance.get("/productos")
+          setProductos(respuesta.data)
+    
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+
+      const eliminarProducto = async (codigo) => {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+    
+        try {
+          const resp = await instance.delete(`/productos/${codigo}`, config);
+          console.log(resp.data.msg)
+          verProductos()
+    
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    
+ 
 
     return (
         <div className="my-3 contenedor-tabla-productos">

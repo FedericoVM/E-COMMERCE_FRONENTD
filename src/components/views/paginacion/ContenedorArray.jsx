@@ -4,7 +4,8 @@ import ListaUsuarios from './ListaUsuarios'
 import ListaProductAdmin from './ListaProductAdmin'
 import ProductosCategoria from './ProductosCategoria'
 
-const ContenedorArray = ({ paginate, currentPage, page, totalPosts, currentPosts, card }) => {
+const ContenedorArray = ({ paginate, currentPage, page, totalPosts, currentPosts, card, token,setProductos }) => {
+  
 
   const EvaluarString = ({ string }) => {
     switch (string) {
@@ -15,7 +16,7 @@ const ContenedorArray = ({ paginate, currentPage, page, totalPosts, currentPosts
         return <ListaUsuarios paginate={paginate} currentPage={currentPage} page={page} totalPosts={totalPosts} currentPosts={currentPosts} />
 
       case "listaProductosAdmin":
-        return <ListaProductAdmin paginate={paginate} currentPage={currentPage} page={page} totalPosts={totalPosts} currentPosts={currentPosts} />
+        return <ListaProductAdmin paginate={paginate} currentPage={currentPage} page={page} totalPosts={totalPosts} currentPosts={currentPosts} token={token} setProductos = {setProductos} />
 
       case "categoria":
         return <ProductosCategoria paginate={paginate} currentPage={currentPage} page={page} totalPosts={totalPosts} currentPosts={currentPosts} />

@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import instanceFormData from "../../../axios/instanceFormData";
+import instance from "../../../axios/instance";
 
 const EditarProducto = ({ productos, token,setProductos }) => {
 
@@ -20,11 +21,14 @@ const EditarProducto = ({ productos, token,setProductos }) => {
       console.log(error);
     }
   }
+
+
+
   if (productoEdit === null) {
     const productoFind = productos.find(producto => {
       return producto.codigo === id
     })
-    console.log(productoFind)
+    
 
     if (productoFind !== undefined) {
       setProductoEdit(productoFind)
@@ -76,6 +80,11 @@ console.log(destacado);
 
   }
 
+
+  const regresar = ()=>{
+    navigate("/admin-productos")
+  }
+
   useEffect(() => {
     verProductos()
   }, [])
@@ -118,6 +127,9 @@ console.log(destacado);
             <option >Si</option>
             <option >No</option>
           </Form.Select>
+          <Button variant="danger" type="submit" onClick={regresar} > 
+                        Cancelar
+                    </Button>
           <Button variant="primary" type="submit" className="my-3">
             Guardar
           </Button>

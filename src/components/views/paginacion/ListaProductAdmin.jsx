@@ -1,42 +1,41 @@
 import { Button } from 'react-bootstrap';
-import React, { useEffect } from 'react'
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PaginacionControl from './PaginacionControl';
 import instance from '../../../axios/instance';
 
-const ListaProductAdmin = ({currentPosts,paginate,currentPage,totalPosts,page,token,setProductos}) => {
-    
+const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, page, token, setProductos, arrayBuscar }) => {
+
 
     const verProductos = async () => {
         try {
-          const respuesta = await instance.get("/productos")
-          setProductos(respuesta.data)
-    
+            const respuesta = await instance.get("/productos")
+            setProductos(respuesta.data)
+
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      }
+    }
 
 
-      const eliminarProducto = async (codigo) => {
+    const eliminarProducto = async (codigo) => {
         const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         };
-    
+
         try {
-          const resp = await instance.delete(`/productos/${codigo}`, config);
-          console.log(resp.data.msg)
-          verProductos()
-    
+            const resp = await instance.delete(`/productos/${codigo}`, config);
+            console.log(resp.data.msg)
+            verProductos()
+
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      };
-    
- 
+    };
+
+
 
     return (
         <div className="my-3 contenedor-tabla-productos">
@@ -54,7 +53,7 @@ const ListaProductAdmin = ({currentPosts,paginate,currentPage,totalPosts,page,to
                     </tr>
                 </thead>
                 <tbody>
-                    {currentPosts.map((producto, index) => (
+                    {arrayBuscar.length == 0 ? currentPosts.map((producto, index) => (
                         <tr key={index}>
                             <td>{producto.codigo}</td>
                             <td>{producto.nombre}</td>
@@ -82,7 +81,37 @@ const ListaProductAdmin = ({currentPosts,paginate,currentPage,totalPosts,page,to
                                 </div>
                             </td>
                         </tr>
-                    ))}
+                    )) :
+                        arrayBuscar.map((producto, index) => (
+                            <tr key={index}>
+                                <td>{producto.codigo}</td>
+                                <td>{producto.nombre}</td>
+                                <td>{producto.precio}</td>
+                                <td>{producto.categoria}</td>
+                                <td>{producto.marca}</td>
+                                <td>{producto.stock}</td>
+                                <td>{producto.destacado ? "Si" : "No"}</td>
+                                <td>
+                                    <div className="d-flex">
+                                        <Button
+                                            className="mx-1"
+                                            onClick={() => {
+                                                eliminarProducto(producto._id);
+                                            }}
+                                        >
+                                            Eliminar
+                                        </Button>
+                                        <Link
+                                            to={`/editar-producto/${producto.codigo}`}
+                                            className="btn btn-primary mx-1"
+                                        >
+                                            Editar
+                                        </Link>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))
+                    }
                 </tbody>
             </Table>
             <div>

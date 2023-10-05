@@ -2,59 +2,27 @@ import React from 'react'
 import PaginacionControl from './PaginacionControl'
 import { Col, Row } from 'react-bootstrap'
 import ProductCard from '../home/productCard/ProductCard'
+import MostrarProductosLg from './MostrarProductosLg'
+import MostrarProductosMd from './MostrarProductosMd'
+import MostrarProductosSm from './MostrarProductosSm'
 
-const CardsProductos = ({currentPosts,paginate,currentPage,totalPosts,page}) => {
+const CardsProductos = ({ currentPosts, paginate, currentPage, totalPosts, page,currentPostsMd,currentPostsSm }) => {
     return (
         <>
-            {currentPosts.length > 0  ?   <div>
-            <Row  className="g-4 d-none d-md-none d-lg-flex mt-3">
-                {currentPosts.map((p, index) => (
-                    <Col key={index} className="d-flex flex-wrap m-lg-3" lg={2}>
-                        <ProductCard p={p} />
-                    </Col>
-                ))}
-                <div className="d-flex justify-content-center align-items-center">
-                    <PaginacionControl
-                        postsPerPage={page}
-                        totalPosts={totalPosts}
-                        paginate={paginate}
-                        currentPage={currentPage}
-                    />
+            {currentPosts.length > 0 ? <div>
+                <div>
+                    <MostrarProductosLg currentPosts={currentPosts} paginate={paginate} currentPage={currentPage} totalPosts={totalPosts} page={page} />
                 </div>
-            </Row>
-            <Row className=" g-4 d-none d-lg-none d-md-flex mt-3">
-                {currentPosts.map((p, index) => (
-                    <Col key={index} className="d-flex flex-wrap m-lg-3" md={4}>
-                        <ProductCard p={p} />
-                    </Col>
-                ))}
-                <div className="d-flex justify-content-center align-items-center">
-                    <PaginacionControl
-                        postsPerPage={page}
-                        totalPosts={totalPosts}
-                        paginate={paginate}
-                        currentPage={currentPage}
-                    />
+                <div>
+                    <MostrarProductosMd currentPostsMd={currentPostsMd} paginate={paginate} currentPage={currentPage} totalPosts={totalPosts} page={page} />
                 </div>
-            </Row>
-            <Row className=" g-4 d-flex d-md-none d-lg-none mt-3 ">
-                {currentPosts.map((p, index) => (
-                    <Col key={index} className="d-flex flex-wrap m-lg-3" xs={6} sm={5}>
-                        <ProductCard p={p} />
-                    </Col>
-                ))}
-                <div className="d-flex justify-content-center align-items-center">
-                    <PaginacionControl
-                        postsPerPage={page}
-                        totalPosts={totalPosts}
-                        paginate={paginate}
-                        currentPage={currentPage}
-                    />
+                <div>
+                    <MostrarProductosSm currentPostsSm={currentPostsSm} paginate={paginate} currentPage={currentPage} totalPosts={totalPosts} page={page} />
                 </div>
-            </Row>
-            </div> : <h1>Loading..</h1> }
-        
-        
+              
+            </div> : <h1>Cargando..</h1>}
+
+
         </>
     )
 }

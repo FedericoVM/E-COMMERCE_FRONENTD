@@ -3,12 +3,12 @@ import { Col, Row } from 'react-bootstrap'
 import ProductCard from '../home/productCard/ProductCard'
 import PaginacionControl from './PaginacionControl'
 
-const MostrarProductosSm = ({ currentPostsSm, paginate, currentPage, totalPosts, page }) => {
+const MostrarProductosSm = ({ currentPostsSm, paginate, currentPage, totalPosts, page,token,listaCarrito }) => {
     return (
         <Row className=" g-4 d-flex d-md-none d-lg-none mt-3 ">
             {currentPostsSm.map((p, index) => (
                 <Col key={index} className="d-flex flex-wrap m-lg-3" xs={6} sm={5}>
-                    <ProductCard p={p} />
+                    <ProductCard p={p} token={token} listaCarrito={listaCarrito}/>
                 </Col>
             ))}
             <div className="d-flex justify-content-center align-items-center">

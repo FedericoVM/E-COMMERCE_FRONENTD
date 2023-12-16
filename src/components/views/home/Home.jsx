@@ -5,7 +5,7 @@ import CarouselHome from "./carouselHome/carouselHome";
 import Paginacion from "../paginacion/Paginacion";
 
 
-const Home = ({ productos }) => {
+const Home = ({productos,token,listaCarrito }) => {
 
   return (
     <>
@@ -13,7 +13,7 @@ const Home = ({ productos }) => {
       <div >
         <Row className=" mx-0 d-flex">
           <Col lg={10}>
-            {productos.length > 0 ? <Paginacion lista={productos} card={"card"} /> : <h1>Sin productos...</h1>}  {/* <Paginacion lista = {productos}/> */}
+            {productos.length > 0 ? <Paginacion lista={productos} card={"card"} token={token} listaCarrito={listaCarrito}/> : <h1>Sin productos...</h1>}  {/* <Paginacion lista = {productos}/> */}
           </Col>
           <Col lg={2} className="d-none bg-danger d-lg-inline publicidad">
             <img

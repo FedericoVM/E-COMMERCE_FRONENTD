@@ -55,7 +55,6 @@ const AdminProductos = ({ productos, token, setProductos, verProductos }) => {
     try {
       const resp = await instanceFormData.post("/productos", formData, config);
       verProductos();
-      formData.
         console.log(resp.data.msg);
     } catch (error) {
       console.log(error.response.data.msg);

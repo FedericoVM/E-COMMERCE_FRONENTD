@@ -1,7 +1,7 @@
 
 import ProductosCategorias from "../Productos_categoria";
 
-const Electrodomesticos = ({productos}) => {
+const Electrodomesticos = ({productos,token,listaCarrito}) => {
 
 
     const productosElect = productos.filter(  p => {
@@ -11,7 +11,7 @@ const Electrodomesticos = ({productos}) => {
   return (
     <div className="">
         <div className="" >
-        {productos.length > 0 ? <ProductosCategorias productos={productosElect} card="categoria" /> :"" }  
+        {productos.length > 0 ? <ProductosCategorias productos={productosElect} card="categoria" token={token} listaCarrito={listaCarrito} /> :"" }  
         </div>
     </div>
   )

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ContenedorArray from "./ContenedorArray";
 import { Button } from "react-bootstrap";
 
-const Paginacion = ({ lista, card, token, setProductos, setArrayBuscar, arrayBuscar, mostrarUsuarios, mostrarBarra }) => {
+const Paginacion = ({ lista, card, token, setProductos, setArrayBuscar, arrayBuscar, mostrarUsuarios, mostrarBarra,verFavoritos,listaCarrito }) => {
 
     const [page, setPage] = useState(15);
     const [currentPage, setCurrentPage] = useState(1);
@@ -78,7 +78,7 @@ const Paginacion = ({ lista, card, token, setProductos, setArrayBuscar, arrayBus
                 </form>
             </div> : ""}
 
-            <ContenedorArray card={card} paginate={paginate} page={page} currentPage={currentPage} totalPosts={lista.length} currentPosts={webProductos} currentPostsMd={tabletProductos} currentPostsSm={mobileProductos} token={token} setProductos={setProductos} arrayBuscar={arrayBuscar} mostrarUsuarios={mostrarUsuarios} />
+            <ContenedorArray card={card} paginate={paginate} page={page} currentPage={currentPage} totalPosts={lista.length} currentPosts={webProductos} currentPostsMd={tabletProductos} currentPostsSm={mobileProductos} token={token} setProductos={setProductos} arrayBuscar={arrayBuscar} mostrarUsuarios={mostrarUsuarios} verFavoritos={verFavoritos} listaCarrito={listaCarrito}/>
         </>
 
 

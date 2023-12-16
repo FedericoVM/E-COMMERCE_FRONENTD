@@ -12,8 +12,11 @@ import { Link, NavLink } from "react-router-dom";
 import Registro from "../../views/Registro/Registro";
 import Login from "../../views/Login/Login";
 import ContenedorLogin from "../contenedorLogin/ContenedorLogin";
+import ModalCarrito from "../../views/modalCarrito/ModalCarrito";
 
-const Header = ({ setEnLinea, enLinea, setToken, datosUsuario, setDatosUsuario, setRol }) => {
+const Header = ({ setEnLinea, enLinea, setToken, datosUsuario, setDatosUsuario, setRol, productosCarrito, listaCarrito, token }) => {
+
+
 
   return (
     <>
@@ -56,16 +59,10 @@ const Header = ({ setEnLinea, enLinea, setToken, datosUsuario, setDatosUsuario, 
               </div>
 
               <Nav className="m-0 d-flex justify-content-around">
-                <NavDropdown title="Categorias" id="navbarScrollingDropdown">
-                  <NavDropdown.Item>
-                    <Link to="/computacion">Computacion</Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.1">
-                    <Link to="/electrodomesticos">Electrodomesticos</Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item>
-                    <Link to="/aireLibre">Aire Libre</Link>
-                  </NavDropdown.Item>
+                <NavDropdown title="Categorias" className="d-flex flex-colummn" id="navbarScrollingDropdown">
+                  <Link to="/computacion">Computacion</Link>
+                  <Link to="/electrodomesticos">Electrodomesticos</Link>
+                  <Link to="/aireLibre">Aire Libre</Link>
                 </NavDropdown>
                 <div className="d-lg-flex">
                   <NavLink to="/">Home</NavLink>
@@ -75,7 +72,7 @@ const Header = ({ setEnLinea, enLinea, setToken, datosUsuario, setDatosUsuario, 
                 </div>
                 <div className=" d-lg-flex  align-self-lg-end">
                   <Nav.Link href="#action8"> Ayuda</Nav.Link>
-                  <Nav.Link href="#action9"> Carrito</Nav.Link>
+                  <NavLink  > <ModalCarrito productosCarrito={productosCarrito} listaCarrito={listaCarrito} token={token} /> </NavLink>
                   {enLinea ? <div> <ContenedorLogin datosUsuario={datosUsuario} setToken={setToken} setEnLinea={setEnLinea} setDatosUsuario={setDatosUsuario} setRol={setRol} /> </div> : <div> <Login setToken={setToken} setEnLinea={setEnLinea} setDatosUsuario={setDatosUsuario} /> <Registro /> </div>}
                 </div>
                 <div className="d-lg-none border-top w-100 p-3 d-flex justify-content-center align-items-center">

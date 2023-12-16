@@ -8,6 +8,7 @@ const AdminUsuario = ({ token }) => {
   const [usuarios, setUsuarios] = useState([]);
 
   const mostrarUsuarios = async (token_usuario) => {
+    
     const config = {
       headers: {
         Authorization: `Bearer ${token_usuario}`,

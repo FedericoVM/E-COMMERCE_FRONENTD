@@ -6,18 +6,18 @@ import MostrarProductosLg from './MostrarProductosLg'
 import MostrarProductosMd from './MostrarProductosMd'
 import MostrarProductosSm from './MostrarProductosSm'
 
-const CardsProductos = ({ currentPosts, paginate, currentPage, totalPosts, page,currentPostsMd,currentPostsSm }) => {
+const CardsProductos = ({ currentPosts, paginate, currentPage, totalPosts, page,currentPostsMd,currentPostsSm,token,listaCarrito }) => {
     return (
         <>
             {currentPosts.length > 0 ? <div>
                 <div>
-                    <MostrarProductosLg currentPosts={currentPosts} paginate={paginate} currentPage={currentPage} totalPosts={totalPosts} page={page} />
+                    <MostrarProductosLg currentPosts={currentPosts} paginate={paginate} currentPage={currentPage} totalPosts={totalPosts} page={page} token={token} listaCarrito={listaCarrito} />
                 </div>
                 <div>
-                    <MostrarProductosMd currentPostsMd={currentPostsMd} paginate={paginate} currentPage={currentPage} totalPosts={totalPosts} page={page} />
+                    <MostrarProductosMd currentPostsMd={currentPostsMd} paginate={paginate} currentPage={currentPage} totalPosts={totalPosts} page={page} token={token} listaCarrito={listaCarrito}/>
                 </div>
                 <div>
-                    <MostrarProductosSm currentPostsSm={currentPostsSm} paginate={paginate} currentPage={currentPage} totalPosts={totalPosts} page={page} />
+                    <MostrarProductosSm currentPostsSm={currentPostsSm} paginate={paginate} currentPage={currentPage} totalPosts={totalPosts} page={page} token={token} listaCarrito={listaCarrito}/>
                 </div>
               
             </div> : <h1>Cargando..</h1>}

@@ -45,11 +45,8 @@ const EditarUsuario = ({datosUsuario,setDatosUsuario, token,setToken }) => {
         try {
             const resp = await instanceFormData.put(`/usuario/${datosUsuario.id_usuario}`, formData,config)
             const nuevoToken = resp.data.token
-            console.log(nuevoToken);
             setToken(nuevoToken)
-            console.log(localStorage.getItem("tokenUsuario"));
             localStorage.setItem("tokenUsuario", nuevoToken)
-            console.log(1, localStorage.getItem("tokenUsuario"));
             const u = jwt_decode(nuevoToken)
             setDatosUsuario(u)
            return use_navigate(`/cuenta-usuario`)

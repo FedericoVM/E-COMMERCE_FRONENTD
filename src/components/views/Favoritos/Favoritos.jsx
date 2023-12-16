@@ -1,70 +1,72 @@
 import { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
-import Productos from "./Productos";
-import {BsSearch} from "react-icons/bs"
-import {TiRefreshOutline} from 'react-icons/ti'
-import PaginacionControl from "../paginacion/PaginacionControl";
+import instance from "../../../axios/instance";
+import Paginacion from "../paginacion/Paginacion";
 
-const Favoritos = () => {
-  const [arraySearch, setArraySearch] = useState([])
-  const [test, setTest] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(5);
+const Favoritos = ({ token, listaProductos, datosUsuario }) => {
 
-  
+  const [favoritos, setFavoritos] = useState([]);
+  const [listaFavoritos, setListaFavoritos] = useState([])
+
+  const filtrarFavoritos = (array1, array2) => {
+
+    let resultado = [];
+
+    if (array2.length > 0) {
+      array1.forEach(p => {
+
+        array2.find((favorito) => {
+          if (p._id === favorito.productos) {
+            resultado.push(p)
+          }
+
+        })
+      })
+
+      setListaFavoritos(resultado)
+    }
+
+
+  }
+
+  const verFavoritos = async (token) => {
+
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }
+
+    try {
+      const resp = await instance.get("/favoritos", config);
+      setFavoritos(resp.data);
+
+    } catch (error) {
+      return console.log(error);
+    }
+
+  }
+
+
+
+
+
+
   useEffect(() => {
 
-  }, []);
+    verFavoritos(token);
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = arraySearch.length > 0 ? arraySearch.slice(indexOfFirstPost, indexOfLastPost) : test.slice(indexOfFirstPost, indexOfLastPost) ;
+  }, [])
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const buscarProducto = (e) => {
-    e.preventDefault()
-    const search = e.target.search.value
-    let productoEncontrado = test.filter(producto => {
-      return producto.title.toLowerCase().includes(search.toLowerCase())
-    })
-    setArraySearch(productoEncontrado)
-  }
+  useEffect(() => {
+    filtrarFavoritos(listaProductos, favoritos)
+  }, [favoritos])
+
+
 
   return (
     <div className="">
-      <div className="d-flex container justify-content-around mt-2">
-        <div className="d-none d-lg-block col-6 justify-content-center align-items-center">
-          <PaginacionControl
-            postsPerPage={postsPerPage}
-            totalPosts={arraySearch.length > 0 ? arraySearch.length : test.length}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
-        </div>
-        <form onSubmit={buscarProducto} className="d-flex flex-column col-12 justify-content-around col-md-6 my-2 align-items-center">
-        <input
-        name="search"
-          type="text"
-          placeholder="Buscar producto"
-          className="d-flex align-self-center rounded border w-75"
-        />
-        <div className="d-flex justify-content-evenly mt-2 container">
-        <Button type="submit"><BsSearch className="mx-1"/>Buscar</Button>
-        <Button variant="success" onClick={()=> {setArraySearch([])}}><TiRefreshOutline className="mx-1 fs-4"/>Refresh</Button>
-        </div>
-        </form>
-      </div>
-      <Productos posts={currentPosts} loading={loading} />
-      <div className="d-block d-flex justify-content-center container d-lg-none">
-        <PaginacionControl
-          postsPerPage={postsPerPage}
-          totalPosts={arraySearch.length > 0 ? arraySearch.length : test.length}
-          paginate={paginate}
-          currentPage={currentPage}
-        />
-      </div>
+      {favoritos.length > 0 ? <Paginacion lista={listaFavoritos} card="favoritos" token={token} verFavoritos={verFavoritos} datosUsuario={datosUsuario} /> : <p>NO hay productos agregados al favorito</p>}
     </div>
   );
 };

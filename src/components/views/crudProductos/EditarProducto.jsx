@@ -11,7 +11,8 @@ const EditarProducto = ({ productos, token,setProductos }) => {
   const [productoEdit, setProductoEdit] = useState(null);
   const { id } = useParams();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  
   const verProductos = async () => {
     try {
       const respuesta = await instance.get("/productos")
@@ -56,7 +57,7 @@ const EditarProducto = ({ productos, token,setProductos }) => {
     let descripcion = e.target.descripcionProducto.value;
     let destacado; 
     e.target.destacarProducto.value === "Si" ? destacado = true : destacado = false;
-console.log(destacado);
+
 
     const formData = new FormData()
 

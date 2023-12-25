@@ -5,9 +5,11 @@ import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router-dom";
 import instance from "../../../axios/instance";
 import jwt_decode from "jwt-decode";
+import { Formik, useFormik } from "formik";
+import { schemaLogin } from "../../../schemas/login";
 
 const Login = ({ setEnLinea, setToken, setDatosUsuario }) => {
-  const values = ["lg-down"];
+  const valuesM = ["lg-down"];
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
 
@@ -16,20 +18,10 @@ const Login = ({ setEnLinea, setToken, setDatosUsuario }) => {
     setShow(true);
   }
 
-  const mostrarUsuario = async (token_usuario) => {
-    try {
-      const decodificado = await jwt_decode(token_usuario);
-      setDatosUsuario(decodificado);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const login = async (e) => {
-    e.preventDefault();
-
-    let email = e.target.email.value;
-    let password = e.target.password.value;
+  const login = async (values) => {
+ 
+    let email = values.email;
+    let password = values.password;
 
     const usuario = {
       email,
@@ -45,13 +37,34 @@ const Login = ({ setEnLinea, setToken, setDatosUsuario }) => {
       setEnLinea(true);
       mostrarUsuario(token_usuario);
     } catch (error) {
-      console.log(error.response.data.mensaje);
+      return console.log(error.response.data.mensaje);
     }
   };
 
+
+  const {values,handleChange,handleSubmit,handleBlur,errors,touched} = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: schemaLogin,
+    onSubmit:login
+  });
+
+
+  const mostrarUsuario = async (token_usuario) => {
+    try {
+      const decodificado = await jwt_decode(token_usuario);
+      setDatosUsuario(decodificado);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
     <>
-      {values.map((v, idx) => (
+      {valuesM.map((v, idx) => (
         <Button key={idx} className="me-2 mb-2" onClick={() => handleShow(v)}>
           Login
         </Button>
@@ -68,31 +81,50 @@ const Login = ({ setEnLinea, setToken, setDatosUsuario }) => {
         <Modal.Body>
           <h4 className="text-center ">Bienvenido/a</h4>
           <div>
-            <Form onSubmit={login}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>E-mail</Form.Label>
-                <Form.Control type="email" name="email" />
-              </Form.Group>
+            <Formik>
+              <Form onSubmit={handleSubmit} >
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>E-mail</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.email}
+                    className={errors.email && touched.email ? "input-error":""}
+                  />
+                  {errors.email && touched.email && <p className="error"> {errors.email}</p>}
+                </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" name="password" />
-              </Form.Group>
-              <Button
-                className="w-100 text-center"
-                variant="primary"
-                type="submit"
-              >
-                Iniciar Sesión
-              </Button>
-              <Form.Group className="my-1" controlId="formBasicPassword">
-                No tienes cuenta?
-                <Link to="/login" className="link-form ms-2  ">
-                  Registrarse
-                </Link>
-                <p></p>
-              </Form.Group>
-            </Form>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.password}
+                
+                  />
+                
+                </Form.Group>
+                <Button
+                  className="w-100 text-center"
+                  variant="primary"
+                  type="submit"
+            
+                >
+                  Iniciar Sesión
+                </Button>
+                <Form.Group className="my-1" controlId="formBasicPassword">
+                  No tienes cuenta?
+                  <Link to="/login" className="link-form ms-2  ">
+                    Registrarse
+                  </Link>
+                  <p></p>
+                </Form.Group>
+              </Form>
+            </Formik>
           </div>
         </Modal.Body>
       </Modal>

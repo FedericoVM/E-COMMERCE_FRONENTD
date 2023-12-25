@@ -5,3 +5,7 @@
 .modalHeader{
     background-color:rgba(89, 19, 155, 0.966) ;
 }
+
+.error{
+    color: red;
+}

@@ -9,7 +9,7 @@ const ProductCard = ({ p,token,listaCarrito}) => {
   
   
   
-  const agregarFavorito = async () => {
+  const agregarFavorito = async (productiId) => {
 
 
     const config = {
@@ -18,9 +18,12 @@ const ProductCard = ({ p,token,listaCarrito}) => {
       }
     }
 
+    const nuevoProductoFav = {
+      productos: productiId
+    }
 
     try {
-      let productoAgregado = await instance.post("/favoritos",p,config);
+      let productoAgregado = await instance.post("/favoritos",nuevoProductoFav,config);
       console.log(productoAgregado.data.mensaje);
 
 
@@ -32,15 +35,19 @@ const ProductCard = ({ p,token,listaCarrito}) => {
 
   }
 
-  const agregarCarrito = async () => {
+  const agregarCarrito = async (productId) => {
     const config = {
       headers: {
         authorization: `Bearer ${token}`
       }
     }
+   
+  const nuevoProductoCarrito = {
+    productos: productId
+  }
 
     try {
-        let resultado = await instance.post("/carrito/",p,config)
+        let resultado = await instance.post("/carrito/",nuevoProductoCarrito,config)
         console.log(resultado.data.mensaje);
         listaCarrito(token)
     } catch (error) {
@@ -65,7 +72,7 @@ const ProductCard = ({ p,token,listaCarrito}) => {
         <Card.Title className="text-white title-precio rounded">
           ${p.precio}
         </Card.Title>
-        <Button variant="primary" className="boton-favorito" onClick={() => {agregarFavorito()}}>
+        <Button variant="primary" className="boton-favorito" onClick={() => {agregarFavorito(p._id)}}>
           <BsSuitHeartFill />
         </Button>
       </div>
@@ -77,7 +84,7 @@ const ProductCard = ({ p,token,listaCarrito}) => {
             </div>
           </Link>
           <div>
-            <button type="button" className="btn btn-primary" onClick={()=>{agregarCarrito()}}>Añadir al carrito</button>
+            <button type="button" className="btn btn-primary" onClick={()=>{agregarCarrito(p._id)}}>Añadir al carrito</button>
           </div>
         </div>
       </Card.Body>

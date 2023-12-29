@@ -23,9 +23,10 @@ const CardCarrito = ({ producto, token, listaCarrito }) => {
         }
     };
 
-    const cambiarCantidad = async (e, id) => {
+    const cambiarCantidad = async (e, id, cantidad) => {
         let operacion = e.target.name;
         let cant;
+
 
         const config = {
             headers: {
@@ -37,7 +38,7 @@ const CardCarrito = ({ producto, token, listaCarrito }) => {
 
 
         cant = {
-            cantidad: operacion === "sumar" ? (producto.cantidad += 1) : (producto.cantidad -= 1)
+            cantidad: operacion === "sumar" ? (cantidad += 1) : (cantidad -= 1)
         };
 
 
@@ -53,7 +54,7 @@ const CardCarrito = ({ producto, token, listaCarrito }) => {
             }
         } 
         else {
-            if (cant.cantidad === 1) {
+            if (cantidad === 1) {
                 setAnularBtnRestar(true);
                 return console.log("La cantidad minima es 1");
             } else {
@@ -101,7 +102,7 @@ const CardCarrito = ({ producto, token, listaCarrito }) => {
                                 name="restar"
                                 disabled={anularBtnRestar === true}
                                 onClick={(e) => {
-                                    cambiarCantidad(e, producto.id);
+                                    cambiarCantidad(e, producto.id, producto.cantidad);
                                 }}
                             >
                                 -
@@ -114,7 +115,7 @@ const CardCarrito = ({ producto, token, listaCarrito }) => {
                                 name="sumar"
                                 disabled={anularBtnSumar === true}
                                 onClick={(e) => {
-                                    cambiarCantidad(e, producto.id);
+                                    cambiarCantidad(e, producto.id, producto.cantidad);
                                 }}
                             >
                                 +

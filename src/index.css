@@ -1,3 +1,4 @@
+
 .imagen-lista-productos{
     height: 10vh;
     width:10vh;
@@ -14,7 +15,6 @@
     vertical-align: middle;
 }
 
-
 .descripcion-card-producto{
     height: 10vh;
      overflow: auto;
@@ -30,4 +30,3 @@
      position: absolute;
      right: 0px;
  }
-

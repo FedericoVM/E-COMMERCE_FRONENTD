@@ -1,29 +1,17 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import ProductosCategorias from "../Productos_categoria";
 
 
-const Computacion = () => {
-    const [test, setTest] = useState([]);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        fetchPosts();
-      }, []);
+const Computacion = ({productos,token,listaCarrito}) => {
     
-      const fetchPosts = async () => {
-        setLoading(true);
-        const res = await axios.get(
-          "https://jsonplaceholder.typicode.com/albums/2/photos"
-        );
-        setTest(res.data);
-        setLoading(false);
-      };
+
+    const productosComp = productos.filter(  p => {
+     return  p.categoria === "Computacion"
+    } )
 
   return (
     <div className="">
         <div className="">
-            <ProductosCategorias productos={test} loading={loading}/>
+        {productos.length > 0 ? <ProductosCategorias productos={productosComp} card="categoria" token={token} listaCarrito={listaCarrito} /> :"" }  
         </div>
     </div>
   )

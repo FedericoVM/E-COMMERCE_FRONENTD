@@ -87,19 +87,8 @@ export const RouterPrincipal = () => {
             }
 
           });
-        } else {
-
-          let productoCarrito = {
-            id: producto._id,
-            imagen: "Eliminado",
-            nombre: "Eliminado",
-            precio: "Eliminado",
-            cantidad: "Eliminado",
-          }
-
-          resultado.push(productoCarrito)
-        }
-
+        } 
+      
 
       })
 

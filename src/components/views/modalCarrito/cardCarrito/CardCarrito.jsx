@@ -42,8 +42,6 @@ const CardCarrito = ({ producto, token, listaCarrito }) => {
         };
 
 
-
-
         if (operacion === "sumar") {
 
             if (cant.cantidad === producto.stock) {
@@ -54,7 +52,7 @@ const CardCarrito = ({ producto, token, listaCarrito }) => {
             }
         } 
         else {
-            if (cantidad === 1) {
+            if (cantidad === 0) {
                 setAnularBtnRestar(true);
                 return console.log("La cantidad minima es 1");
             } else {

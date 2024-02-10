@@ -23,9 +23,10 @@ const AdminUsuario = ({ token }) => {
     }
   };
 
-
   useEffect(() => {
+    if (token != null){
     mostrarUsuarios(token);
+  }
   }, [token]);
 
   return (

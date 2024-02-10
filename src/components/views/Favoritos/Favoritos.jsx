@@ -13,7 +13,6 @@ const Favoritos = ({ token, listaProductos, datosUsuario }) => {
 
     if (array2.length > 0) {
       array1.forEach(p => {
-
         array2.find((favorito) => {
           if (p._id === favorito.productos) {
             resultado.push(p)
@@ -21,11 +20,8 @@ const Favoritos = ({ token, listaProductos, datosUsuario }) => {
 
         })
       })
-
       setListaFavoritos(resultado)
     }
-
-
   }
 
   const verFavoritos = async (token) => {
@@ -39,30 +35,20 @@ const Favoritos = ({ token, listaProductos, datosUsuario }) => {
     try {
       const resp = await instance.get("/favoritos", config);
       setFavoritos(resp.data);
-
     } catch (error) {
       return console.log(error);
     }
-
   }
 
-
-
-
-
-
   useEffect(() => {
-
+if (token != null){
     verFavoritos(token);
-
-  }, [])
-
+}
+  }, [token])
 
   useEffect(() => {
     filtrarFavoritos(listaProductos, favoritos)
   }, [favoritos])
-
-
 
   return (
     <div className="">

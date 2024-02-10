@@ -1,160 +1,81 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import instanceFormData from "../../../axios/instanceFormData";
-import instance from "../../../axios/instance";
 import { useEffect, useState } from "react";
 import Paginacion from "../paginacion/Paginacion";
+import FormikComponente from "../Formik Componente/FormikComponenteProductos";
+import { useNavigate } from "react-router-dom";
 
 const AdminProductos = ({ productos, token, setProductos, verProductos }) => {
 
-  let mostrarBarra = true
+  const [errorImagen, setErrorImagen] = useState(false)
 
-
+  let mostrarBarra = true;
 
   const [arrayBuscar, setArrayBuscar] = useState([]);
 
+  const crearProducto = async (values, actions) => {
 
-
-
-
-  const crearProducto = async (e) => {
-
-    e.preventDefault();
-
+    if(!values.imagenProducto){
+       return setErrorImagen(true)
+    } else {
+      setErrorImagen(false)
+    }
+    
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
 
-    let codigo = e.target.codigoProducto.value;
-    let nombre = e.target.nombreProducto.value;
-    let marca = e.target.marcaProducto.value;
-    let stock = e.target.stockProducto.value;
-    let precio = e.target.precioProducto.value;
-    let categoria = e.target.categoriaProducto.value;
-    let imagen = e.target.imagen.files[0];
-    let descripcion = e.target.descripcionProducto.value;
     let destacado;
-    e.target.destacarProducto.value === "Si"
+    values.destacarProducto === "Si"
       ? (destacado = true)
       : (destacado = false);
 
     const formData = new FormData();
 
-    formData.append("nombre", nombre);
-    formData.append("codigo", codigo);
-    formData.append("marca", marca);
-    formData.append("stock", stock);
-    formData.append("precio", precio);
-    formData.append("categoria", categoria);
-    formData.append("imagen", imagen);
-    formData.append("descripcion", descripcion);
+    formData.append("nombre", values.nombreProducto);
+    formData.append("codigo", values.codigoProducto);
+    formData.append("marca", values.marcaProducto);
+    formData.append("stock", values.stockProducto);
+    formData.append("precio", values.precioProducto);
+    formData.append("categoria", values.categoriaProducto);
+    formData.append("imagen", values.imagenProducto);
+    formData.append("descripcion", values.descripcionProducto);
     formData.append("destacado", destacado);
 
     try {
       const resp = await instanceFormData.post("/productos", formData, config);
       verProductos();
-        console.log(resp.data.msg);
+      console.log(resp.data.msg);
+      actions.resetForm()
     } catch (error) {
       console.log(error.response.data.msg);
     }
-
-
   };
 
   useEffect(() => {
-    verProductos()
-  }, [])
-
+    verProductos();
+  }, []);
 
   return (
     <div className="container d-flex flex-column">
       <h1 className="text-center">Administrar Productos</h1>
+      <hr/>
+        <FormikComponente errorImagen={errorImagen} setErrorImagen={setErrorImagen} onSubmit={crearProducto}/>
       <hr />
-      <div className="d-flex justify-content-center">
-        <Form className=" col-11 col-md-8" onSubmit={crearProducto}>
-          <Form.Label>Codigo</Form.Label>
-          <Form.Control
-            type="text"
-            name="codigoProducto"
-            placeholder="El codigo se genera de manera automatica"
-            className="input mb-3"
-            disabled={true}
-            value={Date.now()}
+        {productos.length > 0 ? (
+          <Paginacion
+            lista={productos}
+            card="listaProductosAdmin"
+            token={token}
+            setProductos={setProductos}
+            setArrayBuscar={setArrayBuscar}
+            arrayBuscar={arrayBuscar}
+            mostrarBarra={mostrarBarra}
           />
-          <Form.Label>Nombre del producto</Form.Label>
-          <Form.Control
-            type="text"
-            name="nombreProducto"
-            placeholder="PC Gamer"
-            className="input mb-3"
-
-          />
-          <Form.Label>Marca</Form.Label>
-          <Form.Control
-            type="text"
-            name="marcaProducto"
-            placeholder="Sony"
-            className=" input mb-3"
-          />
-          <Form.Label>Stock</Form.Label>
-          <Form.Control
-            type="text"
-            name="stockProducto"
-            placeholder="24"
-            className="input mb-3"
-          />
-          <Form.Label>Precio</Form.Label>
-          <Form.Control
-            type="text"
-            name="precioProducto"
-            placeholder="24.499"
-            className="input mb-3"
-          />
-          <Form.Label>Categoria</Form.Label>
-          <Form.Select
-            defaultValue="Seleccione categoria"
-            name="categoriaProducto"
-            className="input"
-
-          >
-            <option disabled={true}>Seleccione categoria</option>
-            <option>Electrodomesticos</option>
-            <option>Computacion</option>
-            <option>Aire Libre</option>
-          </Form.Select>
-          <Form.Group className="position-relative mb-3">
-            <Form.Label>Foto del producto</Form.Label>
-            <Form.Control type="file" name="imagen" />
-          </Form.Group>
-          <Form.Label>Descripcion</Form.Label>
-          <Form.Control
-            as="textarea"
-            name="descripcionProducto"
-            rows={3}
-            placeholder="Descripcion"
-            className="input mb-1"
-          />
-          <Form.Label>Producto Destacado</Form.Label>
-          <Form.Select
-            defaultValue="Seleccione una opcion"
-            name="destacarProducto"
-            className="input"
-          >
-            <option disabled={true}>Seleccione una opcion</option>
-            <option>Si</option>
-            <option>No</option>
-          </Form.Select>
-          <Button variant="primary" type="submit" className="my-3">
-            Guardar
-          </Button>
-        </Form>
-      </div>
-      <hr />
-      <div>
-        {productos.length > 0 ? <Paginacion lista={productos} card="listaProductosAdmin" token={token} setProductos={setProductos} setArrayBuscar={setArrayBuscar} arrayBuscar={arrayBuscar} mostrarBarra={mostrarBarra} /> : ""}
-      </div>
+        ) : (
+          ""
+        )}
     </div>
   );
 };

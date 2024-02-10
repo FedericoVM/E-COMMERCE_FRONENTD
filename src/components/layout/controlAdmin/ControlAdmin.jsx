@@ -57,7 +57,7 @@ const ControlAdmin = ({ usuario, setToken, setEnLinea, setDatosUsuario, setRol }
         ))}
       </div>
       <div className='mx-1'>
-        <img src={usuario.avatar} className="imagenUsuarioHeader img-thumbnail rounded-circle" />
+        <img src={usuario.imagen} className="imagenUsuarioHeader img-thumbnail rounded-circle" />
       </div>
     </div>
   );

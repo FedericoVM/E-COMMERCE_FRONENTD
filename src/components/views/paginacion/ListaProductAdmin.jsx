@@ -6,17 +6,14 @@ import instance from '../../../axios/instance';
 
 const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, page, token, setProductos, arrayBuscar }) => {
 
-
     const verProductos = async () => {
         try {
             const respuesta = await instance.get("/productos")
             setProductos(respuesta.data)
-
         } catch (error) {
             console.log(error);
         }
     }
-
 
     const eliminarProducto = async (codigo) => {
         const config = {
@@ -29,16 +26,13 @@ const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, pa
             const resp = await instance.delete(`/productos/${codigo}`, config);
             console.log(resp.data.msg)
             verProductos()
-
         } catch (error) {
             console.log(error);
         }
     };
 
-
-
     return (
-        <div className="my-3 contenedor-tabla-productos">
+        <div className="my-3 contenedor-tabla-productos overflow-auto">
             <Table bordered hover className="text-center tabla-de-productos">
                 <thead>
                     <tr>

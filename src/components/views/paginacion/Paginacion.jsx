@@ -53,17 +53,20 @@ const Paginacion = ({ lista, card, token, setProductos, setArrayBuscar, arrayBus
     return (
         <>
             {mostrarBarra ? <div className="d-flex container justify-content-center mt-2">
-                <h3>Buscar</h3>
+                
                 <form
                     onSubmit={buscarUsuario}
                     className="d-flex flex-column col-12 justify-content-around col-md-6 my-2 align-items-center"
                 >
+                    <div className="d-flex flex-column justify-content-around flex-md-row align-items-center col-12">
+                    <h3 className="col-4 text-center">Buscar</h3>
                     <input
                         name="buscar"
                         type="text"
                         placeholder={card === "usuarios" ? "Ingresar nombre,apellido o email" : "Ingresar nombre,marca o categoria "}
-                        className="d-flex align-self-center rounded border w-75"
+                        className="d-flex align-self-center rounded border col-6 col-md-8 "
                     />
+                    </div>
                     <div className="d-flex justify-content-evenly mt-2 container">
                         <Button type="submit">Buscar</Button>
                         <Button

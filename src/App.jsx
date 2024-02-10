@@ -7,7 +7,7 @@ import "./components/layout/Header/header.css";
 
 function App() {
   return (
-    <div className="App">
+    <div className="">
       <RouterPrincipal/>
     </div>
   );

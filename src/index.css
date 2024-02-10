@@ -31,3 +31,35 @@
      position: absolute;
      right: 0px;
  }
+
+ .text-validation{
+    font-size:smaller;
+    font-weight: 450;
+    color: #ec2828;
+    margin-top: -4px;
+    margin-bottom: 2%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+       -webkit-appearance: none;
+        margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.div-container-img{
+    height: 250px;
+}
+
+.img-upload {
+    height: 250px;
+    width: 400px;
+}
+
+.imagenUsuarioHeader {
+    height: 40px;
+    width: 40px;
+}

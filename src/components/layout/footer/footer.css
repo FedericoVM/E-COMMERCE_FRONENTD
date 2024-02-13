@@ -1,0 +1,22 @@
+#contacto {
+    font-size: 12px;
+}
+#data_fiscal {
+    width: 3rem;
+}
+
+
+.redes-icono:hover{
+    transform: scale(1.4);
+}
+.soportes_link:hover{
+    color:darkcyan
+}
+
+.acerca_link:hover{
+    color:darkcyan 
+}
+
+.contacto_link:hover{
+    color:darkcyan 
+}

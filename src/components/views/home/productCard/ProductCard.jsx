@@ -6,12 +6,8 @@ import "./productCard.css";
 import instance from "../../../../axios/instance";
 
 const ProductCard = ({ p,token,listaCarrito}) => {
-  
-  
-  
+
   const agregarFavorito = async (productiId) => {
-
-
     const config = {
       headers: {
         authorization: `Bearer ${token}`
@@ -25,14 +21,9 @@ const ProductCard = ({ p,token,listaCarrito}) => {
     try {
       let productoAgregado = await instance.post("/favoritos",nuevoProductoFav,config);
       console.log(productoAgregado.data.mensaje);
-
-
     } catch (error) {
       console.log(error)
     }
-   
-
-
   }
 
   const agregarCarrito = async (productId) => {
@@ -53,13 +44,7 @@ const ProductCard = ({ p,token,listaCarrito}) => {
     } catch (error) {
        console.log(error)
     }
-
   }
-
-
-
- 
-
 
   return (
     <Card  className="card shadow-lg border m-sx-3 ">
@@ -78,7 +63,7 @@ const ProductCard = ({ p,token,listaCarrito}) => {
       </div>
       <Card.Body className="h-100 d-flex flex-column ">
         <div>
-          <Link to="/product" className="text-decoration-none">
+          <Link to={`/producto/${p._id}`} className="text-decoration-none">
             <div className="d-flex justify-content-between container p-0 text-center  h-100">
               <Card.Title className="text-dark ">{p.nombre}</Card.Title>
             </div>

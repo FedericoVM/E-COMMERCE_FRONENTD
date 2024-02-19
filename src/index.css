@@ -29,6 +29,7 @@
  .boton-favorito{
      position: absolute;
      right: 0px;
+     top: 0px;
  }
 
  .text-validation{
@@ -61,4 +62,26 @@ input[type=number] {
 .imagenUsuarioHeader {
     height: 40px;
     width: 40px;
+}
+
+.imagen-pagina-producto{
+    height: 400px;
+    width: 400px;
+    position:relative
+}
+
+@media screen and (min-width: 768px) and (max-width: 950px){
+    .precio-pagina-producto{
+        font-size: 3rem !important;
+    }
+}
+
+.precio-pagina-producto{
+    font-size: 4rem;
+}
+
+@media screen and (max-width: 416px) {
+    .imagen-pagina-producto{
+        width: 250px;
+    }
 }

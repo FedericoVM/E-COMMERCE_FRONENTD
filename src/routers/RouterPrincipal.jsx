@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Header from "../components/layout/Header/Header";
 import Footer from "../components/layout/footer/Footer"
@@ -17,8 +17,7 @@ import CuentaUsuario from "../components/views/cuentaUsuario/CuentaUsuario";
 import EditarUsuario from "../components/views/cuentaUsuario/EditarUsuario";
 import jwt_decode from "jwt-decode"
 import RutaProtegidaAdmin from "../components/layout/rutaProtegidaAdmin/RutaProtegidaAdmin";
-import ModalCarrito from "../components/views/modalCarrito/ModalCarrito";
-
+import PaginaProducto from "../components/views/Pagina De Producto/PaginaProducto";
 
 export const RouterPrincipal = () => {
 
@@ -35,14 +34,12 @@ export const RouterPrincipal = () => {
     try {
       const respuesta = await instance.get("/productos")
       setProductos(respuesta.data)
-
     } catch (error) {
       console.log(error);
     }
   }
 
   const mostrarUsuario = async (token_usuario) => {
-
     try {
       const decodificado = await jwt_decode(token_usuario)
       setRol([decodificado.role])
@@ -50,29 +47,20 @@ export const RouterPrincipal = () => {
     } catch (error) {
       console.log(error);
     }
-
   }
 
-
   const mostrarProductos = (carrito, listaProductos) => {
-
     let resultado = [];
 
     if (carrito.length > 0) {
-
       carrito.forEach((producto) => {
-
         let productosExistentes = listaProductos.some((prod) => {
           return prod._id === producto.productos
         })
 
         if (productosExistentes) {
-
           listaProductos.find((c) => {
-
             if (producto.productos === c._id) {
-
-
               let productoCarrito = {
                 id: producto._id,
                 imagen: c.imagen,
@@ -81,14 +69,10 @@ export const RouterPrincipal = () => {
                 stock: c.stock,
                 cantidad: producto.cantidad,
               }
-
               resultado.push(productoCarrito);
-
             }
-
           });
         } else {
-
           let productoCarrito = {
             id: producto._id,
             imagen: "Eliminado",
@@ -96,20 +80,14 @@ export const RouterPrincipal = () => {
             precio: "Eliminado",
             cantidad: "Eliminado",
           }
-
           resultado.push(productoCarrito)
         }
-
-
       })
-
       setProductoCarrito(resultado);
     }
-
   };
 
   const listaCarrito = async (token) => {
-
     const config = {
       headers: {
         authorization: `Bearer ${token}`,
@@ -124,10 +102,6 @@ export const RouterPrincipal = () => {
     }
   };
 
-
-
-
-
   useEffect(() => {
     mostrarProductos(lista, productos)
   }, [lista]);
@@ -141,10 +115,7 @@ export const RouterPrincipal = () => {
       setEnLinea(true)
       listaCarrito(tokenL);
     }
-
-
   }, [token])
-
 
   return (
     <>
@@ -157,19 +128,18 @@ export const RouterPrincipal = () => {
           <Route path="/aireLibre" element={<AireLibre productos={productos} token={token} listaCarrito={listaCarrito} />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/destacados" element={<Destacados productos={productos} token={token} listaCarrito={listaCarrito} />} />
-
+          <Route path="/producto/:id" element={<PaginaProducto productos={productos}/>} />
 
           <Route element={<RutaProtegidaAdmin autenticado={rol.includes("admin") || rol.includes("usuario")} />}>
             <Route path="/editar-usuario/:id" element={<EditarUsuario datosUsuario={datosUsuario} setDatosUsuario={setDatosUsuario} token={token} setToken={setToken} />} />
             <Route path="/cuenta-usuario" element={<CuentaUsuario usuario={datosUsuario} />} />
             <Route path="/favoritos" element={<Favoritos token={token} datosUsuario={datosUsuario} listaProductos={productos} />} />
           </Route>
-
+          
           <Route element={<RutaProtegidaAdmin autenticado={rol.includes("admin")} />}>
             <Route path="/admin-usuarios" element={<AdminUsuario datosUsuario={datosUsuario} setDatosUsuario={setDatosUsuario} token={token} setToken={setToken} />} />
             <Route path="/admin-productos" element={<AdminProductos token={token} setProductos={setProductos} productos={productos} verProductos={verProductos} />} />
             <Route path="/editar-producto/:id" element={<EditarProducto token={token} setProductos={setProductos} productos={productos} />} />
-
           </Route>
         </Routes>
       </BrowserRouter>

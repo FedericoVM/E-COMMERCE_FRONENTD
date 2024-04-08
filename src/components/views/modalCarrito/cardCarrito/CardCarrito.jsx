@@ -1,82 +1,37 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
-import instance from "../../../../axios/instance";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { UserHook } from "../../../../context/Contexto de Usuarios/UserHook";
+import { ProductosHook } from "../../../../context/Contexto de Productos/ProductosHook";
 
-const CardCarrito = ({ producto, token, listaCarrito }) => {
+const CardCarrito = ({ producto }) => {
     const [anularBtnSumar, setAnularBtnSumar] = useState(false);
     const [anularBtnRestar, setAnularBtnRestar] = useState(false);
 
-    const eliminarCarrito = async (id) => {
-        const config = {
-            headers: {
-                authorization: `Bearer ${token}`,
-            },
-        };
+    const {actualizarCarrito, eliminarProductoDelCarrito} = UserHook()
+    const {formatPrecio} = ProductosHook()
 
-        try {
-            let resultado = await instance.delete(`/carrito/${id}`, config);
-            console.log(resultado.data.mensaje);
-            listaCarrito(token);
-        } catch (error) {
-            console.log(error);
+    const desabilitarBotones = () => {
+        if(producto.cantidad === producto.stock) {
+            setAnularBtnSumar(true)
+        } else if (producto.cantidad === 1) {
+            setAnularBtnRestar(true)
         }
-    };
+    }
 
-    const cambiarCantidad = async (e, id, cantidad) => {
-        let operacion = e.target.name;
-        let cant;
-
-
-        const config = {
-            headers: {
-                authorization: `Bearer ${token}`,
-            },
-        };
-
-
-
-
-        cant = {
-            cantidad: operacion === "sumar" ? (cantidad += 1) : (cantidad -= 1)
-        };
-
-
-
-
-        if (operacion === "sumar") {
-
-            if (cant.cantidad === producto.stock) {
-                setAnularBtnSumar(true);
-                return console.log("No puede agregar mas cantidad. LLego al limite de stock del producto");
-            } else {
-                setAnularBtnRestar(false);
-            }
+    const habilitarBotones = () => {
+        if(producto.cantidad !== producto.stock){
+            setAnularBtnSumar(false)
         } 
-        else {
-            if (cantidad === 1) {
-                setAnularBtnRestar(true);
-                return console.log("La cantidad minima es 1");
-            } else {
-                setAnularBtnSumar(false);
-            }
-
+        if (producto.cantidad !== 1) {
+            setAnularBtnRestar(false)
         }
+    }
 
-
-
-
-
-        try {
-            let resultado = await instance.put(`/carrito/${id}`, cant, config);
-            listaCarrito(token);
-            console.log(resultado.data.mensaje);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-
+    useEffect(()=> {
+        desabilitarBotones();
+        habilitarBotones()
+    },[producto])
 
     return (
         <>
@@ -85,12 +40,12 @@ const CardCarrito = ({ producto, token, listaCarrito }) => {
                 className="d-flex justify-content-start "
                 style={{ height: "10rem" }}
             >
-                <div className="flex-shrink-0 ">
+                <div className="flex-shrink-0">
                     <img src={producto.imagen} className="h-100" alt="..." />
                 </div>
                 <div className="flex-grow-1 ms-3 text-center ">
                     <span>{producto.nombre}</span>
-                    <p className="mb-1">Precio: $ {producto.precio}</p>
+                    <p className="mb-1">Precio: {formatPrecio(producto.precio * producto.cantidad)}</p>
                     <p>Cantidad : {producto.cantidad}</p>
 
                     <div className="d-flex justify-content-around align-items-center ">
@@ -102,7 +57,7 @@ const CardCarrito = ({ producto, token, listaCarrito }) => {
                                 name="restar"
                                 disabled={anularBtnRestar === true}
                                 onClick={(e) => {
-                                    cambiarCantidad(e, producto.id, producto.cantidad);
+                                    actualizarCarrito(e, producto.id, producto.cantidad, producto);
                                 }}
                             >
                                 -
@@ -115,7 +70,7 @@ const CardCarrito = ({ producto, token, listaCarrito }) => {
                                 name="sumar"
                                 disabled={anularBtnSumar === true}
                                 onClick={(e) => {
-                                    cambiarCantidad(e, producto.id, producto.cantidad);
+                                    actualizarCarrito(e, producto.id, producto.cantidad, producto);
                                 }}
                             >
                                 +
@@ -127,7 +82,7 @@ const CardCarrito = ({ producto, token, listaCarrito }) => {
                                 size="sm"
                                 className="my-2"
                                 onClick={() => {
-                                    eliminarCarrito(producto.id);
+                                    eliminarProductoDelCarrito(producto.id);
                                 }}
                             >
                                 Quitar

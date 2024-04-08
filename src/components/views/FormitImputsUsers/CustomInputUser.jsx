@@ -1,9 +1,11 @@
 import Form from "react-bootstrap/Form"
 import {useField} from "formik"
+import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 
 const CustomInputUser = ({label, ...props}) => {
 
     const [field, meta] = useField(props);
+    const {botonBloquear} = UserHook()
 
     return (
         <>
@@ -11,7 +13,8 @@ const CustomInputUser = ({label, ...props}) => {
         <Form.Control
         {...field}
         {...props}
-        className={meta.touched && meta.error? "border mb-3 border-danger border-1 shadow-lg border-opacity-75" : "mb-3"}
+        disabled={botonBloquear}
+        className={meta.touched && meta.error? "border mb-3 border-danger border-1 shadow-lg border-opacity-75" : "my-2"}
         />
         {meta.touched && meta.error && <div className="text-validation">{meta.error}</div>}
         </>

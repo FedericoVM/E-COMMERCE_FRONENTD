@@ -8,15 +8,75 @@ import "./header.css";
 import facebook from "../../../assets/img/header/react.svg";
 import twitter from "../../../assets/img/header/twitter.svg";
 import instagram from "../../../assets/img/header/instagram.svg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Registro from "../../views/Registro/Registro";
 import Login from "../../views/Login/Login";
 import ContenedorLogin from "../contenedorLogin/ContenedorLogin";
 import ModalCarrito from "../../views/modalCarrito/ModalCarrito";
+import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
+import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
+import { AdminHook } from "../../../context/Contexto de Admin/AdminHook";
+import { useEffect, useState } from "react";
+import { USUARIO_EN_LINEA } from "../../../context/Contexto de Usuarios/typesUser";
 
-const Header = ({ setEnLinea, enLinea, setToken, datosUsuario, setDatosUsuario, setRol, productosCarrito, listaCarrito, token }) => {
+const Header = ( ) => {
 
+  const [cantidadCarrito, setCantidadCarrito] = useState(null)
+  const navigate = useNavigate()
+  const {usuarioEnLinea, usuarioCarrito, tokenUser, obtenerCarritoUsuario, usuarioInfo, setTokenUser, deslogin, obtenerInfoUsuario, obtenerUsuarioFavoritos, dispatch} = UserHook()
+  const {resetCarritoYFavoritos, setBuscarProductos} = ProductosHook()
+  const {setUsuariosAdmin} = AdminHook()
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    let aBuscar = e.target.search.value
+
+    if (aBuscar.length > 3) {
+      setBuscarProductos(aBuscar)
+    } else {
+      console.log("Se necesitan mas caracteres");
+    }
+    navigate('/busqueda')
+  }
+
+  const totalProductosCarrito = (array) => {
+    let numeroDeProductos = 0;
+if(array.length > 0) {
+    array.forEach(element => {
+      numeroDeProductos += element.cantidad
+    })};
+
+    setCantidadCarrito(numeroDeProductos)
+  }
+
+  useEffect(()=> {
+    if(usuarioCarrito) {
+      totalProductosCarrito(usuarioCarrito)
+    }
+  },[usuarioCarrito])
+
+  useEffect(()=>{
+    const tokenL = localStorage.getItem("tokenUsuario");
+    if(tokenL) {
+    obtenerInfoUsuario(tokenL)
+    setTokenUser(tokenL)
+  }
+  },[])
+
+  useEffect(()=>{
+    if (usuarioInfo) {
+      if(usuarioInfo.expiracion >= Date.now()){
+        obtenerCarritoUsuario(tokenUser)
+        obtenerUsuarioFavoritos(tokenUser)
+        dispatch({ type: USUARIO_EN_LINEA, payload: true });
+        setTimeout(()=> {deslogin(resetCarritoYFavoritos, navigate, tokenUser, setUsuariosAdmin), setCantidadCarrito(null)}, usuarioInfo.expiracion - usuarioInfo.iat)
+    } else {
+      deslogin(resetCarritoYFavoritos, navigate, tokenUser, setUsuariosAdmin)
+      setCantidadCarrito(null)
+    }
+    }
+  },[tokenUser])
 
   return (
     <>
@@ -36,14 +96,15 @@ const Header = ({ setEnLinea, enLinea, setToken, datosUsuario, setDatosUsuario, 
               navbarScroll
             >
               <div className="d-lg-flex justify-content-lg-around ">
-                <Form className="search d-flex ">
+                <Form onSubmit={handleSubmit} className="search d-flex ">
                   <Form.Control
                     type="search"
                     placeholder="Buscar..."
                     className="me-2"
                     aria-label="Search"
+                    name="search"
                   />
-                  <Button variant="outline-success">Search</Button>
+                  <Button variant="outline-success" type="submit">Search</Button>
                 </Form>
                 <div className=" redes-header d-none  w-25 d-lg-flex justify-content-lg-around">
                   <Nav.Link href="https://es-la.facebook.com/" target="_blank">
@@ -72,8 +133,8 @@ const Header = ({ setEnLinea, enLinea, setToken, datosUsuario, setDatosUsuario, 
                 </div>
                 <div className=" d-lg-flex  align-self-lg-end">
                   <Nav.Link href="#action8"> Ayuda</Nav.Link>
-                  <NavLink  > <ModalCarrito productosCarrito={productosCarrito} listaCarrito={listaCarrito} token={token} /> </NavLink>
-                  {enLinea ? <div> <ContenedorLogin datosUsuario={datosUsuario} setToken={setToken} setEnLinea={setEnLinea} setDatosUsuario={setDatosUsuario} setRol={setRol} /> </div> : <div> <Login setToken={setToken} setEnLinea={setEnLinea} setDatosUsuario={setDatosUsuario} /> <Registro /> </div>}
+                  <NavLink  className="position-relative"> <ModalCarrito/> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{usuarioCarrito && usuarioCarrito.length > 0 && cantidadCarrito}</span> </NavLink>
+                  {usuarioEnLinea ? <div> <ContenedorLogin/> </div> : <div> <Login/> <Registro/> </div>}
                 </div>
                 <div className="d-lg-none border-top w-100 p-3 d-flex justify-content-center align-items-center">
                   <div className=" d-flex justify-content-around w-50">

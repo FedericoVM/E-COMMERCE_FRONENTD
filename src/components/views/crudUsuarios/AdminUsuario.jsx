@@ -1,46 +1,33 @@
 import { useState, useEffect } from "react";
-import instance from "../../../axios/instance";
 import Paginacion from "../paginacion/Paginacion";
+import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
+import { AdminHook } from "../../../context/Contexto de Admin/AdminHook";
 
-const AdminUsuario = ({ token }) => {
+const AdminUsuario = ( ) => {
+
+  const {tokenUser} = UserHook()
+  const {usuariosAdmin, mostrarUsuariosAdmin} = AdminHook()
+
   let mostrarBarra = true
   const [arrayBuscar, setArrayBuscar] = useState([]);
-  const [usuarios, setUsuarios] = useState([]);
-
-  const mostrarUsuarios = async (token_usuario) => {
-    
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token_usuario}`,
-      },
-    };
-
-    try {
-      const listaUsuarios = await instance.get("/auth", config);
-      setUsuarios(listaUsuarios.data);
-    } catch (error) {
-      console.log(error.response.data);
-    }
-  };
 
   useEffect(() => {
-    if (token != null){
-    mostrarUsuarios(token);
+    if (tokenUser != null){
+    mostrarUsuariosAdmin(tokenUser)
   }
-  }, [token]);
+  }, [tokenUser]);
 
   return (
     <div className="container">
       <div className="w-100">
+        {usuariosAdmin ?
         <Paginacion
           setArrayBuscar={setArrayBuscar}
-          lista={usuarios}
+          lista={usuariosAdmin}
           card="usuarios"
-          token={token}
           arrayBuscar={arrayBuscar}
-          mostrarUsuarios={() => mostrarUsuarios(token)}
           mostrarBarra={mostrarBarra}
-        />
+        />: "cargando..."}
       </div>
       <div className="col-12 d-flex d-block d-md-none container justify-content-center align-items-center"></div>
     </div>

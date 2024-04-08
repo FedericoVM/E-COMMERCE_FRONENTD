@@ -1,38 +1,18 @@
 import { Button, Table } from "react-bootstrap";
 import PaginacionControl from "./PaginacionControl";
-import instance from "../../../axios/instance";
+import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
+import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 
 const ListaFavoritos = ({
   paginate,
   currentPage,
   page,
   totalPosts,
-  currentPosts,
-  token,
-  verFavoritos,
-  
+  currentPosts
 }) => {
 
-
-
-  const eliminarFavoritos = async (idProducto) => {
-
-    const config = {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    };
-
-    try {
-      let resp = await instance.delete(`/favoritos/${idProducto}`, config);
-      verFavoritos(token)
-      console.log(resp.data.mensaje);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
- 
+  const {tokenUser, obtenerUsuarioFavoritos} = UserHook()
+  const {formatPrecio, eliminarDeFavoritos} = ProductosHook()
 
   return (
     <>
@@ -72,13 +52,13 @@ const ListaFavoritos = ({
                     {product.stock}
                   </td>
                   <td className="col-2 text-center td-favoritos">
-                    $ {product.precio}
+                    {formatPrecio(product.precio)}
                   </td>
                   <td className="col-1 text-center td-favoritos">
                     <Button
                       variant="danger"
                       onClick={() => {
-                        eliminarFavoritos(product._id);
+                        eliminarDeFavoritos(product._id, tokenUser,obtenerUsuarioFavoritos);
                       }}
                     >
                       {" "}

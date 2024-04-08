@@ -1,5 +1,5 @@
 
-div {
+.div-recuperar-contrasenia {
     width: 100%;
    
     display: flex;
@@ -8,10 +8,10 @@ div {
 
 }
 
-.contenedor-form {
+.contenedor-form-recuperar-contrasenia {
     width: 30%;
     height: 80%;
-    border: 1px solid black;
+    border: 1px solid rgba(108, 164, 228, 0.459);
     border-radius: 15px;
     padding: 1rem;
     display: flex;
@@ -20,7 +20,7 @@ div {
     align-items: center;
 }
 
-form {
+.form-cambiar-contrasenia {
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -28,21 +28,12 @@ form {
     align-items: center;
 }
 
-h3 {
-    text-align: center;
-}
-
 .input_email {
     width: 90%;
     padding: 0.5rem;
 }
 
-button {
-    margin-top: 1rem;
-}
-
 button.btn-recup {
-    width: 70%;
     padding: 6px;
 }
 
@@ -54,12 +45,12 @@ button.btn-volver {
 
 @media (max-width:654px) {
 
-    .contenedor-form {
+    .contenedor-form-recuperar-contrasenia {
         width: 80%;
         height: 70%;
     }
 
-    form {
+    .form-cambiar-contrasenia {
         width: 100%;
         background-color: azure;
     }

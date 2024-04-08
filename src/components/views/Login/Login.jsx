@@ -1,68 +1,83 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import instance from "../../../axios/instance";
-import jwt_decode from "jwt-decode";
+import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
+import {USUARIO_EN_LINEA} from "../../../context/Contexto de Usuarios/typesUser";
 
-const Login = ({ setEnLinea, setToken, setDatosUsuario }) => {
+const Login = ( ) => {
   const valuesM = ["lg-down"];
-  const [fullscreen, setFullscreen] = useState(true);
-  const [show, setShow] = useState(false);
-  const [errorValidacion, setErrorValidacion] = useState(true)
-  const [errorMensaje, setErrorMensaje] = useState("")
+  const [errorValidacion, setErrorValidacion] = useState(true);
+  const [errorMensaje, setErrorMensaje] = useState(null);
 
-  function handleShow(breakpoint) {
-    setFullscreen(breakpoint);
-    setShow(true);
+  const navigate = useNavigate()
+
+  const resetErrorMensaje = () =>{
+  setShowLogin(false);
+  setErrorValidacion(true)
+  setErrorMensaje(null)
   }
+
+  const {
+    dispatch,
+    setTokenUser,
+    obtenerInfoUsuario,
+    obtenerCarritoUsuario,
+    obtenerUsuarioFavoritos,
+    showLogin,
+    setShowLogin,
+    setShowRegistro,
+    fullScreenLogin,
+    setFullScreenLogin,
+    setFullScreenRegistro,
+    handleShowModal,
+    botonBloquear,
+    setBotonBloquear
+  } = UserHook();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    setBotonBloquear(true)
+
     let email = e.target.email.value;
     let password = e.target.password.value;
-   
+
     const usuario = {
       email,
       password,
     };
 
     try {
-      const respuesta = await instance.post("/usuario/login", usuario);
+      const respuesta = await instance.post("usuario/login", usuario);
       const token_usuario = respuesta.data.token;
       localStorage.setItem("tokenUsuario", token_usuario);
-      setToken(token_usuario);
-      setShow(false);
-      setEnLinea(true);
-      mostrarUsuario(token_usuario);
+      obtenerCarritoUsuario(token_usuario);
+      obtenerUsuarioFavoritos(token_usuario)
+      setTokenUser(token_usuario);
+      setShowLogin(false);
+      dispatch({ type: USUARIO_EN_LINEA, payload: true });
+      obtenerInfoUsuario(token_usuario);
+      setBotonBloquear(false)
+      navigate('/')
     } catch (error) {
-      setErrorValidacion(false)
-      return setErrorMensaje(error.response.data.mensaje)
-    }
-  };
-
-  const mostrarUsuario = async (token_usuario) => {
-    try {
-      const decodificado = await jwt_decode(token_usuario);
-      setDatosUsuario(decodificado);
-    } catch (error) {
+      setErrorValidacion(false);
+      setBotonBloquear(false)
       console.log(error);
+      return setErrorMensaje(error.response.data.mensaje);
     }
   };
-
-  useEffect(() => 
-  setErrorValidacion(true),
-  [show])
 
   return (
     <>
       {valuesM.map((v, idx) => (
-        <Button key={idx} className="me-2 mb-2" onClick={() => handleShow(v)}>
+        <Button key={idx} className="me-2 mb-2" onClick={() => handleShowModal(v, setFullScreenLogin, setShowLogin)}>
           Login
         </Button>
       ))}
-      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+      <Modal show={showLogin} fullscreen={fullScreenLogin} onHide={() => resetErrorMensaje()}>
         <Modal.Header
           closeButton
           className="modalHeader d-flex align-items-center"
@@ -74,37 +89,39 @@ const Login = ({ setEnLinea, setToken, setDatosUsuario }) => {
         <Modal.Body>
           <h4 className="text-center ">Bienvenido/a</h4>
           <div>
-              <Form onSubmit={handleSubmit} >
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>E-mail</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                  />
-                </Form.Group>
-                {!errorValidacion && <p className="text-validation">{errorMensaje}</p>}
-                <Button
-                  className="w-100 text-center"
-                  variant="primary"
-                  type="submit"
-                >
-                  Iniciar Sesión
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>E-mail</Form.Label>
+                <Form.Control type="email" name="email" disabled={botonBloquear} />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control disabled={botonBloquear} type="password" name="password" />
+              </Form.Group>
+              {!errorValidacion && (
+                <p className="text-validation">{errorMensaje}</p>
+              )}
+              <Button
+                className="w-100 text-center"
+                variant="primary"
+                type="submit"
+                disabled={botonBloquear}
+              >
+                Iniciar Sesión
+              </Button>
+              <Form.Group className="my-3">
+                No tienes cuenta?
+                <Button disabled={botonBloquear} onClick={() => {setShowLogin(false); handleShowModal(valuesM[0], setFullScreenRegistro, setShowRegistro)}} className="link-form ms-2 text-white">
+                  Registrate
                 </Button>
-                <Form.Group className="my-1" controlId="formBasicPassword">
-                  No tienes cuenta?
-                  <Link to="/login" className="link-form ms-2  ">
-                    Registrarse
-                  </Link>
-                  <p></p>
-                </Form.Group>
-              </Form>
+              </Form.Group>
+            </Form>
+            <Form.Group className="my-3">
+                Olvidaste la contrasenia?
+                <Button disabled={botonBloquear} onClick={() => {setShowLogin(false); navigate('recuperar-contrasenia')}} className="link-form ms-2 text-white">
+                  Recuperar Contrasenia
+                </Button>
+              </Form.Group> 
           </div>
         </Modal.Body>
       </Modal>

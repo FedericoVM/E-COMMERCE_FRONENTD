@@ -1,18 +1,12 @@
-import { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Navigate, Outlet} from 'react-router-dom'
 
 const RutaProtegidaAdmin = ({ autenticado, children }) => {
-
-  const use_navigate = useNavigate()
-  const localUser = localStorage.getItem("tokenUsuario")
   
-  if (autenticado || localUser) {
+  if (autenticado) {
     return children ? children : <Outlet />
+  } else {
+    return <Navigate to='/'/>
   }
-
-  useEffect(() => {
-      use_navigate("/")
-  }, [])
 }
 
 export default RutaProtegidaAdmin

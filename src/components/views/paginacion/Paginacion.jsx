@@ -2,30 +2,25 @@ import React, { useState } from "react";
 import ContenedorArray from "./ContenedorArray";
 import { Button } from "react-bootstrap";
 
-const Paginacion = ({ lista, card, token, setProductos, setArrayBuscar, arrayBuscar, mostrarUsuarios, mostrarBarra,verFavoritos,listaCarrito }) => {
-
+const Paginacion = ({ lista ,card, setArrayBuscar, arrayBuscar, mostrarBarra }) => {
+    
     const [page, setPage] = useState(15);
     const [currentPage, setCurrentPage] = useState(1);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
 
     function numerosProductos(array, currentP, numero) {
 
         const indexOfLastPost = currentP * (page - numero);
         const indexOfFirstPost = indexOfLastPost - (page - numero);
         const currentPosts = array.slice(indexOfFirstPost, indexOfLastPost)
-
         return currentPosts
-
     }
-
 
     const buscarUsuario = (e) => {
 
         e.preventDefault();
 
         let buscar = e.target.buscar.value;
-
 
         let usuarioEncontrado = lista.filter((usuario) => {
             if (usuario.apellido) {
@@ -80,8 +75,7 @@ const Paginacion = ({ lista, card, token, setProductos, setArrayBuscar, arrayBus
                     </div>
                 </form>
             </div> : ""}
-
-            <ContenedorArray card={card} paginate={paginate} page={page} currentPage={currentPage} totalPosts={lista.length} currentPosts={webProductos} currentPostsMd={tabletProductos} currentPostsSm={mobileProductos} token={token} setProductos={setProductos} arrayBuscar={arrayBuscar} mostrarUsuarios={mostrarUsuarios} verFavoritos={verFavoritos} listaCarrito={listaCarrito}/>
+            <ContenedorArray card={card} paginate={paginate} page={page} currentPage={currentPage} totalPosts={lista.length} currentPosts={webProductos} currentPostsMd={tabletProductos} currentPostsSm={mobileProductos} arrayBuscar={arrayBuscar}/>
         </>
 
 

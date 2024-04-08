@@ -1,68 +1,19 @@
-import React, { useEffect } from 'react'
 import { Button, Table } from 'react-bootstrap';
 import PaginacionControl from './PaginacionControl';
-import instanceFormData from '../../../axios/instanceFormData';
+import { UserHook } from '../../../context/Contexto de Usuarios/UserHook';
+import { AdminHook } from '../../../context/Contexto de Admin/AdminHook';
 
-const ListaUsuarios = ({ paginate, currentPage, page, totalPosts, token, currentPosts, arrayBuscar, mostrarUsuarios }) => {
+const ListaUsuarios = ({ paginate, currentPage, page, totalPosts, currentPosts, arrayBuscar }) => {
 
-    let role;
-
-    const cambiarRol = async (rol, usuarioId) => {
-
-        if (rol === "usuario") {
-            role = "admin"
-        } else {
-            role = "usuario"
-        }
-
-        const config = {
-            headers: {
-                "authorization": `Bearer ${token}`
-            }
-        }
-
-        const formData = new FormData();
-
-        formData.append('role', role);
-
-        try {
-
-            const resp = await instanceFormData.put(`/auth/${usuarioId}`, formData, config);
-            console.log("Se cambio el rol ");
-            mostrarUsuarios(token)
-        } catch (error) {
-            return console.log(error);
-        }
-
-    }
-
-
-    const borrarUsuario = async (id_usuario) => {
-        const config = {
-            headers: {
-                authorization: `Bearer ${token}`,
-            },
-        };
-
-        try {
-            const resp = await instance.delete(`/auth/${id_usuario}`, config);
-            console.log(resp.data.mensaje);
-            mostrarUsuarios(token)
-        } catch (error) {
-            console.log(error.response.data);
-        }
-    };
-
-
-
+    const {tokenUser} = UserHook()
+    const {mostrarUsuariosAdmin, cambiarRolUser, eliminarUsuario} = AdminHook()
 
     return (
         <>
             <div className="d-flex flex-column w-100">
                 <Table striped bordered hover>
                     <thead>
-                        <tr>
-                            <th>id</th>
+                        <tr className='text-center'>
                             <th>Nombre y Apellido</th>
                             <th>Email</th>
                             <th>Rol</th>
@@ -74,31 +25,28 @@ const ListaUsuarios = ({ paginate, currentPage, page, totalPosts, token, current
                     <tbody>
                         {arrayBuscar.length == 0
                             ? currentPosts.map((usuario, index) => (
-                                <tr key={index}>
-                                    <td className="col-4 text-center td-favoritos">
-                                        {usuario._id}
-                                    </td>
-                                    <td className="col-2 text-center td-favoritos">
+                                <tr key={index} className='text-center'>
+                                    <td className="col-4 td-favoritos">
                                         {usuario.nombre} {usuario.apellido}
                                     </td>
-                                    <td className="col-4 text-center td-favoritos">
+                                    <td className="col-4 td-favoritos">
                                         {usuario.email}
                                     </td>
-                                    <td className="col-3 text-center td-favoritos">
+                                    <td className="col-2 td-favoritos">
                                         {usuario.role}
                                     </td>
-                                    <td className="col-2 text-center td-favoritos">
+                                    <td className="col-2 td-favoritos">
                                         {usuario.active ? "Activo" : "Inactivo"}
                                     </td>
 
-                                    <td className="col-1 text-center td-favoritos">
-                                        <Button onClick={() => { cambiarRol(usuario.role, usuario._id) }}> {usuario.role === "admin" ? "Desactivar" : "Activar"} </Button>
+                                    <td className="col-1 td-favoritos">
+                                        <Button onClick={() => {cambiarRolUser(usuario.role, usuario._id, tokenUser, mostrarUsuariosAdmin)}}> {usuario.role === "admin" ? "Desactivar" : "Activar"} </Button>
                                     </td>
 
-                                    <td className="col-1 text-center td-favoritos">
+                                    <td className="col-1 td-favoritos">
                                         <Button
                                             onClick={() => {
-                                                borrarUsuario(usuario._id);
+                                                eliminarUsuario(usuario._id, tokenUser, mostrarUsuariosAdmin)
                                             }}
                                             variant="danger"
                                         >
@@ -110,27 +58,24 @@ const ListaUsuarios = ({ paginate, currentPage, page, totalPosts, token, current
                             : arrayBuscar.map((usuario, index) => (
                                 <tr key={index}>
                                     <td className="col-4 text-center td-favoritos">
-                                        {usuario._id}
-                                    </td>
-                                    <td className="col-2 text-center td-favoritos">
                                         {usuario.nombre} {usuario.apellido}
                                     </td>
                                     <td className="col-4 text-center td-favoritos">
                                         {usuario.email}
                                     </td>
-                                    <td className="col-3 text-center td-favoritos">
+                                    <td className="col-2 text-center td-favoritos">
                                         {usuario.role}
                                     </td>
                                     <td className="col-2 text-center td-favoritos">
                                         {usuario.active ? "Activo" : "Inactivo"}
                                     </td>
                                     <td className="col-1 text-center td-favoritos">
-                                        <Button onClick={() => { cambiarRol(usuario.role, usuario._id) }}> {usuario.role === "admin" ? "Desactivar" : "Activar"} </Button>
+                                        <Button onClick={() => {cambiarRolUser(usuario.role, usuario._id, tokenUser, mostrarUsuariosAdmin)}}> {usuario.role === "admin" ? "Desactivar" : "Activar"} </Button>
                                     </td>
                                     <td className="col-1 text-center td-favoritos">
                                         <Button
                                             onClick={() => {
-                                                borrarUsuario(usuario._id);
+                                                eliminarUsuario(usuario._id, tokenUser, mostrarUsuariosAdmin)
                                             }}
                                             variant="danger"
                                         >

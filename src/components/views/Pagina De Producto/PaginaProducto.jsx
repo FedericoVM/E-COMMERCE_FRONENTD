@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductoNoEncontrado from "./ProductoNoEncontrado";
 import ContenidoPaginaProducto from "./ContenidoPaginaProducto";
+import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 
-const PaginaProducto = ({productos}) =>{
+const PaginaProducto = ( ) =>{
     const [productoAMostrar, setProductoAMostrar] = useState("");
+
+    const {productosHome} = ProductosHook()
 
     const {id} = useParams()
 
@@ -16,8 +19,8 @@ const PaginaProducto = ({productos}) =>{
     }
     
     useEffect(()=>{
-        encontrarProducto(id, productos)
-    }, [productos])
+        encontrarProducto(id, productosHome)
+    }, [productosHome])
 
     return (
         <div>

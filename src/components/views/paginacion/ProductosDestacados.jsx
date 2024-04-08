@@ -1,18 +1,15 @@
-import { Button, Card, Col, Row } from 'react-bootstrap';
-import { BsSuitHeartFill } from "react-icons/bs";
-import { MdShoppingCart } from "react-icons/md";
+import { Col, Row } from 'react-bootstrap';
 import PaginacionControl from '../paginacion/PaginacionControl';
-import ProductCard from '../home/productCard/ProductCard';
+import DestacadoCards from '../Destacados/DestacadoCards';
 
-const ProductosDestacados = ({ paginate, currentPage, page, totalPosts, currentPosts,token,listaCarrito }) => {
+const ProductosDestacados = ({ paginate, currentPage, page, totalPosts, currentPosts }) => {
   return (
     <>
       <Row className="g-4">
-        {currentPosts.map((p, idx) => (
-          <Col xs={12} sm={6} md={4} lg={3} key={idx}>
-            <ProductCard p={p} token={token} listaCarrito={listaCarrito} />
-          </Col>
-        ))}
+        {currentPosts.length > 0 ? currentPosts.map((post, idx) =>
+         <Col xs={12} sm={6} md={4} key={idx}>
+        <DestacadoCards post={post}/>
+        </Col>): "cargando"}
         <div className="d-flex justify-content-center align-items-center">
           <PaginacionControl
             postsPerPage={page}

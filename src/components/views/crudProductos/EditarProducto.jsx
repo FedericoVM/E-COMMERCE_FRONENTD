@@ -3,8 +3,13 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import instanceFormData from "../../../axios/instanceFormData";
 import FormikComponente from "../Formik Componente/FormikComponenteProductos";
+import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
+import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 
-const EditarProducto = ({ productos, token,setProductos }) => {
+const EditarProducto = ( ) => {
+
+  const {tokenUser, setBotonBloquear} = UserHook()
+  const {productosHome, obtenerProductos} = ProductosHook()
 
   const [productoEdit, setProductoEdit] = useState(null);
   const { id } = useParams();
@@ -12,7 +17,7 @@ const EditarProducto = ({ productos, token,setProductos }) => {
   const navigate = useNavigate();
 
   if (productoEdit === null) {
-    const productoFind = productos.find(producto => {
+    const productoFind = productosHome.find(producto => {
       return producto.codigo === id
     })
     
@@ -22,11 +27,13 @@ const EditarProducto = ({ productos, token,setProductos }) => {
 
   }
 
-  const editarProducto = async (values, actions) => {
+  const editarProducto = async (values) => {
+
+    setBotonBloquear(true)
 
     const config = {
       headers: {
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${tokenUser}`
       }
     }
 
@@ -47,9 +54,11 @@ const EditarProducto = ({ productos, token,setProductos }) => {
     
     try {
       const resp = await instanceFormData.put(`/productos/${productoEdit._id}`,formData,config)
-      /*verProductos()*/
+      obtenerProductos()
+      setBotonBloquear(false)
       navigate('/admin-productos')
     } catch (error) {
+      setBotonBloquear(false)
       console.log(error.response.data)
     }
   }

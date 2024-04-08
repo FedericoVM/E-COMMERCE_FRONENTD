@@ -1,12 +1,16 @@
 import instanceFormData from "../../../axios/instanceFormData";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Paginacion from "../paginacion/Paginacion";
 import FormikComponente from "../Formik Componente/FormikComponenteProductos";
-import { useNavigate } from "react-router-dom";
+import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
+import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 
-const AdminProductos = ({ productos, token, setProductos, verProductos }) => {
+const AdminProductos = ( ) => {
 
   const [errorImagen, setErrorImagen] = useState(false)
+
+  const {tokenUser, setBotonBloquear} = UserHook()
+  const {productosHome, obtenerProductos} = ProductosHook()
 
   let mostrarBarra = true;
 
@@ -14,15 +18,19 @@ const AdminProductos = ({ productos, token, setProductos, verProductos }) => {
 
   const crearProducto = async (values, actions) => {
 
+    setBotonBloquear(true)
+
     if(!values.imagenProducto){
+      setBotonBloquear(false)
        return setErrorImagen(true)
     } else {
+      setBotonBloquear(false)
       setErrorImagen(false)
     }
     
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${tokenUser}`,
       },
     };
 
@@ -45,17 +53,15 @@ const AdminProductos = ({ productos, token, setProductos, verProductos }) => {
 
     try {
       const resp = await instanceFormData.post("/productos", formData, config);
-      verProductos();
+      obtenerProductos();
       console.log(resp.data.msg);
+      setBotonBloquear(false)
       actions.resetForm()
     } catch (error) {
+      setBotonBloquear(false)
       console.log(error.response.data.msg);
     }
   };
-
-  useEffect(() => {
-    verProductos();
-  }, []);
 
   return (
     <div className="container d-flex flex-column">
@@ -63,12 +69,10 @@ const AdminProductos = ({ productos, token, setProductos, verProductos }) => {
       <hr/>
         <FormikComponente errorImagen={errorImagen} setErrorImagen={setErrorImagen} onSubmit={crearProducto}/>
       <hr />
-        {productos.length > 0 ? (
+        {productosHome.length > 0 ? (
           <Paginacion
-            lista={productos}
+            lista={productosHome}
             card="listaProductosAdmin"
-            token={token}
-            setProductos={setProductos}
             setArrayBuscar={setArrayBuscar}
             arrayBuscar={arrayBuscar}
             mostrarBarra={mostrarBarra}

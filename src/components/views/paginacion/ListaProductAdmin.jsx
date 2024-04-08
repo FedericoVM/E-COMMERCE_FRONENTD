@@ -3,29 +3,25 @@ import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PaginacionControl from './PaginacionControl';
 import instance from '../../../axios/instance';
+import { UserHook } from '../../../context/Contexto de Usuarios/UserHook';
+import { ProductosHook } from '../../../context/Contexto de Productos/ProductosHook';
 
-const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, page, token, setProductos, arrayBuscar }) => {
+const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, page, arrayBuscar }) => {
 
-    const verProductos = async () => {
-        try {
-            const respuesta = await instance.get("/productos")
-            setProductos(respuesta.data)
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    const {tokenUser} = UserHook()
+    const {obtenerProductos, formatPrecio} = ProductosHook()
 
     const eliminarProducto = async (codigo) => {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${tokenUser}`,
             },
         };
 
         try {
             const resp = await instance.delete(`/productos/${codigo}`, config);
             console.log(resp.data.msg)
-            verProductos()
+            obtenerProductos()
         } catch (error) {
             console.log(error);
         }
@@ -51,7 +47,7 @@ const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, pa
                         <tr key={index}>
                             <td>{producto.codigo}</td>
                             <td>{producto.nombre}</td>
-                            <td>{producto.precio}</td>
+                            <td>{formatPrecio(producto.precio)}</td>
                             <td>{producto.categoria}</td>
                             <td>{producto.marca}</td>
                             <td>{producto.stock}</td>
@@ -80,7 +76,7 @@ const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, pa
                             <tr key={index}>
                                 <td>{producto.codigo}</td>
                                 <td>{producto.nombre}</td>
-                                <td>{producto.precio}</td>
+                                <td>{formatPrecio(producto.precio)}</td>
                                 <td>{producto.categoria}</td>
                                 <td>{producto.marca}</td>
                                 <td>{producto.stock}</td>

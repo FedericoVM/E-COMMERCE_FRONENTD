@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import ControlAdmin from '../controlAdmin/ControlAdmin'
 import ControlUsuario from '../controlUsuario/ControlUsuario'
+import { UserHook } from '../../../context/Contexto de Usuarios/UserHook'
 
+const ContenedorLogin = ( ) => {
 
-
-const ContenedorLogin = ({datosUsuario,setToken,setEnLinea,setDatosUsuario,setRol}) => {
+  const {usuarioRol} = UserHook()
 
   return (
     
     <div className='d-flex'> 
     {
-    datosUsuario.role === "admin" ? <ControlAdmin usuario = {datosUsuario} setToken={setToken} setEnLinea={ setEnLinea} setDatosUsuario={setDatosUsuario} setRol = {setRol} /> : <ControlUsuario  usuario = {datosUsuario} setToken={setToken} setEnLinea={ setEnLinea} setDatosUsuario={setDatosUsuario} setRol = {setRol}/>
+    usuarioRol === "admin" ? <ControlAdmin/> : <ControlUsuario/>
     }
     </div>
   )

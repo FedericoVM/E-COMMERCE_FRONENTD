@@ -8,10 +8,13 @@ import CustomInputPrecio from "../FormikImputsProductos/CustomInputPrecio";
 import CustomCodigoUnico from "../FormikImputsProductos/CustomInputCodigoUnico";
 import ImagenPreview from "../crudProductos/ImagenPreview";
 import CustomImputTexarea from "../FormikImputsProductos/CustomInputTextarea";
+import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 
 const FormikComponente = ({onSubmit, productoEdit, errorImagen, setErrorImagen}) => {
   
   const imagenRef = useRef(null);
+
+  const {botonBloquear} = UserHook()
 
     const [productoDestacado, setProductoDestacado] = useState(()=> {
       if(productoEdit){
@@ -118,6 +121,7 @@ useEffect(()=>{
                     ref={imagenRef}
                     type="file"
                     hidden
+                    disabled={botonBloquear}
                     onChange={(e) => {
                       setFieldValue("imagenProducto", e.target.files[0]);
                       errorImagen && setErrorImagen(false)
@@ -127,6 +131,7 @@ useEffect(()=>{
                   <Button
                   variant="outline-success"
                     type="button"
+                    disabled={botonBloquear}
                     onClick={() => {
                       imagenRef.current.click();
                     }}

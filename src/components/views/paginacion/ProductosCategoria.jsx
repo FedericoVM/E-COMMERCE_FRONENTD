@@ -1,10 +1,9 @@
 import React from 'react'
-import ProductosCard from '../home/productCard/ProductCard'
 import { Col, Row } from 'react-bootstrap'
 import PaginacionControl from './PaginacionControl'
 import ProductCard from '../home/productCard/ProductCard'
 
-const ProductosCategoria = ({ currentPosts, paginate, currentPage, totalPosts, page,token,listaCarrito }) => {
+const ProductosCategoria = ({ currentPosts, paginate, currentPage, totalPosts, page}) => {
 
     return (
         <>
@@ -12,7 +11,7 @@ const ProductosCategoria = ({ currentPosts, paginate, currentPage, totalPosts, p
                 <Row lg={5} className="">
                     {currentPosts.map((p, index) => (
                         <Col key={index}>
-                            <ProductCard p={p} token={token} listaCarrito={listaCarrito}/>
+                            <ProductCard p={p}/>
                         </Col>))}
                 </Row>
                 <PaginacionControl postsPerPage={page} totalPosts={totalPosts} currentPage={currentPage} paginate={paginate} />
@@ -21,7 +20,7 @@ const ProductosCategoria = ({ currentPosts, paginate, currentPage, totalPosts, p
                 <Row md={3}>
                     {currentPosts.map((p, index) => (
                         <Col key={index}>
-                            <ProductCard p={p} token={token} listaCarrito={listaCarrito} />
+                            <ProductCard p={p}/>
                         </Col>
                     ))}
                 </Row>
@@ -31,7 +30,7 @@ const ProductosCategoria = ({ currentPosts, paginate, currentPage, totalPosts, p
                 <Row xs={2} className="">
                     {currentPosts.map((p, index) => (
                         <Col key={index}>
-                            <ProductCard p={p} token={token} listaCarrito={listaCarrito}/>
+                            <ProductCard p={p}/>
                         </Col>))}
                 </Row>
                 <PaginacionControl postsPerPage={page} totalPosts={totalPosts} currentPage={currentPage} paginate={paginate} />

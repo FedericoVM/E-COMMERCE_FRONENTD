@@ -1,58 +1,22 @@
-import { useState, useEffect } from "react";
-import instance from "../../../axios/instance";
+import { useEffect } from "react";
 import Paginacion from "../paginacion/Paginacion";
+import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
+import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 
-const Favoritos = ({ token, listaProductos, datosUsuario }) => {
+const Favoritos = ( ) => {
 
-  const [favoritos, setFavoritos] = useState([]);
-  const [listaFavoritos, setListaFavoritos] = useState([])
-
-  const filtrarFavoritos = (array1, array2) => {
-
-    let resultado = [];
-
-    if (array2.length > 0) {
-      array1.forEach(p => {
-        array2.find((favorito) => {
-          if (p._id === favorito.productos) {
-            resultado.push(p)
-          }
-
-        })
-      })
-      setListaFavoritos(resultado)
-    }
-  }
-
-  const verFavoritos = async (token) => {
-
-    const config = {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    }
-
-    try {
-      const resp = await instance.get("/favoritos", config);
-      setFavoritos(resp.data);
-    } catch (error) {
-      return console.log(error);
-    }
-  }
+  const {usuarioFavoritos} = UserHook()
+  const {productosHome, filtrarFavoritosAMostrarProducto, productosFavoritosAMostrar} = ProductosHook()
 
   useEffect(() => {
-if (token != null){
-    verFavoritos(token);
-}
-  }, [token])
-
-  useEffect(() => {
-    filtrarFavoritos(listaProductos, favoritos)
-  }, [favoritos])
+    if (usuarioFavoritos){
+    filtrarFavoritosAMostrarProducto(productosHome, usuarioFavoritos)
+  }
+  }, [usuarioFavoritos])
 
   return (
     <div className="">
-      {favoritos.length > 0 ? <Paginacion lista={listaFavoritos} card="favoritos" token={token} verFavoritos={verFavoritos} datosUsuario={datosUsuario} /> : <p>NO hay productos agregados al favorito</p>}
+      {productosFavoritosAMostrar ? <Paginacion lista={productosFavoritosAMostrar} card="favoritos"/> : <p>NO hay productos agregados al favorito</p>}
     </div>
   );
 };

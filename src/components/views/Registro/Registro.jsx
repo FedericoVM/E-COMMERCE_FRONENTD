@@ -1,37 +1,50 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import InstanceFormData from "../../../axios/instanceFormData";
 import FormikComponenteUsuario from "../Formik Componente/FormikComponenteUsuario";
+import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
+import { Link, useNavigate } from "react-router-dom";
 
 const Registro = () => {
   const valuesModal = ["lg-down"];
   const [passwordRequerida, setPasswordRequerida] = useState(false);
-  const [confirmarPasswordRequerida, setConfirmarPasswordRequerida] = useState(false)
-  const [fullscreen, setFullscreen] = useState(true);
-  const [show, setShow] = useState(false);
-  const inputRef = useRef(null);
+  const [confirmarPasswordRequerida, setConfirmarPasswordRequerida] =
+    useState(false);
 
-  function handleShow(breakpoint) {
-    setFullscreen(breakpoint);
-    setShow(true);
-  }
+    const navigate = useNavigate()
+
+  const {
+    showRegistro,
+    setShowRegistro,
+    fullscreenRegistro,
+    setFullScreenRegistro,
+    setFullScreenLogin,
+    setShowLogin,
+    handleShowModal,
+    setBotonBloquear
+  } = UserHook();
 
   const onSubmit = async (values, actions) => {
   
+    setBotonBloquear(true)
+
     if (!values.password) {
+      setBotonBloquear(false)
       return setPasswordRequerida(true);
     } else {
-      setPasswordRequerida(false)
+      setBotonBloquear(false)
+      setPasswordRequerida(false);
     }
 
     if (!values.confirmarPassword) {
+      setBotonBloquear(false)
       return setConfirmarPasswordRequerida(true);
     } else {
-      setConfirmarPasswordRequerida(false)
+      setBotonBloquear(false)
+      setConfirmarPasswordRequerida(false);
     }
 
-    return console.log(values);
     const nombre = values.nombre;
     const apellido = values.apellido;
     const edad = values.edad;
@@ -55,32 +68,47 @@ const Registro = () => {
       );
       console.log(respuesta.data.msj);
       actions.resetForm();
-      setShow(false);
+      setShowRegistro(false);
+      setBotonBloquear(false)
+      navigate('/')
     } catch (error) {
+      setBotonBloquear(false)
       console.log(error.response.data.msj);
     }
   };
 
-useEffect(()=> {
-  if (confirmarPasswordRequerida === true) {
-    setTimeout(()=> {setConfirmarPasswordRequerida(false)},3000)
-  }
-},[confirmarPasswordRequerida])
+  useEffect(() => {
+    if (confirmarPasswordRequerida === true) {
+      setTimeout(() => {
+        setConfirmarPasswordRequerida(false);
+      }, 3000);
+    }
+  }, [confirmarPasswordRequerida]);
 
-useEffect(()=> {
-  if (passwordRequerida === true) {
-    setTimeout(()=> {setPasswordRequerida(false)},3000)
-  }
-},[passwordRequerida])
+  useEffect(() => {
+    if (passwordRequerida === true) {
+      setTimeout(() => {
+        setPasswordRequerida(false);
+      }, 3000);
+    }
+  }, [passwordRequerida]);
 
   return (
     <>
       {valuesModal.map((v, idx) => (
-        <Button key={idx} className="me-2 mb-2" onClick={() => handleShow(v)}>
+        <Button
+          key={idx}
+          className="me-2 mb-1"
+          onClick={() => handleShowModal(v, setFullScreenRegistro, setShowRegistro)}
+        >
           Registrarse
         </Button>
       ))}
-      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+      <Modal
+        show={showRegistro}
+        fullscreen={fullscreenRegistro}
+        onHide={() => setShowRegistro(false)}
+      >
         <Modal.Header className="modal-header" closeButton>
           <Modal.Title className="text-white">Rolling Store</Modal.Title>
         </Modal.Header>
@@ -94,6 +122,9 @@ useEffect(()=> {
               confirmarPasswordRequerida={confirmarPasswordRequerida}
               setConfirmarPasswordRequerida={setConfirmarPasswordRequerida}
             />
+          </div>
+          <div className="d-flex flex-row col-10 justify-content-start mt-3">
+            <p>Si ya tienes una cuenta <Link className="" onClick={()=> {setShowRegistro(false), handleShowModal(valuesModal[0], setFullScreenLogin, setShowLogin)}}>Inicia Sesion</Link></p>
           </div>
         </Modal.Body>
       </Modal>

@@ -1,23 +1,55 @@
 import React from 'react'
 import { Button, Form } from 'react-bootstrap'
 import './recupContrasenia.css'
+import { regexEmail } from '../../../RegExp/relugarExp'
+import instance from '../../../axios/instance'
+import { UserHook } from '../../../context/Contexto de Usuarios/UserHook'
 
 const RecupContrasenia = () => {
+
+    const {botonBloquear, setBotonBloquear} = UserHook()
+
+    const handleRecuperarContrasenia = async(e) => {
+        e.preventDefault()
+
+        setBotonBloquear(true)
+
+        let email = e.target.email.value
+
+        if(!regexEmail.test(email)){
+            setBotonBloquear(false)
+           return console.log("tiene que ingresar un email valido");
+        }
+
+        let emailAEnviar = {
+            email: email
+        }
+
+        try {
+            const enviarLink = await instance.post("/usuario/recuperar-contrasenia", emailAEnviar)
+            console.log(enviarLink.data.mensaje);
+            setBotonBloquear(false)
+        } catch (error) {
+            setBotonBloquear(false)
+            console.log(error.response.data.mensaje);
+        }
+    }
+
     return (
-        <div >
+        <div className='div-recuperar-contrasenia'>
             <h1>Rolling Store</h1>
-            <div className='contenedor-form'>
-                <h3>¿Te olvidaste tu contraseña?</h3>
+            <div className='contenedor-form-recuperar-contrasenia'>
+                <h3 className='text-center'>¿Te olvidaste tu contraseña?</h3>
                 <p>¡No te preocupes! Ingresa el email de tu cuenta y te enviaremos un correo para continuar con el proceso</p>
-                <Form className='form '>
-                        <Form.Control className='input_email' type="email" placeholder="Ingrese el email" />
-                    <Button className='btn-recup' variant="primary" type="submit" size="lg">
+                <Form className='form-cambiar-contrasenia' onSubmit={handleRecuperarContrasenia}>
+                        <Form.Control className='input_email' disabled={botonBloquear} name='email' type="email" placeholder="Ingrese el email" />
+                    <Button className='btn-recup mt-1' disabled={botonBloquear} variant="primary" type="submit" size="lg">
                         Recuperar contraseña
                     </Button>
-                    <Button className='btn-volver' variant="primary" type="submit" size="sm">
+                </Form>
+                <Button className='btn-volver mt-1' disabled={botonBloquear} variant="primary" type="submit" size="sm">
                         Volver
                     </Button>
-                </Form>
             </div>
         </div>
     )

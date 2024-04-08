@@ -1,53 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
-import { BsSuitHeartFill } from "react-icons/bs";
+import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import "./productCard.css";
-import instance from "../../../../axios/instance";
+import { UserHook } from "../../../../context/Contexto de Usuarios/UserHook";
+import { ProductosHook } from "../../../../context/Contexto de Productos/ProductosHook";
 
-const ProductCard = ({ p,token,listaCarrito}) => {
+const ProductCard = ({ p }) => {
 
-  const agregarFavorito = async (productiId) => {
-    const config = {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    }
+  const [favoritoExistente, setFavoritoExistente] = useState(false)
+  
+  const { obtenerUsuarioFavoritos, tokenUser, obtenerCarritoUsuario, usuarioEnLinea, usuarioFavoritos } =
+    UserHook();
+  const { formatPrecio, agregarAlCarrito, agregarAFavoritos, eliminarDeFavoritos, cambiarBotonFavorito } = ProductosHook();
 
-    const nuevoProductoFav = {
-      productos: productiId
-    }
-
-    try {
-      let productoAgregado = await instance.post("/favoritos",nuevoProductoFav,config);
-      console.log(productoAgregado.data.mensaje);
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const agregarCarrito = async (productId) => {
-    const config = {
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    }
-   
-  const nuevoProductoCarrito = {
-    productos: productId
-  }
-
-    try {
-        let resultado = await instance.post("/carrito/",nuevoProductoCarrito,config)
-        console.log(resultado.data.mensaje);
-        listaCarrito(token)
-    } catch (error) {
-       console.log(error)
-    }
-  }
+  useEffect(() => {
+    cambiarBotonFavorito(p._id, usuarioEnLinea, usuarioFavoritos, setFavoritoExistente)
+  },[usuarioFavoritos])
 
   return (
-    <Card  className="card shadow-lg border m-sx-3 ">
+    <Card className="card shadow-lg border m-sx-3 ">
       <div>
         <Card.Img
           className="card-img border-bottom img-fluid"
@@ -55,11 +27,33 @@ const ProductCard = ({ p,token,listaCarrito}) => {
           src={p.imagen}
         />
         <Card.Title className="text-white title-precio rounded">
-          ${p.precio}
+          {formatPrecio(p.precio)}
         </Card.Title>
-        <Button variant="primary" className="boton-favorito" onClick={() => {agregarFavorito(p._id)}}>
-          <BsSuitHeartFill />
+        {favoritoExistente ?
+        <Button
+        variant="primary"
+          className="boton-favorito"
+          onClick={()=> {
+            eliminarDeFavoritos(p._id, tokenUser, obtenerUsuarioFavoritos);
+            setFavoritoExistente(false)
+          }}
+        >
+          <BsSuitHeartFill/>
         </Button>
+        :
+        <Button
+          variant="primary"
+          className="boton-favorito"
+          onClick={() => { if (usuarioEnLinea) {
+            agregarAFavoritos(p._id, obtenerUsuarioFavoritos, tokenUser);
+          } else {
+            console.log("Tiene que iniciar sesion");
+          }
+          }}
+        >
+          <BsSuitHeart />
+        </Button>
+        }
       </div>
       <Card.Body className="h-100 d-flex flex-column ">
         <div>
@@ -69,26 +63,23 @@ const ProductCard = ({ p,token,listaCarrito}) => {
             </div>
           </Link>
           <div>
-            <button type="button" className="btn btn-primary" onClick={()=>{agregarCarrito(p._id)}}>Añadir al carrito</button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => { if (usuarioEnLinea){
+                agregarAlCarrito(p._id, obtenerCarritoUsuario, tokenUser)
+              } else {
+                console.log("tiene que iniciar sesion");
+              }
+              }}
+            >
+              Añadir al carrito
+            </button>
           </div>
         </div>
       </Card.Body>
     </Card>
-    // <>
-    //    <Card style={{ width: '18rem' }}>
-    //   <Card.Img variant="top" src={p.imagen}/>
-    //   <Card.Body>
-    //     <Card.Title>{p.nombre}</Card.Title>
-    //     <Card.Text>
-    //       <p>{p.precio}</p>
-    //       <p></p>
-    //     </Card.Text>
-    //     <Button variant="primary">Go somewhere</Button>
-    //   </Card.Body>
-    // </Card>
-
-    // </>
-  )
+  );
 };
 
 export default ProductCard;

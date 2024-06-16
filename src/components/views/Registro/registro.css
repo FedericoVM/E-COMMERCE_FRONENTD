@@ -1,3 +1,12 @@
 .modal-header{
-    background-color:rgba(89, 19, 155, 0.966) ;
+    background-color:rgba(89, 19, 155, 0.966);
+}
+
+.crear-cuenta{
+    background-color: #913175;
+    border: none;
+}
+
+.crear-cuenta:hover {
+    background-color: #cc417b;
 }

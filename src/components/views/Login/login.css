@@ -2,10 +2,35 @@
     color: rgb(81, 5, 153);
 }
 
+.link-form:hover{
+    color: #4e193e;
+}
+
+.modal-body{
+    background-color: #E9E8E8
+}
+
+.ingresar{
+   border: 1.2px solid #CD5888;
+}
+
+.ingresar:hover{
+    border: 1.2px solid #913175;
+}
+
 .modalHeader{
     background-color:rgba(89, 19, 155, 0.966) ;
 }
 
 .error{
     color: red;
+}
+
+.btn-iniciar-sesion{
+    background-color:rgba(89, 19, 155, 0.966);
+    border: none;
+}
+
+.btn-iniciar-sesion:hover{
+    background-color: #CD5888;
 }

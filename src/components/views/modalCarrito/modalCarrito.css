@@ -1,0 +1,9 @@
+.btn-link{
+    --bs-btn-color: var( --bs-link-color);
+    --bs-btn-hover-color: var(--bs-hover-color)
+}
+
+:root{
+    --bs-link-color: #20262E;
+    --bs-hover-color: #913175;
+}

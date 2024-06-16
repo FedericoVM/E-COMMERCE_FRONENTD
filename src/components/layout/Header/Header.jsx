@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { FaSearch } from "react-icons/fa";
 import "./header.css";
 import facebook from "../../../assets/img/header/react.svg";
 import twitter from "../../../assets/img/header/twitter.svg";
@@ -19,68 +20,91 @@ import { AdminHook } from "../../../context/Contexto de Admin/AdminHook";
 import { useEffect, useState } from "react";
 import { USUARIO_EN_LINEA } from "../../../context/Contexto de Usuarios/typesUser";
 
-const Header = ( ) => {
-
-  const [cantidadCarrito, setCantidadCarrito] = useState(null)
-  const navigate = useNavigate()
-  const {usuarioEnLinea, usuarioCarrito, tokenUser, obtenerCarritoUsuario, usuarioInfo, setTokenUser, deslogin, obtenerInfoUsuario, obtenerUsuarioFavoritos, dispatch} = UserHook()
-  const {resetCarritoYFavoritos, setBuscarProductos} = ProductosHook()
-  const {setUsuariosAdmin} = AdminHook()
+const Header = () => {
+  const [cantidadCarrito, setCantidadCarrito] = useState(null);
+  const navigate = useNavigate();
+  const {
+    usuarioEnLinea,
+    usuarioCarrito,
+    tokenUser,
+    obtenerCarritoUsuario,
+    usuarioInfo,
+    setTokenUser,
+    deslogin,
+    obtenerInfoUsuario,
+    obtenerUsuarioFavoritos,
+    dispatch,
+  } = UserHook();
+  const { resetCarritoYFavoritos, setBuscarProductos } = ProductosHook();
+  const { setUsuariosAdmin } = AdminHook();
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    let aBuscar = e.target.search.value
+    let aBuscar = e.target.search.value;
 
     if (aBuscar.length > 3) {
-      setBuscarProductos(aBuscar)
+      setBuscarProductos(aBuscar);
     } else {
       console.log("Se necesitan mas caracteres");
     }
-    navigate('/busqueda')
-  }
+    navigate("/busqueda");
+  };
 
   const totalProductosCarrito = (array) => {
     let numeroDeProductos = 0;
-if(array.length > 0) {
-    array.forEach(element => {
-      numeroDeProductos += element.cantidad
-    })};
-
-    setCantidadCarrito(numeroDeProductos)
-  }
-
-  useEffect(()=> {
-    if(usuarioCarrito) {
-      totalProductosCarrito(usuarioCarrito)
+    if (array.length > 0) {
+      array.forEach((element) => {
+        numeroDeProductos += element.cantidad;
+      });
     }
-  },[usuarioCarrito])
 
-  useEffect(()=>{
+    setCantidadCarrito(numeroDeProductos);
+  };
+
+  useEffect(() => {
+    if (usuarioCarrito) {
+      totalProductosCarrito(usuarioCarrito);
+    }
+  }, [usuarioCarrito]);
+
+  useEffect(() => {
     const tokenL = localStorage.getItem("tokenUsuario");
-    if(tokenL) {
-    obtenerInfoUsuario(tokenL)
-    setTokenUser(tokenL)
-  }
-  },[])
+    if (tokenL) {
+      obtenerInfoUsuario(tokenL);
+      setTokenUser(tokenL);
+    }
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (usuarioInfo) {
-      if(usuarioInfo.expiracion >= Date.now()){
-        obtenerCarritoUsuario(tokenUser)
-        obtenerUsuarioFavoritos(tokenUser)
+      if (usuarioInfo.expiracion >= Date.now()) {
+        obtenerCarritoUsuario(tokenUser);
+        obtenerUsuarioFavoritos(tokenUser);
         dispatch({ type: USUARIO_EN_LINEA, payload: true });
-        setTimeout(()=> {deslogin(resetCarritoYFavoritos, navigate, tokenUser, setUsuariosAdmin), setCantidadCarrito(null)}, usuarioInfo.expiracion - usuarioInfo.iat)
-    } else {
-      deslogin(resetCarritoYFavoritos, navigate, tokenUser, setUsuariosAdmin)
-      setCantidadCarrito(null)
+        setTimeout(() => {
+          deslogin(
+            resetCarritoYFavoritos,
+            navigate,
+            tokenUser,
+            setUsuariosAdmin
+          ),
+            setCantidadCarrito(null);
+        }, usuarioInfo.expiracion - usuarioInfo.iat);
+      } else {
+        deslogin(resetCarritoYFavoritos, navigate, tokenUser, setUsuariosAdmin);
+        setCantidadCarrito(null);
+      }
     }
-    }
-  },[tokenUser])
+  }, [tokenUser]);
 
   return (
     <>
-      <Navbar bg="light" expand="lg" className="justify-content-between">
+      <Navbar
+        bg="light"
+        expand="lg"
+        className="header-nav justify-content-between"
+      >
         <Container fluid>
           <Navbar.Brand href="/" className="d-flex align-self-start">
             Rolling Store
@@ -88,14 +112,14 @@ if(array.length > 0) {
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse
             id="navbarScroll"
-            className="flex-lg-column justify-lg-content-space"
+            className="flex-lg-column justify-lg-content-space fs"
           >
             <Nav
               className="me-auto my-2 my-lg-0 flex-lg-column m-lg-0 w-100"
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <div className="d-lg-flex justify-content-lg-around ">
+              <div className=" d-flex flex-column align-items-center  d-lg-flex flex-lg-row justify-content-lg-around py-lg-1 ">
                 <Form onSubmit={handleSubmit} className="search d-flex ">
                   <Form.Control
                     type="search"
@@ -104,9 +128,12 @@ if(array.length > 0) {
                     aria-label="Search"
                     name="search"
                   />
-                  <Button variant="outline-success" type="submit">Search</Button>
+                  <i className="bi bi-search"></i>
+                  <Button variant="outline-dark" type="submit">
+                    <FaSearch />
+                  </Button>
                 </Form>
-                <div className=" redes-header d-none  w-25 d-lg-flex justify-content-lg-around">
+                <div className=" redes-header d-none gap-4 d-lg-flex justify-content-lg-around">
                   <Nav.Link href="https://es-la.facebook.com/" target="_blank">
                     <img src={facebook} alt="img-1" />
                   </Nav.Link>
@@ -119,22 +146,83 @@ if(array.length > 0) {
                 </div>
               </div>
 
-              <Nav className="m-0 d-flex justify-content-around">
-                <NavDropdown title="Categorias" className="d-flex flex-colummn" id="navbarScrollingDropdown">
-                  <Link to="/computacion">Computacion</Link>
-                  <Link to="/electrodomesticos">Electrodomesticos</Link>
-                  <Link to="/aireLibre">Aire Libre</Link>
+              <Nav className="m-0 text-center d-lg-flex justify-content-lg-around">
+                <NavDropdown className="mx-auto mx-lg-0" title="Categorias" id="navbarScrollingDropdown">
+                  <NavDropdown.Item>
+                    <Link
+                      className="text-decoration-none text-secondary"
+                      to="/computacion"
+                    >
+                      Computacion
+                    </Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Link
+                      className="text-decoration-none text-secondary"
+                      to="/electrodomesticos"
+                    >
+                      Electrodomesticos
+                    </Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Link
+                      className="text-decoration-none text-secondary"
+                      to="/aireLibre"
+                    >
+                      Aire Libre
+                    </Link>
+                  </NavDropdown.Item>
                 </NavDropdown>
-                <div className="d-lg-flex">
-                  <NavLink to="/">Home</NavLink>
-                  <NavLink to="/destacados">Destacados</NavLink>
-                  <NavLink to="/contacto"> Contacto</NavLink>
-                  <NavLink to="/favoritos"> Favoritos</NavLink>
+                <div className="d-flex flex-column d-lg-flex flex-lg-row align-items-lg-center gap-3">
+                  <NavLink
+                    className="text-decoration-none text-secondary"
+                    to="/"
+                  >
+                    Home
+                  </NavLink>
+                  <NavLink
+                    className="text-decoration-none text-secondary"
+                    to="/destacados"
+                  >
+                    Destacados
+                  </NavLink>
+                  <NavLink
+                    className="text-decoration-none text-secondary"
+                    to="/contacto"
+                  >
+                    {" "}
+                    Contacto
+                  </NavLink>
+                  <NavLink
+                    className="text-decoration-none text-secondary"
+                    to="/favoritos"
+                  >
+                    {" "}
+                    Favoritos
+                  </NavLink>
                 </div>
-                <div className=" d-lg-flex  align-self-lg-end">
-                  <Nav.Link href="#action8"> Ayuda</Nav.Link>
-                  <NavLink  className="position-relative"> <ModalCarrito/> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{usuarioCarrito && usuarioCarrito.length > 0 && cantidadCarrito}</span> </NavLink>
-                  {usuarioEnLinea ? <div> <ContenedorLogin/> </div> : <div> <Login/> <Registro/> </div>}
+                <div className=" d-flex flex-column align-items-center gap-1  d-lg-flex flex-lg-row gap-lg-3 align-items-lg-center">
+                  <Nav.Link href="#action8" className="p-0">
+                    Ayuda
+                  </Nav.Link>
+                  {usuarioEnLinea ? (
+                    <div>
+                      <ContenedorLogin />
+                    </div>
+                  ) : (
+                    <div className="d-flex flex-column  d-lg-flex flex-lg-row align-items-lg-center gap-2">
+                      <Registro />
+                      <Login />
+                    </div>
+                  )}
+                  <NavLink>
+                    <ModalCarrito />
+                    <span>
+                      {usuarioCarrito &&
+                        usuarioCarrito.length > 0 &&
+                        cantidadCarrito}
+                    </span>
+                  </NavLink>
                 </div>
                 <div className="d-lg-none border-top w-100 p-3 d-flex justify-content-center align-items-center">
                   <div className=" d-flex justify-content-around w-50">

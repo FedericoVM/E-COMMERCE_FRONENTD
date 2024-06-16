@@ -1,5 +1,9 @@
+.header-nav{
+  background-color: #E9E8E8 !important;
+}
+
 .redes-header img {
-    width: 1.2rem;
+    width: 1rem;
 }
 
 .redes-header img:hover{

@@ -12,24 +12,7 @@ import Destacados from "../views/Destacados/Destacados";
 import DestacadosTest from "../views/Destacados/DestacadosTest";
 
 
-export const RouterPrincipal = () => {
-  const url = "http://localhost:3001/productos";
 
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    getApi();
-  }, []);
-
-  const getApi = async () => {
-    try {
-      const resp = await fetch(url);
-      const productosApi = await resp.json();
-      setProducts(productosApi);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
 export const RouterPrincipal = () => {
   return (

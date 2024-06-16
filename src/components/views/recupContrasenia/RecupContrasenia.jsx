@@ -36,18 +36,18 @@ const RecupContrasenia = () => {
     }
 
     return (
-        <div className='div-recuperar-contrasenia'>
+        <div className='div-recuperar-contrasenia p-4'>
             <h1>Rolling Store</h1>
-            <div className='contenedor-form-recuperar-contrasenia'>
+            <div className='contenedor-form-recuperar-contrasenia mt-3'>
                 <h3 className='text-center'>¿Te olvidaste tu contraseña?</h3>
                 <p>¡No te preocupes! Ingresa el email de tu cuenta y te enviaremos un correo para continuar con el proceso</p>
                 <Form className='form-cambiar-contrasenia' onSubmit={handleRecuperarContrasenia}>
                         <Form.Control className='input_email' disabled={botonBloquear} name='email' type="email" placeholder="Ingrese el email" />
-                    <Button className='btn-recup mt-1' disabled={botonBloquear} variant="primary" type="submit" size="lg">
+                    <Button className='btn btn-outline-primary my-2 text-light' disabled={botonBloquear}  type="submit" size="">
                         Recuperar contraseña
                     </Button>
                 </Form>
-                <Button className='btn-volver mt-1' disabled={botonBloquear} variant="primary" type="submit" size="sm">
+                <Button className='btn btn-link mt-2' disabled={botonBloquear} type="submit" size="sm">
                         Volver
                     </Button>
             </div>

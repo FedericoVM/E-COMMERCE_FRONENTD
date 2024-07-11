@@ -2,6 +2,7 @@ import { useState } from "react"
 import { UseAdmin } from "./UseAdmin";
 import instance from "../../axios/instance";
 import instanceFormData from "../../axios/instanceFormData";
+import { toast } from "sonner"
 
 const AdminProvider = ({children}) => {
 
@@ -48,12 +49,14 @@ const AdminProvider = ({children}) => {
             const resp = await instanceFormData.put(`/auth/${usuarioId}`, formData, config);
             console.log("Se cambio el rol ");
             mostrarUsuariosAdmin(tokenUser)
+            toast("hecho")
         } catch (error) {
             return console.log(error);
         }
     }
 
     const eliminarUsuario = async (id_usuario, tokenUser, mostrarUsuariosAdmin) => {
+        return console.log("text");
       const config = {
           headers: {
               authorization: `Bearer ${tokenUser}`,

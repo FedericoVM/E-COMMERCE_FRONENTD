@@ -3,22 +3,22 @@ import { ProductosHook } from "../../../context/Contexto de Productos/ProductosH
 import { Col, Row } from "react-bootstrap"
 import Paginacion from "../paginacion/Paginacion"
 
-const VentanaDeBusqueda = () => {
+const VentanaDeBusqueda = ({productos}) => {
 
     const [productosEncontrados, setProductosEncontrados] = useState([])
 
-    const {buscarProductos, productosHome} = ProductosHook()
+    const {buscarProductos} = ProductosHook()
 
     const filtrarProductosBusqueda = (arrayProductos) => {
         let productoEncontrado = arrayProductos.filter((producto)=> {
-            return (producto.nombre.toLowerCase().includes(buscarProductos.toLowerCase())                )
+            return (producto.nombre.toLowerCase().includes(buscarProductos.toLowerCase()) || producto.categoria.toLowerCase().includes(buscarProductos.toLowerCase()) || producto.marca.toLowerCase().includes(buscarProductos.toLowerCase()))
         });
         setProductosEncontrados(productoEncontrado)
     }
 
     useEffect(()=> {
         if (buscarProductos && buscarProductos.length > 2) {
-            filtrarProductosBusqueda(productosHome)
+            filtrarProductosBusqueda(productos)
         }
     },[buscarProductos])
 

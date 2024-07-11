@@ -4,10 +4,14 @@ import './recupContrasenia.css'
 import { regexEmail } from '../../../RegExp/relugarExp'
 import instance from '../../../axios/instance'
 import { UserHook } from '../../../context/Contexto de Usuarios/UserHook'
+import { toast } from 'sonner'
+import { useNavigate } from 'react-router-dom'
 
 const RecupContrasenia = () => {
 
     const {botonBloquear, setBotonBloquear} = UserHook()
+
+    const navigate = useNavigate()
 
     const handleRecuperarContrasenia = async(e) => {
         e.preventDefault()
@@ -27,8 +31,9 @@ const RecupContrasenia = () => {
 
         try {
             const enviarLink = await instance.post("/usuario/recuperar-contrasenia", emailAEnviar)
-            console.log(enviarLink.data.mensaje);
+            toast.success("Revise su email para continuar")
             setBotonBloquear(false)
+            navigate('/')
         } catch (error) {
             setBotonBloquear(false)
             console.log(error.response.data.mensaje);

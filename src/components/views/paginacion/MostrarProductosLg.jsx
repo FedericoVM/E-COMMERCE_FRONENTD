@@ -1,14 +1,15 @@
-import React from 'react'
 import PaginacionControl from './PaginacionControl'
 import ProductCard from '../home/productCard/ProductCard'
 import { Col, Row } from 'react-bootstrap'
+import { ProductosHook } from '../../../context/Contexto de Productos/ProductosHook'
 
-const MostrarProductosLg = ({ currentPosts, paginate, currentPage, totalPosts, page }) => {
-
+const MostrarProductosLg = ({ currentPosts, totalPosts, page }) => {
+    const {currentPageWeb, paginateWeb} = ProductosHook()
+    
     return (
-        <Row className="g-4 d-none d-md-none d-lg-flex mt-3">
+        <Row lg={5} className="g-4 d-none justify-content-center mx-0 d-md-none d-lg-flex mt-3 col-12">
             {currentPosts.map((p, index) => (
-                <Col key={index} className="d-flex flex-wrap m-lg-3" lg={2}>
+                <Col key={index} className="d-flex justify-content-center">
                     <ProductCard p={p}/>
                 </Col>
             ))}
@@ -16,8 +17,8 @@ const MostrarProductosLg = ({ currentPosts, paginate, currentPage, totalPosts, p
                 <PaginacionControl
                     postsPerPage={page}
                     totalPosts={totalPosts}
-                    paginate={paginate}
-                    currentPage={currentPage}
+                    paginate={paginateWeb}
+                    currentPage={currentPageWeb}
                 />
             </div>
         </Row>

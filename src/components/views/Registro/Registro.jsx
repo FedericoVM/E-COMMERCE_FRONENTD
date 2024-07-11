@@ -5,6 +5,7 @@ import InstanceFormData from "../../../axios/instanceFormData";
 import FormikComponenteUsuario from "../Formik Componente/FormikComponenteUsuario";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Registro = () => {
   const valuesModal = ["lg-down"];
@@ -17,7 +18,7 @@ const Registro = () => {
   const {
     showRegistro,
     setShowRegistro,
-    fullscreenRegistro,
+    fullScreenRegistro,
     setFullScreenRegistro,
     setFullScreenLogin,
     setShowLogin,
@@ -66,7 +67,7 @@ const Registro = () => {
         "/usuario/registro",
         formData
       );
-      console.log(respuesta.data.msj);
+      toast.success(respuesta.data.msj + ", el link caducara en 3 horas");
       actions.resetForm();
       setShowRegistro(false);
       setBotonBloquear(false)
@@ -106,7 +107,7 @@ const Registro = () => {
       ))}
       <Modal
         show={showRegistro}
-        fullscreen={fullscreenRegistro}
+        fullscreen={fullScreenRegistro}
         onHide={() => setShowRegistro(false)}
       >
         <Modal.Header className="modal-header" closeButton>

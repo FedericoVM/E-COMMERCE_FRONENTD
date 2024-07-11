@@ -4,6 +4,7 @@ import Paginacion from "../paginacion/Paginacion";
 import FormikComponente from "../Formik Componente/FormikComponenteProductos";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
+import {toast} from "sonner"
 
 const AdminProductos = ( ) => {
 
@@ -14,10 +15,10 @@ const AdminProductos = ( ) => {
 
   let mostrarBarra = true;
 
-  const [arrayBuscar, setArrayBuscar] = useState([]);
+  const [arrayBuscar, setArrayBuscar] = useState(null);
 
-  const crearProducto = async (values, actions) => {
-
+  const crearProducto = async (values, resetForm) => {
+  
     setBotonBloquear(true)
 
     if(!values.imagenProducto){
@@ -54,12 +55,12 @@ const AdminProductos = ( ) => {
     try {
       const resp = await instanceFormData.post("/productos", formData, config);
       obtenerProductos();
-      console.log(resp.data.msg);
       setBotonBloquear(false)
-      actions.resetForm()
+      resetForm()
+      toast.success(resp.data.msg)
     } catch (error) {
       setBotonBloquear(false)
-      console.log(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -71,10 +72,9 @@ const AdminProductos = ( ) => {
       <hr />
         {productosHome.length > 0 ? (
           <Paginacion
-            lista={productosHome}
+            lista={arrayBuscar ? arrayBuscar : productosHome}
             card="listaProductosAdmin"
             setArrayBuscar={setArrayBuscar}
-            arrayBuscar={arrayBuscar}
             mostrarBarra={mostrarBarra}
           />
         ) : (

@@ -5,6 +5,9 @@
     width: 3rem;
 }
 
+.footer{
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.74) 0%, rgba(250, 245, 245, 0.74) 10%, rgb(231, 227, 227) 90%);
+}
 
 .redes-icono:hover{
     transform: scale(1.4);
@@ -19,4 +22,31 @@
 
 .contacto_link:hover{
     color:darkcyan 
+}
+
+.contenedor-acerca-footer{
+    width: 50% !important;
+}
+
+.contenedor-soporte-footer{
+    width: 50% !important;
+}
+
+.contenedor-contacto-footer{
+    width: 60% !important;
+}
+
+.contenedor-data-fiscal-footer{
+    width: 40% !important;
+}
+
+@media (width >= 350px) and (width <=575px) {
+    .contenedor-acerca-y-soporte , .contenedor-contacto-y-data-fiscal{
+        display: flex !important;
+        flex-direction: row !important;
+    }
+
+    .contenedor-contacto-footer{
+        align-items: center;
+    }
 }

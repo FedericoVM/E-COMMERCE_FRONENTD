@@ -1,22 +1,14 @@
-import { useEffect } from "react";
 import Paginacion from "../paginacion/Paginacion";
-import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
+import FavoritosVacio from "./FavoritosVacio";
 
 const Favoritos = ( ) => {
 
-  const {usuarioFavoritos} = UserHook()
-  const {productosHome, filtrarFavoritosAMostrarProducto, productosFavoritosAMostrar} = ProductosHook()
-
-  useEffect(() => {
-    if (usuarioFavoritos){
-    filtrarFavoritosAMostrarProducto(productosHome, usuarioFavoritos)
-  }
-  }, [usuarioFavoritos])
+  const {productosFavoritosAMostrar} = ProductosHook()
 
   return (
-    <div className="">
-      {productosFavoritosAMostrar ? <Paginacion lista={productosFavoritosAMostrar} card="favoritos"/> : <p>NO hay productos agregados al favorito</p>}
+    <div className="d-flex justify-content-center my-3">
+      {productosFavoritosAMostrar.length > 0 ? <Paginacion lista={productosFavoritosAMostrar} card="favoritos"/> : <FavoritosVacio/>}
     </div>
   );
 };

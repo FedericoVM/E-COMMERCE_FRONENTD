@@ -5,6 +5,7 @@ import instanceFormData from "../../../axios/instanceFormData";
 import FormikComponente from "../Formik Componente/FormikComponenteProductos";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
+import {toast} from "sonner"
 
 const EditarProducto = ( ) => {
 
@@ -24,7 +25,6 @@ const EditarProducto = ( ) => {
     if (productoFind !== undefined) {
       setProductoEdit(productoFind)
     }
-
   }
 
   const editarProducto = async (values) => {
@@ -56,10 +56,11 @@ const EditarProducto = ( ) => {
       const resp = await instanceFormData.put(`/productos/${productoEdit._id}`,formData,config)
       obtenerProductos()
       setBotonBloquear(false)
+      toast.success(resp.data.msg)
       navigate('/admin-productos')
     } catch (error) {
       setBotonBloquear(false)
-      console.log(error.response.data)
+      toast.error(error.response.data)
     }
   }
   

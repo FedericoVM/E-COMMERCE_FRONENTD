@@ -1,7 +1,8 @@
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useState, useReducer, useMemo } from "react";
 import { UseProductos } from "./UseProductos";
 import instance from "../../axios/instance";
 import ProductoReducer from "./ProductoReducer";
+import {toast} from "sonner"
 import {
   FILTRAR_CARRITO_A_MOSTRAR,
   FILTRAR_FAVORITOS_A_MOSTRAR,
@@ -10,11 +11,26 @@ import {
 
 const ProductosProvider = ({ children }) => {
   const [productosHome, setProductosHome] = useState([]);
-  const [buscarProductos, setBuscarProductos] = useState(null)
+  const [buscarProductos, setBuscarProductos] = useState(null);
+  const [currentPageWeb, setCurretPageWeb] = useState(1);
+  const [currentPageTablet, setCurretPageTablet] = useState(1);
+  const [currentPageMobile, setCurretPageMobile] = useState(1);
+
+  const paginateWeb = (pageNumber) =>{
+    setCurretPageWeb(pageNumber)
+  }
+
+  const paginateTablet = (pageNumber) =>{
+    setCurretPageTablet(pageNumber)
+  }
+
+  const paginateMobile = (pageNumber) =>{
+    setCurretPageMobile(pageNumber)
+  }
 
   const initialStateProductContext = {
-    productosCarritoAMostrar: null,
-    productosFavoritosAMostrar: null,
+    productosCarritoAMostrar: [],
+    productosFavoritosAMostrar: [],
   };
 
   const [state, dispatchProduct] = useReducer(
@@ -51,6 +67,7 @@ const ProductosProvider = ({ children }) => {
                 precio: c.precio,
                 stock: c.stock,
                 cantidad: producto.cantidad,
+                idProducto: c._id
               };
               resultado.push(productoCarrito);
             }
@@ -67,10 +84,15 @@ const ProductosProvider = ({ children }) => {
         }
       });
       dispatchProduct({ type: FILTRAR_CARRITO_A_MOSTRAR, payload: resultado });
+    } else {
+      dispatchProduct({ type: FILTRAR_CARRITO_A_MOSTRAR, payload: resultado})
     }
   };
 
-  const agregarAlCarrito = async (productId, obtenerCarritoUsuario, tokenUser) => {
+  const agregarAlCarrito = async (productId, obtenerCarritoUsuario, tokenUser, usuarioEnLinea) => {
+    if(usuarioEnLinea === false) {
+      return toast.warning("Tiene que iniciar sesion")
+    }
     const config = {
       headers: {
         authorization: `Bearer ${tokenUser}`
@@ -83,8 +105,8 @@ const ProductosProvider = ({ children }) => {
 
     try {
         let resultado = await instance.post("/carrito/",nuevoProductoCarrito,config)
-        console.log(resultado.data.mensaje);
         obtenerCarritoUsuario(tokenUser)
+        toast.success(resultado.data.mensaje)
     } catch (error) {
        console.log(error)
     }
@@ -102,10 +124,15 @@ const ProductosProvider = ({ children }) => {
         });
       });
       dispatchProduct({ type: FILTRAR_FAVORITOS_A_MOSTRAR, payload: resultado });
+    } else {
+      dispatchProduct({type: FILTRAR_FAVORITOS_A_MOSTRAR, payload: resultado})
     }
   };
 
-  const agregarAFavoritos = async (productiId, obtenerUsuarioFavoritos, tokenUser) => {
+  const agregarAFavoritos = async (productiId, obtenerUsuarioFavoritos, tokenUser, usuarioEnLinea) => {
+    if(usuarioEnLinea === false) {
+      return toast.warning("Tiene que iniciar sesion")
+    }
     const config = {
       headers: {
         authorization: `Bearer ${tokenUser}`
@@ -118,22 +145,21 @@ const ProductosProvider = ({ children }) => {
 
     try {
       let productoAgregado = await instance.post("/favoritos",nuevoProductoFav,config);
-      console.log(productoAgregado.data.mensaje);
+      toast.success(productoAgregado.data.mensaje);
       obtenerUsuarioFavoritos(tokenUser)
     } catch (error) {
       console.log(error)
     }
   }
 
-  const cambiarBotonFavorito = (idProducto, user, favoritosUser, setState) => {
-    if (user && favoritosUser) {
-      if(favoritosUser.length > 0){
-      setState(favoritosUser.some(element => {
-        return element.productos === idProducto
-      }))
+  const cambiarBotonFavorito = useMemo(()=>{
+    return (usuarioEnLinea, productosFavoritosAMostrar, idProducto) =>{
+      if(usuarioEnLinea && productosFavoritosAMostrar.length > 0) {
+        return productosFavoritosAMostrar.some(e => e._id === idProducto)
+      }
+      return false
     }
-    }
-  }
+  },[state.productosFavoritosAMostrar])
 
   const eliminarDeFavoritos = async (idProducto, tokenUser, obtenerUsuarioFavoritos) => {
 
@@ -146,7 +172,7 @@ const ProductosProvider = ({ children }) => {
     try {
       let resp = await instance.delete(`/favoritos/${idProducto}`, config);
       obtenerUsuarioFavoritos(tokenUser)
-      console.log(resp.data.mensaje);
+      toast.success(resp.data.mensaje);
     } catch (error) {
       console.log(error);
     }
@@ -162,7 +188,6 @@ const ProductosProvider = ({ children }) => {
       currency: "ARS",
       minimumFractionDigits: 0,
     }).format(precio)
-    
     return formatoARetornar
   }
 
@@ -187,7 +212,13 @@ const ProductosProvider = ({ children }) => {
         resetCarritoYFavoritos,
         formatPrecio,
         buscarProductos,
-        setBuscarProductos
+        setBuscarProductos,
+        currentPageWeb,
+        currentPageTablet,
+        currentPageMobile,
+        paginateWeb,
+        paginateTablet,
+        paginateMobile
       }}
     >
       {children}

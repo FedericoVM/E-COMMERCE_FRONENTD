@@ -1,8 +1,14 @@
-import { Button, Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import "./cambiarContrasenia.css"
 import candado from '../../../assets/cambiarContrasenia/bloquear.png'
 import { UserHook } from '../../../context/Contexto de Usuarios/UserHook'
+import ModalConfirmar from '../../views/Modal para confirmar users/ModalConfirmar'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+
 const ComponenteNuevoPass = ({handleCambiarContrasenia}) =>{
+
+    const [contrasenia, setContrasenia] = useState(null)
 
     const {botonBloquear} = UserHook()
 
@@ -13,12 +19,13 @@ const ComponenteNuevoPass = ({handleCambiarContrasenia}) =>{
                 <div className='div-img'>
                     <img className='img-candado' src={candado} alt="imagen-candado" />
                 </div>
-                <Form className='form-cambiar-contrasenia' onSubmit={handleCambiarContrasenia}>
-                    <Form.Control className='form-password' disabled={botonBloquear} type="password" placeholder="Ingrese la nueva contraseña" name='CambiarContrasenia'/>
-                    <Button className='boton-cambiar-contrasenia my-3' disabled={botonBloquear} variant="primary" type="submit">
-                        Cambiar
-                    </Button>
-                </Form>
+                <div className='form-cambiar-contrasenia'>
+                    <Form.Control className='form-password' disabled={botonBloquear} onChange={(e)=>{setContrasenia(e.target.value)}} type="password" placeholder="Ingrese la nueva contraseña" name='CambiarContrasenia'/>
+                    <div className='d-flex flex-row-reverse justify-content-evenly w-100 align-items-center'>
+                    <ModalConfirmar onSubmit={handleCambiarContrasenia} values={contrasenia}/>
+                    <Link to='/cuenta-usuario' className='btn btn-primary'>Inicio</Link>
+                    </div>
+                </div>
             </div>
         </div>
     )

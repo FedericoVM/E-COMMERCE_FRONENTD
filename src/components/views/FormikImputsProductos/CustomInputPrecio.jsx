@@ -19,7 +19,7 @@ const CustomInputPrecio = ({ label, ...props }) => {
     <>
       <Form.Label>{label}</Form.Label>
       <Form.Group as={Row} className="mb-3">
-        <Col sm="3">
+        <Col sm="4" className="">
           <Form.Control
           disabled={botonBloquear}
             sm="2"
@@ -33,7 +33,7 @@ const CustomInputPrecio = ({ label, ...props }) => {
             {...props}
           />
         </Col>
-        <Col sm="3">
+        <Col sm="4" className="my-2 my-sm-0">
           <FloatingLabel controlId="floatingSelect" label="Previsualisacion">
             <Form.Control
               className=""

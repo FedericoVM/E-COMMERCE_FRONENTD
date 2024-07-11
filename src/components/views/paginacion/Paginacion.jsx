@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ContenedorArray from "./ContenedorArray";
 import { Button } from "react-bootstrap";
+import { toast } from "sonner";
+import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
+import { useLocation } from "react-router-dom";
 
 const Paginacion = ({ lista ,card, setArrayBuscar, arrayBuscar, mostrarBarra }) => {
+
+    const {currentPageWeb, currentPageTablet, currentPageMobile, paginateWeb, paginateTablet, paginateMobile} = ProductosHook()
     
+    const location = useLocation()
+
     const [page, setPage] = useState(15);
     const [currentPage, setCurrentPage] = useState(1);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -17,18 +24,21 @@ const Paginacion = ({ lista ,card, setArrayBuscar, arrayBuscar, mostrarBarra }) 
     }
 
     const buscarUsuario = (e) => {
-
         e.preventDefault();
+
+        let arrayReconocedor = [0]
 
         let buscar = e.target.buscar.value;
 
         let usuarioEncontrado = lista.filter((usuario) => {
             if (usuario.apellido) {
+                arrayReconocedor.splice(0, 1, "Usuario")
                 return (usuario.nombre.toLowerCase().includes(buscar.toLowerCase()) ||
                     usuario.apellido.toLowerCase().includes(buscar.toLowerCase()) ||
                     usuario.email.toLowerCase().includes(buscar.toLowerCase())
                 )
             } else {
+                arrayReconocedor.splice(0, 1, "Producto")
                 return (usuario.nombre.toLowerCase().includes(buscar.toLowerCase()) ||
                     usuario.marca.toLowerCase().includes(buscar.toLowerCase()) ||
                     usuario.categoria.toLowerCase().includes(buscar.toLowerCase())
@@ -37,14 +47,22 @@ const Paginacion = ({ lista ,card, setArrayBuscar, arrayBuscar, mostrarBarra }) 
         });
 
         if (usuarioEncontrado.length <= 0) {
-            return alert("Usuario o Producto no encontrado");
+            return toast.warning(`${arrayReconocedor[0]} no encontrado`);
         }
         setArrayBuscar(usuarioEncontrado);
     };
 
-    let webProductos = numerosProductos(lista, currentPage, 0);
-    let tabletProductos = numerosProductos(lista, currentPage, 3);
-    let mobileProductos = numerosProductos(lista, currentPage, 5);
+    let webProductos = numerosProductos(lista, currentPageWeb, 0);
+    let tabletProductos = numerosProductos(lista, currentPageTablet, 3);
+    let mobileProductos = numerosProductos(lista, currentPageMobile, 5);
+    let adminLista = numerosProductos(lista, currentPage, 5)
+
+    useEffect(()=>{
+        paginateWeb(1);
+        paginateTablet(1);
+        paginateMobile(1)
+    }, [location])
+
     return (
         <>
             {mostrarBarra ? <div className="d-flex container justify-content-center mt-2">
@@ -67,7 +85,7 @@ const Paginacion = ({ lista ,card, setArrayBuscar, arrayBuscar, mostrarBarra }) 
                         <Button
                             variant="success"
                             onClick={() => {
-                                setArrayBuscar([]);
+                                setArrayBuscar(null);
                             }}
                         >
                             Refresh
@@ -75,10 +93,8 @@ const Paginacion = ({ lista ,card, setArrayBuscar, arrayBuscar, mostrarBarra }) 
                     </div>
                 </form>
             </div> : ""}
-            <ContenedorArray card={card} paginate={paginate} page={page} currentPage={currentPage} totalPosts={lista.length} currentPosts={webProductos} currentPostsMd={tabletProductos} currentPostsSm={mobileProductos} arrayBuscar={arrayBuscar}/>
+            <ContenedorArray card={card} paginate={paginate} page={page} currentPage={currentPage} totalPosts={lista.length} currentPosts={webProductos} currentPostsMd={tabletProductos} adminLista={adminLista} currentPostsSm={mobileProductos} arrayBuscar={arrayBuscar}/>
         </>
-
-
     );
 };
 

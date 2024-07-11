@@ -3,6 +3,7 @@ import { UseUser } from "./UseUser";
 import instance from "../../axios/instance";
 import UserReducer from "./UserReducer";
 import jwtDecode from "jwt-decode";
+import {toast} from "sonner"
 import {
   OBTENER_USER_CARRITO,
   OBTENER_USER_FAVORITOS,
@@ -18,6 +19,11 @@ const UserProvider = ({ children }) => {
   const [fullScreenRegistro, setFullScreenRegistro] = useState(true)
   const [fullScreenLogin, setFullScreenLogin] = useState(true)
   const [botonBloquear, setBotonBloquear] = useState(false)
+  const [showModalCarrito, setShowModalCarrito] = useState(false)
+
+  const handleCloseModalCarrito = (state) =>{
+    setShowModalCarrito(state)
+  }
 
   const handleShowModal = (breakPoint, setScreen, setShow) => {
     setScreen(breakPoint);
@@ -39,6 +45,11 @@ const UserProvider = ({ children }) => {
       const infoUsuario = await jwtDecode(token);
       dispatch({ type: OBTENER_USER_INFO, payload: infoUsuario });
       dispatch({ type: USUARIO_ROL, payload: infoUsuario.role });
+      if (infoUsuario.expiracion > Date.now()){
+      if(!state.usuarioInfo) {
+        toast(`Hola ${infoUsuario.nombre}`)
+      }
+    }
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +82,7 @@ const UserProvider = ({ children }) => {
 
     if (operacion === "sumar") {
       if (cant.cantidad === producto.stock) {
-        return console.log(
+        return toast.warning(
           "No puede agregar mas cantidad. LLego al limite de stock del producto"
         );
       } else {
@@ -88,7 +99,6 @@ const UserProvider = ({ children }) => {
     try {
       let resultado = await instance.put(`/carrito/${id}`, cant, config);
       obtenerCarritoUsuario(tokenUser);
-      console.log(resultado.data.mensaje);
     } catch (error) {
       console.log(error);
     }
@@ -103,7 +113,7 @@ const UserProvider = ({ children }) => {
 
     try {
       let resultado = await instance.delete(`/carrito/${id}`, config);
-      console.log(resultado.data.mensaje);
+      toast.success(resultado.data.mensaje);
       obtenerCarritoUsuario(tokenUser);
     } catch (error) {
       console.log(error);
@@ -141,12 +151,11 @@ const UserProvider = ({ children }) => {
     }
     try {
       const logout = await instance.delete("/usuario/logout", config)
-      console.log(logout);
     } catch (error) {
       console.log(error);
     }
     navigate('/')
-    return console.log("Su sesion fue finalizada")
+    return toast("Sesion finalizada")
   }
 
   return (
@@ -177,7 +186,10 @@ const UserProvider = ({ children }) => {
         handleShowModal,
         deslogin,
         botonBloquear,
-        setBotonBloquear
+        setBotonBloquear,
+        showModalCarrito,
+        setShowModalCarrito,
+        handleCloseModalCarrito,
       }}
     >
       {children}

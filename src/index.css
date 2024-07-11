@@ -1,7 +1,6 @@
 
 .imagen-lista-productos{
-    height: 10vh;
-    width:10vh;
+    height: 5rem;
 }
 
 .td-favoritos{
@@ -21,8 +20,10 @@
  }
  
  .title-precio{
+    font-weight: 500;
      position: absolute;
      top: 0px;
+     left: 0px;
      background: rgba(26, 5, 5, 0.637);
  }
  
@@ -65,19 +66,20 @@ input[type=number] {
 }
 
 .imagen-pagina-producto{
-    height: 400px;
-    width: 400px;
+    height: 300px;
+    width: 300px;
     position:relative
 }
 
 @media screen and (min-width: 768px) and (max-width: 950px){
     .precio-pagina-producto{
-        font-size: 3rem !important;
+        font-size: 2rem !important;
     }
 }
 
 .precio-pagina-producto{
-    font-size: 4rem;
+    font-size: 2rem;
+    color: rgb(36, 31, 31);
 }
 
 @media screen and (max-width: 416px) {

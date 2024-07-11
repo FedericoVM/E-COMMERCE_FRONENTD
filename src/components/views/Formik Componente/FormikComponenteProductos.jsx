@@ -9,6 +9,7 @@ import CustomCodigoUnico from "../FormikImputsProductos/CustomInputCodigoUnico";
 import ImagenPreview from "../crudProductos/ImagenPreview";
 import CustomImputTexarea from "../FormikImputsProductos/CustomInputTextarea";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
+import ModalConfirmarProductos from "../Modal para confirmar/ModalConfirmarProductos";
 
 const FormikComponente = ({onSubmit, productoEdit, errorImagen, setErrorImagen}) => {
   
@@ -16,7 +17,7 @@ const FormikComponente = ({onSubmit, productoEdit, errorImagen, setErrorImagen})
 
   const {botonBloquear} = UserHook()
 
-    const [productoDestacado, setProductoDestacado] = useState(()=> {
+    const [productoDestacado] = useState(()=> {
       if(productoEdit){
         if(productoEdit.destacado === true){
           return "Si"
@@ -28,7 +29,7 @@ const FormikComponente = ({onSubmit, productoEdit, errorImagen, setErrorImagen})
       }
     })
 
-    const [initialValues, setInitialValues] = useState({
+    const [initialValuesForm, setInitialValuesForm] = useState({
         codigoProducto: productoEdit? productoEdit.codigo : Date.now().toString(),
             nombreProducto: productoEdit? productoEdit.nombre : "",
             marcaProducto: productoEdit? productoEdit.marca : "",
@@ -49,17 +50,15 @@ useEffect(()=>{
     return (
         <div className="d-flex justify-content-center">
         <Formik
-          initialValues={initialValues}
+          initialValues={initialValuesForm}
           validationSchema={schemaCrearProducto}
           onSubmit={onSubmit}
           enableReinitialize
         >
           {({
             values,
-            isSubmitting,
             errors,
             touched,
-            setValues,
             setFieldValue,
             resetForm
           }) => (
@@ -70,17 +69,17 @@ useEffect(()=>{
                 type="text"
               />
               <Custominput
-                label="Nombre del Producto"
+                label="Nombre del Producto *"
                 name="nombreProducto"
                 type="text"
               />
               <Custominput
-                label="Marca del Producto"
+                label="Marca del Producto *"
                 name="marcaProducto"
                 type="text"
               />
               <Custominput
-                label="Stock"
+                label="Stock *"
                 name="stockProducto"
                 type="number"
                 onKeyPress={(e) => {
@@ -90,12 +89,12 @@ useEffect(()=>{
                 }}
               />
               <CustomInputPrecio
-                label="Precio del Producto"
+                label="Precio del Producto *"
                 name="precioProducto"
                 type="number"
               />
               <CustomSelect
-                label="Categoria del Producto"
+                label="Categoria del Producto *"
                 name="categoriaProducto"
                 placeholder="Seleccione una categoria"
               >
@@ -105,7 +104,7 @@ useEffect(()=>{
                 <option value="Aire Libre">Aire Libre</option>
               </CustomSelect>
               <CustomImputTexarea
-                label="Descripcion del producto"
+                label="Descripcion del producto *"
                 name="descripcionProducto"
                 type="text"
               />
@@ -115,8 +114,8 @@ useEffect(()=>{
                 <option value="No">No</option>
               </CustomSelect>
               <div className="d-flex container flex-column justify-content-around flex-md-row align-items-center">
-                <div className="col-12 justify-content-around col-md-4 d-flex flex-column">
-                  <label className="text-center h6">Imagen del producto</label>
+                <div className="col-12 justify-content-around mb-3 mb-md-0 col-md-4 d-flex flex-column">
+                  <label className="text-center h6">Imagen del producto *</label>
                   <input
                     ref={imagenRef}
                     type="file"
@@ -129,6 +128,7 @@ useEffect(()=>{
                   />
                   <div className="d-flex flex-row flex-md-column justify-content-around col-12">
                   <Button
+                  className="my-md-2"
                   variant="outline-success"
                     type="button"
                     disabled={botonBloquear}
@@ -140,12 +140,12 @@ useEffect(()=>{
                   </Button>
                   <Button variant={values.imagenProducto ? "info":"outline-info"} disabled={values.imagenProducto ? false : true} type="button" onClick={() => setFieldValue('imagenProducto', "")}>Quitar Imagen</Button>
                   </div>
-                  {errors.imagenProducto && touched.imagenProducto && (
+                  {errors.imagenProducto && (
                     <p className="error text-center">{errors.imagenProducto}</p>
                   )}
                   {errorImagen === true && <p className="error text-center">La imagen es necesaria</p>}
                   </div>
-               <div className="col-12 col-md-8 d-flex justify-content-center">
+               <div className="col-12 col-md-7 d-flex justify-content-center">
                   {values.imagenProducto ? (
                     <ImagenPreview file={values.imagenProducto} />
                   ) : (
@@ -156,9 +156,7 @@ useEffect(()=>{
                   )}
                 </div>
               </div>
-              <Button disabled={isSubmitting} type="submit">
-                Guardar
-              </Button>
+              <ModalConfirmarProductos onSubmit={onSubmit} initialValues={values} errors={errors} touched={touched} resetForm={resetForm} productoEdit={productoEdit}/>
             </Form>
           )}
         </Formik>

@@ -7,7 +7,7 @@ const Computacion = ( {productos} ) => {
     } )
 
   return (
-    <div>
+    <div className="min-vh-100">
         {productos.length > 0 ? <ProductosCategorias productos={productosComp} card="categoria"/> :"" }  
     </div>
   )

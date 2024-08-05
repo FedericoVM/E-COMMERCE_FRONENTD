@@ -8,8 +8,8 @@ const Home = ({productos}) => {
   return (
     <>
       <CarouselHome />
-      <div>
-        <Row className="mx-0 d-flex">
+      <div className="">
+        <Row className="mx-0 d-flex min-vh-100">
           <Col lg={10}>
             {productos.length > 0 ? <Paginacion lista={productos} card={"card"}/> : <h1>Sin productos...</h1>}
           </Col>

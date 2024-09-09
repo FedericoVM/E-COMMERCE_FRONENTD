@@ -11,11 +11,16 @@
 }
 
 .ingresar{
-   border: 1.2px solid #CD5888;
+    background: none !important;
+    color: rgb(85, 84, 84);
+    font-weight: 500;
+    border-color: #913175;
 }
 
 .ingresar:hover{
-    border: 1.2px solid #913175;
+    color: rgb(255, 255, 255) !important;
+    background-color: #913175 !important;
+    border-color: #913175 !important;
 }
 
 .modalHeader{

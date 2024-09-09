@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook"
 import { Col, Row } from "react-bootstrap"
 import Paginacion from "../paginacion/Paginacion"
+import ProductoNoEncontrado from "../../layout/producto no encontrado/ProductoNoEncontrado"
 
 const VentanaDeBusqueda = () => {
 
@@ -26,7 +27,7 @@ const VentanaDeBusqueda = () => {
         <div>
             <Row className=" mx-0 d-flex">
           <Col lg={12}>
-            {productosEncontrados.length > 0 ? <Paginacion lista={productosEncontrados} card={"card"}/> : <h1>Sin productos...</h1>}
+            {productosEncontrados.length > 0 ? <Paginacion lista={productosEncontrados} card={"card"}/> : <ProductoNoEncontrado/>}
           </Col>
         </Row>
         </div>

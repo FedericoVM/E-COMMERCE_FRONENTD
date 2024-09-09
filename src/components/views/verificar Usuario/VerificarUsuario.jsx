@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import instance from "../../../axios/instance"
 import EsperandoRespuesta from "./espera del servidor/EsperandoRespuesta"
-import RespuestaRecibida from "./respuesta obtenida/RespuestaRecibida"
+import VerificarRespuesta from "./verificar respuesta/VerificarRespuesta"
 
 const VerificarUsuario = () => {
 
@@ -22,7 +22,6 @@ const VerificarUsuario = () => {
             setErrorStatus(error.response.status)
             setRespuestaRecibida(true)
             setMensajeError(error.response.data.mensaje)
-            
         }
     }
 
@@ -32,7 +31,7 @@ const VerificarUsuario = () => {
 
     return (
         <div className="">
-            {respuestaRecibida === true ? <RespuestaRecibida mensajeOk={mensajeOk} errorStatus={errorStatus} mensajeError={mensajeError}/> :<EsperandoRespuesta/>}
+            {respuestaRecibida === true ? <VerificarRespuesta mensajeOk={mensajeOk} errorStatus={errorStatus} mensajeError={mensajeError}/> :<EsperandoRespuesta/>}
         </div>
     )
 }

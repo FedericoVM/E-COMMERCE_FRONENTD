@@ -9,7 +9,7 @@ const ContenedorLogin = ( ) => {
 
   return (
     
-    <div className='d-flex'> 
+    <div className='d-flex='> 
     {
     usuarioRol === "admin" ? <ControlAdmin/> : <ControlUsuario/>
     }

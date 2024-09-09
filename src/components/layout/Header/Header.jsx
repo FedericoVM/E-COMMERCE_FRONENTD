@@ -19,6 +19,8 @@ import { ProductosHook } from "../../../context/Contexto de Productos/ProductosH
 import { AdminHook } from "../../../context/Contexto de Admin/AdminHook";
 import { useEffect, useState } from "react";
 import { USUARIO_EN_LINEA } from "../../../context/Contexto de Usuarios/typesUser";
+import { Offcanvas } from "react-bootstrap";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
 
 const Header = () => {
   const [cantidadCarrito, setCantidadCarrito] = useState(null);
@@ -62,6 +64,10 @@ const Header = () => {
     setCantidadCarrito(numeroDeProductos);
   };
 
+  const irAVentana = (destino) =>{
+    return navigate(`/${destino}`)
+  } 
+
   useEffect(() => {
     if (usuarioCarrito) {
       totalProductosCarrito(usuarioCarrito);
@@ -102,25 +108,33 @@ const Header = () => {
     <>
       <Navbar
         bg="light"
-        expand="lg"
+        expand="md"
         className="header-nav justify-content-between"
       >
         <Container fluid>
-          <Navbar.Brand href="/" className="d-flex align-self-start">
+          <Link className="d-flex fs-4 d-block d-md-none text-decoration-none align-self-center">
             Rolling Store
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse
-            id="navbarScroll"
-            className="flex-lg-column justify-lg-content-space fs"
+          </Link>
+          <Navbar.Toggle aria-controls="offcanvasNavbar-expand-md"/>
+          <Navbar.Offcanvas
+            id="offcanvasNavbar-expand-md"
+            aria-labelledby="offcanvasNavbarLabel-expand-md"
+              placement="start"
+            className="flex-md-column canvas-bs-header justify-md-content-space"
           >
-            <Nav
-              className="me-auto my-2 my-lg-0 flex-lg-column m-lg-0 w-100"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
-              <div className=" d-flex flex-column align-items-center  d-lg-flex flex-lg-row justify-content-lg-around py-lg-1 ">
-                <Form onSubmit={handleSubmit} className="search d-flex ">
+            <Offcanvas.Header closeButton>
+                <Offcanvas.Title id="offcanvasNavbarLabel-expand-md">
+                  <Link to={"/"} className="d-flex logotipo-header fs-4 text-decoration-none align-self-center">
+                  Rolling Store
+                </Link>
+                </Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body className="d-flex flex-column">
+              <div className=" d-flex flex-column d-md-flex flex-md-row justify-content-md-around">
+                <Link to={"/"} className="d-flex logotipo-header fs-4 d-none d-md-block text-decoration-none align-self-center">
+                  Rolling Store
+                </Link>
+                <Form onSubmit={handleSubmit} className="search col-md-5 d-flex ">
                   <Form.Control
                     type="search"
                     placeholder="Buscar..."
@@ -129,11 +143,24 @@ const Header = () => {
                     name="search"
                   />
                   <i className="bi bi-search"></i>
-                  <Button variant="outline-dark" type="submit">
+                  <Button className="boton-buscar-header" type="submit">
                     <FaSearch />
                   </Button>
                 </Form>
-                <div className=" redes-header d-none gap-4 d-lg-flex justify-content-lg-around">
+                <div className=" redes-header d-none col-md-4 d-md-flex align-items-md-center justify-content-md-around">
+                  <Link
+                    to={"/nosotros"}
+                    className="text-decoration-none text-secondary px-md-1 px-lg-2 btn-hover"
+                  >
+                    Nostros
+                  </Link>
+                  <Link
+                    href="https://www.google.com"
+                    target="_blank"
+                    className="px-md-1 px-lg-2 py-0 text-secondary btn-hover text-decoration-none"
+                  >
+                    Ayuda
+                  </Link>
                   <Nav.Link href="https://es-la.facebook.com/" target="_blank">
                     <img src={facebook} alt="img-1" />
                   </Nav.Link>
@@ -145,86 +172,72 @@ const Header = () => {
                   </Nav.Link>
                 </div>
               </div>
-
-              <Nav className="m-0 text-center d-lg-flex justify-content-lg-around">
-                <NavDropdown className="mx-auto mx-lg-0" title="Categorias" id="navbarScrollingDropdown">
-                  <NavDropdown.Item>
-                    <Link
-                      className="text-decoration-none text-secondary"
-                      to="/computacion"
-                    >
+              <Nav className="m-0 navbar-items-header d-md-flex justify-content-md-around">
+                <div className="col-md-2 col-lg-3 d-flex justify-content-md-center justify-content-lg-end">
+                <NavDropdown
+                  title="Categorias"
+                  className="btn-hover boton-select-header"
+                >
+                  <DropdownItem className="nav-drop-down" onClick={() => {irAVentana("computacion")}}>
                       Computacion
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item>
-                    <Link
-                      className="text-decoration-none text-secondary"
-                      to="/electrodomesticos"
-                    >
+                  </DropdownItem>
+                  <DropdownItem className="nav-drop-down" onClick={() => {irAVentana("electrodomesticos")}}>
                       Electrodomesticos
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item>
-                    <Link
-                      className="text-decoration-none text-secondary"
-                      to="/aireLibre"
-                    >
+                  </DropdownItem>
+                  <DropdownItem className="nav-drop-down" onClick={() => {irAVentana("aireLibre")}}>
                       Aire Libre
-                    </Link>
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <div className="d-flex flex-column d-lg-flex flex-lg-row align-items-lg-center gap-3">
+                  </DropdownItem>
+                  </NavDropdown>
+                </div>
+                <div className="d-flex flex-column col-md-6 col-lg-5 d-md-flex justify-content-center flex-md-row align-items-md-center gap-3">
                   <NavLink
-                    className="text-decoration-none text-secondary"
+                    className="text-decoration-none btn-hover px-md-1 px-lg-2 text-secondary"
                     to="/"
                   >
                     Home
                   </NavLink>
                   <NavLink
-                    className="text-decoration-none text-secondary"
+                    className="text-decoration-none btn-hover px-md-1 px-lg-2 text-secondary"
                     to="/destacados"
                   >
                     Destacados
                   </NavLink>
                   <NavLink
-                    className="text-decoration-none text-secondary"
+                    className="text-decoration-none btn-hover px-md-1 px-lg-2 text-secondary"
                     to="/contacto"
                   >
                     {" "}
                     Contacto
                   </NavLink>
                   <NavLink
-                    className="text-decoration-none text-secondary"
+                    className="text-decoration-none btn-hover px-md-1 px-lg-2 text-secondary"
                     to="/favoritos"
                   >
                     {" "}
                     Favoritos
                   </NavLink>
                 </div>
-                <div className=" d-flex flex-column align-items-center gap-1  d-lg-flex flex-lg-row gap-lg-3 align-items-lg-center">
-                  <Nav.Link href="#action8" className="p-0">
-                    Ayuda
-                  </Nav.Link>
+                <div className="col-md-4 d-flex col-12 mt-3 mt-md-0 flex-row-reverse align-items-center gap-1 d-md-flex  gap-md-3 justify-content-between justify-content-md-center">
                   {usuarioEnLinea ? (
-                    <div>
+                    <div className="col-md-8 col-10">
                       <ContenedorLogin />
                     </div>
                   ) : (
-                    <div className="d-flex flex-column  d-lg-flex flex-lg-row align-items-lg-center gap-2">
+                    <div className="d-flex d-md-flex col-10 col-md-auto flex-md-row align-items-lg-center gap-2">
                       <Registro />
                       <Login />
                     </div>
                   )}
-                  <NavLink>
-                    <ModalCarrito />
-                    <span>
+                  <NavLink className="position-relative col-1 col-md-auto text-center">
+                    <ModalCarrito/>
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                       {usuarioCarrito &&
                         usuarioCarrito.length > 0 &&
                         cantidadCarrito}
                     </span>
                   </NavLink>
                 </div>
-                <div className="d-lg-none border-top w-100 p-3 d-flex justify-content-center align-items-center">
+                <div className="d-md-none border-top w-100 mt-2 py-2 d-flex justify-content-center align-items-center">
                   <div className=" d-flex justify-content-around w-50">
                     <img src={facebook} alt="img-1" />
                     <img src={instagram} alt="img-2" />
@@ -232,8 +245,8 @@ const Header = () => {
                   </div>
                 </div>
               </Nav>
-            </Nav>
-          </Navbar.Collapse>
+              </Offcanvas.Body>
+          </Navbar.Offcanvas>
         </Container>
       </Navbar>
     </>

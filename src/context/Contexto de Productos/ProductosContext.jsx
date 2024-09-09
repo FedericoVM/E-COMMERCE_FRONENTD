@@ -9,7 +9,7 @@ import {
 } from "./typesProductos";
 
 const ProductosProvider = ({ children }) => {
-  const [productosHome, setProductosHome] = useState([]);
+  const [productosHome, setProductosHome] = useState(null);
   const [buscarProductos, setBuscarProductos] = useState(null)
 
   const initialStateProductContext = {

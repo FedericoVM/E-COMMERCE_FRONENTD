@@ -9,12 +9,12 @@ const CustomInputUser = ({label, ...props}) => {
 
     return (
         <>
-        <Form.Label>{label}</Form.Label>
+        <Form.Label className="m-0 p-0">{label}</Form.Label>
         <Form.Control
         {...field}
         {...props}
         disabled={botonBloquear}
-        className={meta.touched && meta.error? "border mb-3 border-danger border-1 shadow-lg border-opacity-75" : "my-2"}
+        className={meta.touched && meta.error? "border mb-2 border-danger border-1 shadow-lg border-opacity-75" : "mb-2"}
         />
         {meta.touched && meta.error && <div className="text-validation">{meta.error}</div>}
         </>

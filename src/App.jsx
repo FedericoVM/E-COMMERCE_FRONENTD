@@ -5,7 +5,6 @@ import "./components/layout/Header/header.css";
 import UserProvider from "./context/Contexto de Usuarios/UserContext";
 import ProductosProvider from "./context/Contexto de Productos/ProductosContext";
 import AdminProvider from "./context/Contexto de Admin/AdminContext";
-require("dotenv").config()
 
 function App() {
   return (

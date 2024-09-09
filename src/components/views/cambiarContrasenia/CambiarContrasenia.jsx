@@ -12,21 +12,10 @@ const CambiarContrasenia = () => {
     const use_navigate = useNavigate()
 
     const handleCambiarContrasenia = async(e) =>{
-        e.preventDefault()
 
         setBotonBloquear(true)
 
-        let contrasenia = e.target.CambiarContrasenia.value
-
-        if(contrasenia.length > 30){
-            setBotonBloquear(false)
-            return console.log('Exedio el maximo de caracteres');
-        }
-
-        if(!regexPassword.test(contrasenia)){
-            setBotonBloquear(false)
-            return console.log("la contrasenia debe contener un minimo de 5 caracteres con caracteres especiales y mayusculas")
-        }
+        let contrasenia = e.password        
 
         let nuevaContrasenia = {
             password : contrasenia

@@ -6,20 +6,17 @@ import tarjetas from "../../../../assets/img/pagos/tarjeta.png";
 import img_envio from "../../../../assets/img/pagos/envio.png";
 import "./carouselHome.css";
 
-
-
 const CarouselHome = () => {
-    console.log(process.env.IMG_CAROUSEL);
     return (
         <>
-            <Carousel fade>
-                <Carousel.Item>
-                    <img className="d-block w-100" src={img_carousel} alt="First slide" />
+            <Carousel fade className="contenedor-carousel">
+                <Carousel.Item className="carousel-item">
+                    <img className="d-block w-100" src={import.meta.env.VITE_IMG_CAROUSEL} alt="First slide" />
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src={process.env.IMG_CAROUSEL}
+                        src={import.meta.env.VITE_IMG_CAROUSEL}
                         alt="Second slide"
                     />
                 </Carousel.Item>

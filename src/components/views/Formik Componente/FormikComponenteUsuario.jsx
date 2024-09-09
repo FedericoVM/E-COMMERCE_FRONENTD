@@ -48,8 +48,8 @@ const FormikComponenteUsuario = ({
             <CustomInputUser label="Apellido" name="apellido" type="text" />
             <CustomInputEdad label="Edad" name="edad" type="number" />
             <CustomInputUser label="Email" name="email" type="email" />
-            <div className="d-flex flex-column my-1 justify-content-around flex-md-row align-items-center">
-              <div className="col-12 justify-content-around align-items-center col-md-4 d-flex flex-column">
+            <div className="d-flex flex-column my-1 justify-content-around flex-sm-row align-items-center">
+              <div className="col-12 justify-content-around align-items-center col-sm-4 d-flex flex-column">
                 <label className="text-center mb-3">Foto de Perfil</label>
                 <input
                   ref={imagenRef}
@@ -60,7 +60,7 @@ const FormikComponenteUsuario = ({
                     setFieldValue("avatar", e.target.files[0]);
                   }}
                 />
-                <div className="d-flex flex-column  justify-content-around align-items-center col-6 col-md-12 gap-2">
+                <div className="d-flex flex-column gap-2 justify-content-around align-items-center col-12 col-sm-5">
                   <Button
                     className="btn-avatar text-white"
                     variant="btn"
@@ -85,7 +85,7 @@ const FormikComponenteUsuario = ({
                   <p className="error text-center">{errors.avatar}</p>
                 )}
               </div>
-              <div className="col-7 col-sm-5 col-md-auto d-flex justify-content-center h-50 my-2">
+              <div className="col-8 col-sm-7 d-flex justify-content-center my-2">
                 {values.avatar ? (
                   <ImagenPreviewUser file={values.avatar} />
                 ) : (
@@ -96,14 +96,14 @@ const FormikComponenteUsuario = ({
                         ? usuarioInfo.imagen
                         : "https://smallimg.pngkey.com/png/small/810-8105695_person-icon-grey-person-icon-grey-png.png"
                     }
-                    className="img-upload img-thumbnail w-100 h-100"
+                    className="img-upload img-thumbnail"
                   />
                 )}
               </div>
             </div>
             {!usuarioInfo && (
               <div>
-                <Form.Label>Contraseña</Form.Label>
+                <Form.Label className="m-0 p-0">Contraseña</Form.Label>
                 <Form.Control
                   disabled={botonBloquear}
                   onChange={handleChange}
@@ -111,7 +111,7 @@ const FormikComponenteUsuario = ({
                   className={
                     errors.password || passwordRequerida
                       ? "border mb-3 border-danger border-1 shadow-lg border-opacity-75"
-                      : "mb-3"
+                      : "mb-2"
                   }
                   type="password"
                   name="password"

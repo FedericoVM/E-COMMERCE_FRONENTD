@@ -3,10 +3,14 @@
 }
 
 .crear-cuenta{
-    background-color: #913175;
-    border: none;
+    background: none !important;
+    color: rgb(85, 84, 84);
+    font-weight: 500;
+    border-color: #913175;
 }
 
-.crear-cuenta:hover {
-    background-color: #cc417b;
+.crear-cuenta:hover{
+    color: rgb(255, 255, 255) !important;
+    background-color: #913175 !important;
+    border-color: #913175 !important;
 }

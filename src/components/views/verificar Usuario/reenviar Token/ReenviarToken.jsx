@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import { regexEmail } from '../../../../RegExp/relugarExp';
 import instance from '../../../../axios/instance';
 import { UserHook } from '../../../../context/Contexto de Usuarios/UserHook';
+import "./reenviarToken.css"
 
 const ReenviarToken = () =>{
     const [show, setShow] = useState(false);
@@ -34,6 +35,7 @@ const ReenviarToken = () =>{
       let reenviarToken = await instance.post('usuario/reenviar-token',emailAEnviar)
       setBotonBloquear(false)
       console.log(reenviarToken.data.mensaje);
+      return handleClose()
     } catch (error) {
       setBotonBloquear(false)
       console.log(error);
@@ -42,12 +44,11 @@ const ReenviarToken = () =>{
 
   return (
     <>
-      <Button disabled={botonBloquear} variant="primary" className='mt-2 mx-2' onClick={handleShow}>
+      <Button disabled={botonBloquear} variant="primary" className='mt-2 boton-reenviar-token mx-2' onClick={handleShow}>
         Reenviar Token
       </Button>
-
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header className='modal-reenviar-token-header' closeButton>
           <Modal.Title>Rolling Store</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -63,7 +64,7 @@ const ReenviarToken = () =>{
                 className='my-2'
               />
             </Form.Group>
-            <Button className='align-self-end' disabled={botonBloquear} variant="primary" type='submit' >
+            <Button className='align-self-end boton-enviar-token boton-reenviar-token' disabled={botonBloquear} variant="primary" type='submit' >
             Enviar
           </Button>
           </Form>

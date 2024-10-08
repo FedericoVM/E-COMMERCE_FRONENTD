@@ -70,15 +70,13 @@ const AdminProductos = ( ) => {
       <hr/>
         <FormikComponente errorImagen={errorImagen} setErrorImagen={setErrorImagen} onSubmit={crearProducto}/>
       <hr />
-        {productosHome.length > 0 ? (
+        {productosHome.length > 0 && (
           <Paginacion
             lista={arrayBuscar ? arrayBuscar : productosHome}
             card="listaProductosAdmin"
             setArrayBuscar={setArrayBuscar}
             mostrarBarra={mostrarBarra}
           />
-        ) : (
-          ""
         )}
     </div>
   );

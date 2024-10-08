@@ -30,6 +30,11 @@ export const schemaCrearProducto = yup.object().shape({
     .required(),
     destacarProducto: yup
     .string(),
+    descuento: yup
+    .number()
+    .min(0,"Error. No se puede agregar valor negativo")
+    .max(70,"El maximo es 70%")
+    .required("Debe ingresar el descuento"),
     imagenProducto: yup
     .mixed()
     .test("FILE_SIZE", "La imagen es muy grande.",(value) => !value || value.size <= 1024 * 1024)

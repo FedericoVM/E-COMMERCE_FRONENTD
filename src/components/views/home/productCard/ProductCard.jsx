@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import "./productCard.css";
 import { UserHook } from "../../../../context/Contexto de Usuarios/UserHook";
 import { ProductosHook } from "../../../../context/Contexto de Productos/ProductosHook";
+import ModalEsperaPagoBack from "../../Modal espera pago/ModalEsperaPagoBack";
 
 const ProductCard = ({ p }) => {
   
-  const { obtenerUsuarioFavoritos, tokenUser, obtenerCarritoUsuario, usuarioEnLinea } =
+  const { obtenerUsuarioFavoritos, tokenUser, obtenerCarritoUsuario, usuarioEnLinea, handleShowModalPagoEspera} =
     UserHook();
-  const { formatPrecio, agregarAlCarrito, agregarAFavoritos, eliminarDeFavoritos, cambiarBotonFavorito, productosFavoritosAMostrar} = ProductosHook();
+  const { formatPrecio, agregarAlCarrito, agregarAFavoritos, eliminarDeFavoritos, cambiarBotonFavorito, productosFavoritosAMostrar, comprarProducto} = ProductosHook();
 
   const favoritoExistente = cambiarBotonFavorito(usuarioEnLinea, productosFavoritosAMostrar, p._id)
 
@@ -71,12 +72,7 @@ const ProductCard = ({ p }) => {
             >
                <FaCartArrowDown/>
             </button>
-            <button 
-             type="button"
-             className="btn btn-primary col-7 col-sm-11 col-md-6 col-lg-7 boton-comprar-card p-1 m-1"
-             >
-              Comprar
-            </button>
+            <ModalEsperaPagoBack classPropiedad={'btn btn-primary col-7 col-sm-11 col-md-6 col-lg-7 boton-comprar-card p-1 m-1'} comprarProducto={()=> comprarProducto(p._id, tokenUser)}/>
           </div>
           </div>
         </div>

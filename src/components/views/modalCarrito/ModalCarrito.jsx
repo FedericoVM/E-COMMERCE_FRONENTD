@@ -10,13 +10,15 @@ import { FormLabel } from "react-bootstrap";
 import { toast } from "sonner";
 import "./ModalCarrito.css"
 import CarritoVacio from "./carritoVacio/CarritoVacio";
+import instance from "../../../axios/instance";
+import ModalEsperaPagoBack from "../Modal espera pago/ModalEsperaPagoBack";
 
 const ModalCarrito = ( ) => {
     
     const [precioTotal, setPrecioTotal] = useState(null)
 
-    const {usuarioCarrito, showModalCarrito,setShowModalCarrito, handleCloseModalCarrito} = UserHook()
-    const {productosHome, filtrarCarritoAMostrarProducto, productosCarritoAMostrar, formatPrecio} = ProductosHook()
+    const {usuarioCarrito, showModalCarrito,setShowModalCarrito, handleCloseModalCarrito, usuarioInfo, tokenUser} = UserHook()
+    const {productosHome, filtrarCarritoAMostrarProducto, productosCarritoAMostrar, formatPrecio, setErrorMercado} = ProductosHook()
 
     const handleClose = () => setShowModalCarrito(false);
 
@@ -28,6 +30,30 @@ if (productosArray) {
         });
     }
     setPrecioTotal(total)
+    }
+
+    const comprarProductosCarrito = async () => {
+
+        const config = {
+            headers: {
+              authorization: `Bearer ${tokenUser}`
+            }
+          }
+
+        const usuarioCarrito = {
+            email: usuarioInfo.email
+        }
+
+        try {
+            const pagoCarrito = await instance.post('/mercadoPago/paymentCarrito', usuarioCarrito, config);
+            if (pagoCarrito) {
+                window.location.href = `${pagoCarrito.data.redirecttUrl}`
+              }
+        } catch (error) {
+            console.log(error);
+            setErrorMercado(error.response.data.message)
+            toast.warning('Algo Paso.')
+        }
     }
 
     useEffect(()=>{
@@ -47,7 +73,7 @@ if (productosArray) {
 
     return (
         <>
-            <Button variant="link" onClick={()=>{handleCloseModalCarrito(true)}}>
+            <Button variant="link" onClick={()=>{if(tokenUser){handleCloseModalCarrito(true)}}}>
                 Carrito
             </Button>
             <Modal
@@ -80,7 +106,7 @@ if (productosArray) {
                     <Button variant="danger" onClick={handleClose}>
                         Cerrar
                     </Button>
-                    <Button variant="primary">Comprar</Button>
+                    <ModalEsperaPagoBack comprarProducto={comprarProductosCarrito} />
                     </div>
                 </Modal.Footer>
             </Modal>

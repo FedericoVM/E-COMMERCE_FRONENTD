@@ -5,6 +5,7 @@ import { ProductosHook } from "../../../context/Contexto de Productos/ProductosH
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import "./destacado.css";
 import { Link } from "react-router-dom";
+import ModalEsperaPagoBack from "../Modal espera pago/ModalEsperaPagoBack";
 
 const DestacadoCards = ({ post }) => {
 
@@ -14,7 +15,8 @@ const DestacadoCards = ({ post }) => {
     agregarAFavoritos,
     eliminarDeFavoritos,
     cambiarBotonFavorito,
-    productosFavoritosAMostrar
+    productosFavoritosAMostrar,
+    comprarProducto
   } = ProductosHook();
   const {
     obtenerUsuarioFavoritos,
@@ -97,9 +99,7 @@ const DestacadoCards = ({ post }) => {
             >
               <MdShoppingCart className="fs-4" />
             </Button>
-            <Button variant="success" className="opacity-75 fs-6 boton-comprar-destacado">
-              Comprar
-            </Button>
+            <ModalEsperaPagoBack comprarProducto={() => {comprarProducto(post._id, tokenUser)}} classPropiedad={"opacity-75 fs-6 boton-comprar-destacado btn-success"}/>
           </div>
         </Card.Body>
       </Card>

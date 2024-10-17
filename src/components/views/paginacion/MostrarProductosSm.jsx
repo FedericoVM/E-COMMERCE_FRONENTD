@@ -7,13 +7,15 @@ const MostrarProductosSm = ({ currentPostsSm, totalPosts, page}) => {
     const {currentPageMobile, paginateMobile} = ProductosHook()
 
     return (
-        <Row xs={2} className=" g-4 d-flex justify-content-center d-md-none d-lg-none mt-3 ">
+        <div className='d-flex flex-column'>
+        <Row xs={2} className=" g-4 d-flex d-md-none d-lg-none mt-3 ">
             {currentPostsSm.map((p, index) => (
                 <Col key={index} className="d-flex flex-wrap mt-3 p-2">
                     <ProductCard p={p}/>
                 </Col>
             ))}
-            <div>
+        </Row>
+        <div className='d-md-none d-lg-none'>
                 <PaginacionControl
                     postsPerPage={page}
                     totalPosts={totalPosts}
@@ -21,7 +23,7 @@ const MostrarProductosSm = ({ currentPostsSm, totalPosts, page}) => {
                     currentPage={currentPageMobile}
                 />
             </div>
-        </Row>
+        </div>
     )
 }
 

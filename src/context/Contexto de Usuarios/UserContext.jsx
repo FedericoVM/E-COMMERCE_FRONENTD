@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from "react";
+import { useState, useReducer} from "react";
 import { UseUser } from "./UseUser";
 import instance from "../../axios/instance";
 import UserReducer from "./UserReducer";
@@ -158,6 +158,10 @@ const UserProvider = ({ children }) => {
     return toast("Sesion finalizada")
   }
 
+  const modalEsperaLink = () => {
+
+  }
+
   return (
     <UseUser.Provider
       value={{
@@ -189,7 +193,7 @@ const UserProvider = ({ children }) => {
         setBotonBloquear,
         showModalCarrito,
         setShowModalCarrito,
-        handleCloseModalCarrito,
+        handleCloseModalCarrito
       }}
     >
       {children}

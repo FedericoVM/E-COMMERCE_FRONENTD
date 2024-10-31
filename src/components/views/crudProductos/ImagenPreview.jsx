@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ImagenPreview = ({ file }) => {
+const ImagenPreview = ({ file}) => {
   const [preview, setPreview] = useState(null);
   const reader = new FileReader();
   reader.readAsDataURL(file);

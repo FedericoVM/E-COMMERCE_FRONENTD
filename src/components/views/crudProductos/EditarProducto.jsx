@@ -50,9 +50,9 @@ const EditarProducto = ( ) => {
     formData.append('categoria', values.categoriaProducto);
     values.imagenProducto && formData.append('imagen', values.imagenProducto);
     formData.append('descripcion', values.descripcionProducto)
-    formData.append('destacado', values.destacado)
+    formData.append('destacado', destacado)
     formData.append(`descuento`,values.descuento)
-    
+
     try {
       const resp = await instanceFormData.put(`/productos/${productoEdit._id}`,formData,config)
       obtenerProductos()

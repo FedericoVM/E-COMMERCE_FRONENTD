@@ -8,8 +8,6 @@ import {toast} from "sonner"
 
 const AdminProductos = ( ) => {
 
-  const [errorImagen, setErrorImagen] = useState(false)
-
   const {tokenUser, setBotonBloquear} = UserHook()
   const {productosHome, obtenerProductos} = ProductosHook()
 
@@ -17,17 +15,9 @@ const AdminProductos = ( ) => {
 
   const [arrayBuscar, setArrayBuscar] = useState(null);
 
-  const crearProducto = async (values, resetForm) => {
+  const crearProducto = async (values) => {
   
     setBotonBloquear(true)
-
-    if(!values.imagenProducto){
-      setBotonBloquear(false)
-       return setErrorImagen(true)
-    } else {
-      setBotonBloquear(false)
-      setErrorImagen(false)
-    }
     
     const config = {
       headers: {
@@ -51,12 +41,12 @@ const AdminProductos = ( ) => {
     formData.append("imagen", values.imagenProducto);
     formData.append("descripcion", values.descripcionProducto);
     formData.append("destacado", destacado);
+    formData.append("descuento", values.descuento)
 
     try {
       const resp = await instanceFormData.post("/productos", formData, config);
       obtenerProductos();
       setBotonBloquear(false)
-      resetForm()
       toast.success(resp.data.msg)
     } catch (error) {
       setBotonBloquear(false)
@@ -68,7 +58,7 @@ const AdminProductos = ( ) => {
     <div className="container d-flex flex-column">
       <h1 className="text-center">Administrar Productos</h1>
       <hr/>
-        <FormikComponente errorImagen={errorImagen} setErrorImagen={setErrorImagen} onSubmit={crearProducto}/>
+        <FormikComponente onSubmit={crearProducto}/>
       <hr />
         {productosHome.length > 0 && (
           <Paginacion

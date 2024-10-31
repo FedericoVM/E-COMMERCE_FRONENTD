@@ -38,15 +38,6 @@ const Contacto = () => {
         timer: 1500
       })
     }
-
-    let consulta = {
-      nombre,
-      email,
-      telefono,
-      observacion
-    }
-
-    console.log(consulta)
   }
 
   return (

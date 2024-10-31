@@ -1,0 +1,261 @@
+/*.imagen-integrantes, .contenedor-imagen{
+    height: 18rem;
+}
+
+.contenedor-imagen{
+    height: 18rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.contenedor-info{
+    background-color: rgba(0, 0, 0, 0.712);
+    position: absolute;
+    height: 18rem;
+    bottom: -100%;
+    width: 100%;
+    transition: all 0.5s ease-in;
+}
+
+.contenedor-card:hover .contenedor-info{
+    bottom:0%;
+}*/
+
+/*.boton-linkedin{
+    background: none;
+    border:none;
+    width: 30%;
+    transition: all 0.5s ease;
+}
+
+.logo-linkedin{
+    font-size: 3rem;
+    color: rgb(10, 102, 194);
+}
+
+.boton-github{
+    background: none;
+    border: none;
+    width: 30%;
+    transition: all 0.5s ease;
+}
+
+.logo-github{
+    font-size: 3rem;
+}
+
+.boton-github:hover, .boton-linkedin:hover {
+    background-color: rgb(197, 208, 236);
+    }*/
+.imagen-integrantes{
+    height: 150px;
+    border-radius: 50% !important;
+}
+
+.contenedor-imagen{
+    border: 2px rgb(204, 203, 203) solid
+}
+
+.contenedor-info{
+    border-top: 2px rgb(204, 203, 203) solid;
+}
+
+.boton-linkedin{
+    background: none;
+    border:none;
+    transition: all 0.5s ease;
+}
+
+.logo-linkedin{
+    font-size: 2.5rem;
+    color: rgb(10, 102, 194);
+}
+
+.boton-github{
+    background: none;
+    border: none;
+    transition: all 0.5s ease;
+}
+
+.logo-github{
+    font-size: 2.5rem;
+}
+
+.nombre{
+    color: black !important;
+}
+
+.presentacion{
+    color: black !important;
+}
+
+.contenedor-imagen{
+    width: 100% !important;
+}
+
+@media screen and (min-width: 576px) and (max-width: 767px) {
+    .presentacion{
+        color: rgb(82, 81, 81) !important;
+    }
+
+    .nombre{
+        color:  rgb(48, 47, 47) !important;
+    }
+
+    .contenedor-info{
+        border: none;
+    }
+
+    .imagen-integrantes{
+        box-shadow: 2px 2px 4px rgba(121, 120, 120, 0.637);
+        width: 20% !important;
+        height: 150px !important;
+        border-radius: 50% !important;
+    }
+
+    .contenedor-imagen {
+        height: 17rem !important;
+        border:2px rgba(149, 148, 158, 0.301) solid
+    }
+
+    .contenedor-card{
+        height: 17rem;
+    }
+
+    .boton-linkedin{
+        background: none;
+        border:none;
+        transition: all 0.5s ease;
+    }
+    
+    .logo-linkedin{
+        font-size: 2rem;
+        color: rgb(10, 102, 194);
+    }
+    
+    .boton-github{
+        background: none;
+        border: none;
+        transition: all 0.5s ease;
+    }
+    
+    .logo-github{
+        font-size: 2rem;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .contenedor-imagen {
+        height: 17rem;
+        border:2px rgba(149, 148, 158, 0.301) solid
+    }
+
+    .contenedor-info p {
+        color: rgb(26, 25, 25) !important;
+    }
+
+    .contenedor-info{
+        border: none;
+    }
+
+    .contenedor-card{
+        height: 17rem;
+    }
+
+    .imagen-integrantes{
+        border-bottom:  2px solid rgba(0, 0, 0, 0.281);
+        border-top: 2px solid rgba(0, 0, 0, 0.281);
+        height: 200px;
+    }
+
+    .boton-linkedin{
+        width: 30%;
+        background: none;
+        border:none;
+        transition: all 0.5s ease;
+    }
+    
+    .logo-linkedin{
+        font-size: 3rem;
+        color: rgb(10, 102, 194);
+    }
+    
+    .boton-github{
+        width: 30%;
+        background: none;
+        border: none;
+        transition: all 0.5s ease;
+    }
+    
+    .logo-github{
+        font-size: 3rem;
+    }
+    
+    .boton-github:hover, .boton-linkedin:hover {
+        background-color: rgb(197, 208, 236);
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .imagen-integrantes, .contenedor-imagen{
+        height: 18rem;
+        border-radius: 2% !important;
+    }
+    
+    .contenedor-imagen{
+        height: 18rem;
+        overflow: hidden;
+        position: relative;
+        border: 2px solid rgba(0, 0, 0, 0.226) !important
+    }
+    
+    .contenedor-info{
+        background-color: rgba(0, 0, 0, 0.712);
+        position: absolute;
+        height: 18rem;
+        bottom: -100%;
+        width: 100%;
+        transition: all 0.5s ease-in;
+        border: none;
+    }
+
+    .presentacion{
+        color: rgb(238, 237, 237) !important;
+    }
+
+    .nombre{
+        font-weight: 500;
+        color: rgb(238, 237, 237) !important;
+    }
+    
+    .contenedor-card:hover .contenedor-info{
+        bottom:0%;
+    }
+
+    .boton-linkedin{
+        background: none;
+        border:none;
+        width: 30%;
+        transition: all 0.5s ease;
+    }
+    
+    .logo-linkedin{
+        font-size: 3rem;
+        color: rgb(10, 102, 194);
+    }
+    
+    .boton-github{
+        background: none;
+        border: none;
+        width: 30%;
+        transition: all 0.5s ease;
+    }
+    
+    .logo-github{
+        font-size: 3rem;
+    }
+    
+    .boton-github:hover, .boton-linkedin:hover {
+        background-color: rgb(197, 208, 236);
+    }
+}

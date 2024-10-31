@@ -18,6 +18,7 @@ import { ProductosHook } from "../../../context/Contexto de Productos/ProductosH
 import { AdminHook } from "../../../context/Contexto de Admin/AdminHook";
 import { useEffect, useState } from "react";
 import { USUARIO_EN_LINEA } from "../../../context/Contexto de Usuarios/typesUser";
+import { toast } from "sonner";
 
 const Header = ( ) => {
 
@@ -35,7 +36,7 @@ const Header = ( ) => {
     if (aBuscar.length > 3) {
       setBuscarProductos(aBuscar)
     } else {
-      console.log("Se necesitan mas caracteres");
+      return toast.warning("Se necesitan mas caracteres");
     }
     navigate('/busqueda')
   }
@@ -118,7 +119,6 @@ if(array.length > 0) {
                   </Nav.Link>
                 </div>
               </div>
-
               <Nav className="m-0 d-flex justify-content-around">
                 <NavDropdown title="Categorias" className="d-flex flex-colummn" id="navbarScrollingDropdown">
                   <Link to="/computacion">Computacion</Link>
@@ -132,7 +132,7 @@ if(array.length > 0) {
                   <NavLink to="/favoritos"> Favoritos</NavLink>
                 </div>
                 <div className=" d-lg-flex  align-self-lg-end">
-                  <Nav.Link href="#action8"> Ayuda</Nav.Link>
+                  <Nav.Link href=""> Ayuda</Nav.Link>
                   <NavLink  className="position-relative"> <ModalCarrito/> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{usuarioCarrito && usuarioCarrito.length > 0 && cantidadCarrito}</span> </NavLink>
                   {usuarioEnLinea ? <div> <ContenedorLogin/> </div> : <div> <Login/> <Registro/> </div>}
                 </div>

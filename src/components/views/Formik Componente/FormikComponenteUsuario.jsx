@@ -8,31 +8,40 @@ import CustomInputUser from "../FormitImputsUsers/CustomInputUser";
 import CustomInputEdad from "../FormitImputsUsers/CustomInputEdad";
 import ImagenPreviewUser from "../FormitImputsUsers/ImagenPreviewUser";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
+import ModalConfirmar from "../Modal para confirmar users/ModalConfirmar";
+import { Link } from "react-router-dom";
 
 const FormikComponenteUsuario = ({onSubmit, passwordRequerida, confirmarPasswordRequerida}) => {
 
   const {usuarioInfo, botonBloquear} = UserHook()
   const imagenRef = useRef(null)
 
-    const [initialValues, setInitialValues] = useState({
-        nombre : usuarioInfo ? usuarioInfo.nombre : "",
-        apellido : usuarioInfo ? usuarioInfo.apellido : "",
-        edad : usuarioInfo ? usuarioInfo.edad : "",
-        email: usuarioInfo ? usuarioInfo.email : "",
+    const [initialValuesRegistro] = useState({
+        nombre : "",
+        apellido : "",
+        edad : "",
+        email: "",
         avatar : "",
         password : "",
         confirmarPassword: ""
     })
 
+    const [initialValuesEditar] = useState({
+      nombre: usuarioInfo && usuarioInfo.nombre,
+      apellido: usuarioInfo && usuarioInfo.apellido,
+      edad: usuarioInfo && usuarioInfo.edad,
+      email: usuarioInfo && usuarioInfo.email,
+      avatar: ""
+    })
+
   return (
     <div className="d-flex justify-content-center">
       <Formik
-      initialValues={initialValues}
+      initialValues={usuarioInfo? initialValuesEditar : initialValuesRegistro}
       validationSchema={schemaRegistro}
       onSubmit={onSubmit}>
         {({
           values,
-          isSubmiting,
           errors,
           touched,
           handleChange,
@@ -40,12 +49,12 @@ const FormikComponenteUsuario = ({onSubmit, passwordRequerida, confirmarPassword
         }) => (
           <FormFormik className="d-flex flex-column col-11 col-md-10 form">
             <CustomInputUser
-            label = "Nombre"
+            label = {!usuarioInfo ? "Nombre*" : "Nombre"}
             name = "nombre"
             type = "text"
             />
             <CustomInputUser
-            label = "Apellido"
+            label = {!usuarioInfo ? "Apellido*" : "Apellido"}
             name = "apellido"
             type = "text"
             />
@@ -55,12 +64,12 @@ const FormikComponenteUsuario = ({onSubmit, passwordRequerida, confirmarPassword
             type = "number"
             />
             <CustomInputUser
-            label = "Email"
+            label = {!usuarioInfo ? "Email*" : "Email"}
             name = "email"
             type = "email" 
             />
              <div className="d-flex flex-column my-1 justify-content-around flex-md-row align-items-center">
-                <div className="col-12 justify-content-around col-md-4 d-flex flex-column">
+                <div className="col-12 justify-content-around mb-2 mb-md-0 col-md-4 d-flex flex-column">
                   <label className="text-center h6 mb-3">Imagen de Perfil</label>
                   <input
                     ref={imagenRef}
@@ -82,11 +91,11 @@ const FormikComponenteUsuario = ({onSubmit, passwordRequerida, confirmarPassword
                   >
                     {usuarioInfo? "Cambiar avatar" : "Seleccionar avatar"}
                   </Button>
-                  <Button variant={values.avatar ? "info":"outline-info"} disabled={values.avatar ? false : true} type="button" onClick={() => setFieldValue('avatar', "")}>Quitar Imagen</Button>
+                  <Button className="my-md-2" variant={values.avatar ? "info":"outline-info"} disabled={values.avatar ? false : true} type="button" onClick={() => setFieldValue('avatar', "")}>Quitar Imagen</Button>
                   </div>
-                  {errors.avatar && touched.avatar && (
+                  {errors.avatar && 
                     <p className="error text-center">{errors.avatar}</p>
-                  )}
+                  }
                   </div>
                <div className="col-12 col-md-7 d-flex justify-content-center">
                   {values.avatar ? (
@@ -102,7 +111,7 @@ const FormikComponenteUsuario = ({onSubmit, passwordRequerida, confirmarPassword
               </div>
               {!usuarioInfo &&
               <div>
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Password *</Form.Label>
                 <Form.Control disabled={botonBloquear} onChange={handleChange} value={values.password} className={errors.password || passwordRequerida ? "border mb-3 border-danger border-1 shadow-lg border-opacity-75" : "mb-3"} type="password" name="password"/>
                 {errors.password && <div className="text-validation">{errors.password}</div>}
               </div>
@@ -110,13 +119,16 @@ const FormikComponenteUsuario = ({onSubmit, passwordRequerida, confirmarPassword
               {passwordRequerida === true && <p className="error text-center">La contrasenia es necesaria</p>}
               {!usuarioInfo &&
               <CustomInputUser
-              label = "Confirmar Password"
+              label = "Confirmar Password *"
               name = "confirmarPassword"
               type = "password"
               />
             }
             {confirmarPasswordRequerida === true && <p className="error text-center">Requiere confimar la contrasenia</p>}
-            <Button disabled={botonBloquear} className="col-6 align-self-center" type="submit">{usuarioInfo ? "Guardar": "Registrarse"}</Button>
+            <div className="d-flex flex-row-reverse justify-content-evenly align-items-center ">
+            {usuarioInfo ? <ModalConfirmar onSubmit={onSubmit}   values={values} touched={touched} errors={errors}/> :<Button disabled={botonBloquear} className="col-6 align-self-center" type="submit">{usuarioInfo ? "Guardar": "Registrarse"}</Button>}
+            {usuarioInfo && <Link to='/cuenta-usuario' className='btn btn-primary'>volver</Link>}
+            </div>
           </FormFormik>
         )}
       </Formik>

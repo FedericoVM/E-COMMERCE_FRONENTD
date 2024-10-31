@@ -1,0 +1,8 @@
+.text-vacio{
+    position: absolute;
+    bottom: 0%;
+}
+
+.contenedor-imagen-favorito-vacio{
+    min-height: 20rem;
+}

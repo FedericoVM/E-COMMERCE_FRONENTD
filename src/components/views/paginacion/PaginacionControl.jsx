@@ -1,11 +1,10 @@
-
-
 const PaginacionControl = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
   }
+
   return (
     <div className='container d-flex justify-content-center'>
       <nav className="d-flex justify-content-center mt-3">

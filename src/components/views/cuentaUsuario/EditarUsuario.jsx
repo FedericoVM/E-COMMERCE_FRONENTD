@@ -3,6 +3,7 @@ import { useNavigate} from 'react-router-dom'
 import instanceFormData from '../../../axios/instanceFormData'
 import FormikComponenteUsuario from "../Formik Componente/FormikComponenteUsuario"
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook"
+import {toast} from "sonner"
 
 const EditarUsuario = ( ) => {
 
@@ -10,7 +11,6 @@ const EditarUsuario = ( ) => {
     const use_navigate = useNavigate()
 
     const onSubmit = async (values) => {
-
         setBotonBloquear(true)
 
         const config = {
@@ -34,6 +34,7 @@ const EditarUsuario = ( ) => {
             localStorage.setItem("tokenUsuario", nuevoToken)
             obtenerInfoUsuario(nuevoToken)
             setBotonBloquear(false)
+            toast.success("Sus datos fueron actualizados")
            return use_navigate(`/cuenta-usuario`)
         } catch (error) {
             setBotonBloquear(false)

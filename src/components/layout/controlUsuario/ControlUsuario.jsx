@@ -26,7 +26,7 @@ const ControlUsuario = ( ) => {
             id={`dropdown-button-drop-${idx}`}
             size="sm"
             variant="secondary"
-            title = {`Hola ${usuarioInfo.nombre}`}
+            title = {usuarioInfo.nombre}
           >
             <Dropdown.Item eventKey="1" onClick={miCuenta}>Mi cuenta</Dropdown.Item>
             <Dropdown.Divider />

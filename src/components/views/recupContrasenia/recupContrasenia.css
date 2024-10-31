@@ -1,7 +1,6 @@
 
 .div-recuperar-contrasenia {
     width: 100%;
-   
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,15 +31,15 @@
     width: 90%;
     padding: 0.5rem;
 }
-
+/* 
 button.btn-recup {
     padding: 6px;
-}
+} */
 
-button.btn-volver {
+/* button.btn-volver {
     width: 20%;
     padding: 4px;
-}
+} */
 
 
 @media (max-width:654px) {
@@ -55,7 +54,7 @@ button.btn-volver {
         background-color: azure;
     }
 
-    button.btn-recup {
+    /* button.btn-recup {
         width: 90%;
     }
     
@@ -63,5 +62,5 @@ button.btn-volver {
     button.btn-volver {
         width: 25%;
         padding: 4px;
-    }
+    } */
 }

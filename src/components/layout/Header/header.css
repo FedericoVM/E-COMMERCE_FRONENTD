@@ -6,8 +6,6 @@
     transform: scale(1.3)
 }
 
-/* Break point */
-
 @media  (width > 768px) {
     .search{
       width: 50%;

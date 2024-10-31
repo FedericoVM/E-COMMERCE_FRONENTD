@@ -2,23 +2,24 @@ import { Button, Table } from "react-bootstrap";
 import PaginacionControl from "./PaginacionControl";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
+import { BsFillTrashFill } from "react-icons/bs";
+import "./csspaginacion/ListaFavoritos.css"
+import { Link } from "react-router-dom";
 
 const ListaFavoritos = ({
-  paginate,
-  currentPage,
   page,
   totalPosts,
-  currentPosts
+  currentPostsSm
 }) => {
 
   const {tokenUser, obtenerUsuarioFavoritos} = UserHook()
-  const {formatPrecio, eliminarDeFavoritos} = ProductosHook()
+  const {formatPrecio, eliminarDeFavoritos, currentPageMobile, paginateMobile, productosFavoritosAMostrar} = ProductosHook()
 
   return (
     <>
       <div className="d-flex flex-column w-100">
         <h2 className="text-center">Favoritos</h2>
-        <div className="mt-3">
+        <div className="mt-3  contenedor-lista-favoritos overflow-auto">
           <Table
             striped
             bordered
@@ -36,17 +37,19 @@ const ListaFavoritos = ({
               </tr>
             </thead>
             <tbody>
-              {currentPosts.map((product, index) => (
+              {currentPostsSm.map((product, index) => (
                 <tr key={index}>
                   <td className="col-2 text-center td-favoritos">
                     <img
                       src={product.imagen}
                       alt=""
-                      className="imagen-lista-productos img-fluid"
+                      className="imagen-lista-productos"
                     />
                   </td>
                   <td className="col-4 text-center td-favoritos">
-                    {product.nombre}
+                  <Link to={`/producto/${product._id}`} className="text-decoration-none text-black">
+                    <span className="producto-nombre">{product.nombre}</span>
+                    </Link>
                   </td>
                   <td className="col-3 text-center td-favoritos">
                     {product.stock}
@@ -61,8 +64,7 @@ const ListaFavoritos = ({
                         eliminarDeFavoritos(product._id, tokenUser,obtenerUsuarioFavoritos);
                       }}
                     >
-                      {" "}
-                      x{" "}
+                     <BsFillTrashFill />
                     </Button>
                   </td>
                 </tr>
@@ -70,13 +72,12 @@ const ListaFavoritos = ({
             </tbody>
           </Table>
         </div>
-
         <div>
           <PaginacionControl
             postsPerPage={page}
             totalPosts={totalPosts}
-            paginate={paginate}
-            currentPage={currentPage}
+            paginate={paginateMobile}
+            currentPage={currentPageMobile}
           />
         </div>
       </div>

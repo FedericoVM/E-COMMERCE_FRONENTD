@@ -9,7 +9,7 @@ const AdminUsuario = ( ) => {
   const {usuariosAdmin, mostrarUsuariosAdmin} = AdminHook()
 
   let mostrarBarra = true
-  const [arrayBuscar, setArrayBuscar] = useState([]);
+  const [arrayBuscar, setArrayBuscar] = useState(null);
 
   useEffect(() => {
     if (tokenUser != null){

@@ -1,23 +1,154 @@
-.descripcion-card-producto {
-    height: 10vh;
-    overflow: auto;
-  }
-  
   .title-precio {
+    font-size: 1.11rem;
+    font-weight: 450;
     position: absolute;
-    top: 0px;
-    background: rgba(26, 5, 5, 0.637);
+    top: 3px !important;
+    left: 3px !important;
+    background: rgba(26, 5, 5, 0.356);
+  }
+
+  .contenedor-nombre-producto-card{
+    height: 30px !important;
+    width: 90%;
+  }
+
+  .nombre-producto{
+    height: 20px !important;
+    font-size: 1rem;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .boton-favorito {
+    font-size: larger;
+    background: rgba(182, 180, 180, 0.671);
+    border: none;
+    color: rgb(77, 77, 190);
     position: absolute;
-    right: 0px;
+    border-radius: 50%;
   }
   
-  img.card-img {
-    width: 10rem;
+  .card-img {
+    height: 8rem;
+    width: 100%;
   }
   
   .card {
-    height: "12rem";
+    width: 100%;
   }
+
+  .boton-comprar-card{
+    font-size: 0.95rem;
+  }
+
+  .card-body{
+    padding: 0 !important;
+    margin: 0 !important;
+   height: 7.6rem !important; 
+    width: 100% !important;
+    transition: transform 0.3s ease;
+  }
+
+  .contenedor-stock-producto{
+    height: 3rem;
+  }
+
+  .text-descripcion{
+    font-size: 0.95rem;
+  }
+
+  .text-descripcion-marca{
+    
+    color: rgb(90, 89, 89) !important;
+  }
+
+  .cards-productos{
+    transition: all 0.3s ease;
+  }
+
+  .cards-productos:hover {
+    box-shadow: 5px 5px 10px rgb(226, 224, 224);
+
+    .card-body{
+    background-color: rgba(243, 238, 238, 0.795);
+  }
+}
+
+.boton-favorito:hover {
+  background: rgba(155, 153, 153, 0.671);
+  color: rgb(70, 70, 236);
+}
+
+.corazon-lleno{
+  display: none;
+  transition: all 0.5s ease;
+}
+
+.boton-favorito:hover{
+  .corazon-vacio{
+    display: none;
+  }
+  .corazon-lleno{
+    display:inline;
+  }
+}
+
+.boton-favorito:active{
+  background: rgba(182, 180, 180, 0.671) !important;
+    color: rgb(77, 77, 190) !important;
+    .corazon-lleno{
+      transform: scale(1.7) !important;
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 767px) {
+ .card-body{
+  height: 7.1rem !important; 
+ }
+
+ .contenedor-marca-stock-producto{
+  height: 90%;
+ }
+
+ img.card-img {
+  height: 8rem;
+  width: 75% !important;
+}
+}
+
+@media screen and (max-width: 360px) {
+
+  .contenedor-marca-stock-producto{
+    flex-direction: column !important;
+  }
+
+  .marca-producto-card{
+    height: 25px !important;
+    overflow: hidden;
+    text-wrap:nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .card-body{
+    height: 9.2rem !important;
+  }
+
+  .boton-comprar-card{
+    font-size: 0.90rem;
+  }
+
+  .card{
+    margin-top: 0px !important;
+  }
+
+  .title-precio {
+    font-size: 0.9rem !important;
+    font-weight: 400 !important;
+    position: absolute;
+    top: 3px !important;
+    left: 3px !important;
+    background: rgba(26, 5, 5, 0.11);
+  }
+}

@@ -4,29 +4,20 @@ import Paginacion from "../paginacion/Paginacion";
 import FormikComponente from "../Formik Componente/FormikComponenteProductos";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
+import {toast} from "sonner"
 
 const AdminProductos = ( ) => {
-
-  const [errorImagen, setErrorImagen] = useState(false)
 
   const {tokenUser, setBotonBloquear} = UserHook()
   const {productosHome, obtenerProductos} = ProductosHook()
 
   let mostrarBarra = true;
 
-  const [arrayBuscar, setArrayBuscar] = useState([]);
+  const [arrayBuscar, setArrayBuscar] = useState(null);
 
-  const crearProducto = async (values, actions) => {
-
+  const crearProducto = async (values) => {
+  
     setBotonBloquear(true)
-
-    if(!values.imagenProducto){
-      setBotonBloquear(false)
-       return setErrorImagen(true)
-    } else {
-      setBotonBloquear(false)
-      setErrorImagen(false)
-    }
     
     const config = {
       headers: {
@@ -50,16 +41,16 @@ const AdminProductos = ( ) => {
     formData.append("imagen", values.imagenProducto);
     formData.append("descripcion", values.descripcionProducto);
     formData.append("destacado", destacado);
+    formData.append("descuento", values.descuento)
 
     try {
       const resp = await instanceFormData.post("/productos", formData, config);
       obtenerProductos();
-      console.log(resp.data.msg);
       setBotonBloquear(false)
-      actions.resetForm()
+      toast.success(resp.data.msg)
     } catch (error) {
       setBotonBloquear(false)
-      console.log(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -67,18 +58,15 @@ const AdminProductos = ( ) => {
     <div className="container d-flex flex-column">
       <h1 className="text-center">Administrar Productos</h1>
       <hr/>
-        <FormikComponente errorImagen={errorImagen} setErrorImagen={setErrorImagen} onSubmit={crearProducto}/>
+        <FormikComponente onSubmit={crearProducto}/>
       <hr />
-        {productosHome.length > 0 ? (
+        {productosHome.length > 0 && (
           <Paginacion
-            lista={productosHome}
+            lista={arrayBuscar ? arrayBuscar : productosHome}
             card="listaProductosAdmin"
             setArrayBuscar={setArrayBuscar}
-            arrayBuscar={arrayBuscar}
             mostrarBarra={mostrarBarra}
           />
-        ) : (
-          ""
         )}
     </div>
   );

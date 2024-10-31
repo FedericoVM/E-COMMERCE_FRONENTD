@@ -2,26 +2,20 @@ import { Col, Row } from "react-bootstrap";
 import publicidad from "../../../assets/img/main/publicidad.jpg";
 import CarouselHome from "./carouselHome/carouselHome";
 import Paginacion from "../paginacion/Paginacion";
-import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
+import Publicidad from "./Publicidad/Publicidad";
 
-const Home = ( ) => {
-
-  const {productosHome} = ProductosHook()
-
+const Home = ({productos}) => {
+ 
   return (
     <>
       <CarouselHome />
-      <div >
-        <Row className=" mx-0 d-flex">
+      <div className="">
+        <Row className="mx-0 d-flex min-vh-100">
           <Col lg={10}>
-            {productosHome.length > 0 ? <Paginacion lista={productosHome} card={"card"}/> : <h1>Sin productos...</h1>}
+            {productos.length > 0 ? <Paginacion lista={productos} card={"card"}/> : <h1>Sin productos...</h1>}
           </Col>
-          <Col lg={2} className="d-none bg-danger d-lg-inline publicidad">
-            <img
-              className="publicidad-img img-fluid h-100"
-              src={publicidad}
-              alt="publicidad_intel"
-            />
+          <Col lg={2} className="d-none d-lg-inline publicidad">
+            <Publicidad/>
           </Col>
         </Row>
       </div>

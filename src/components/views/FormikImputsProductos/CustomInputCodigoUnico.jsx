@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form"
 import { useField } from "formik";
 
 const CustomCodigoUnico = ({label, ...props}) => {
-    const [field, meta] = useField(props);
+    const [field] = useField(props);
 
     return (
         <>

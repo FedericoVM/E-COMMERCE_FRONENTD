@@ -7,6 +7,8 @@ import { recuperacionPassword } from '../../../validacionesSchema/recuperarPassw
 
 const ComponenteNuevoPass = ({handleCambiarContrasenia}) =>{
 
+    const [contrasenia, setContrasenia] = useState(null)
+
     const {botonBloquear} = UserHook()
 //Verificar del back que el usuario debe tener su cuenta activada
         const {

@@ -1,0 +1,7 @@
+.contenedor-lista-favoritos{
+    min-height: 25rem;
+}
+
+.tabla-favoritos{
+    overflow-y: auto;
+}

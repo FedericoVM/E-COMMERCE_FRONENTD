@@ -1,17 +1,19 @@
-import { Button } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PaginacionControl from './PaginacionControl';
 import instance from '../../../axios/instance';
 import { UserHook } from '../../../context/Contexto de Usuarios/UserHook';
 import { ProductosHook } from '../../../context/Contexto de Productos/ProductosHook';
+import ModalEliminar from '../Modal para confirmar/ModalEliminar';
+import {toast} from "sonner"
 
-const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, page, arrayBuscar }) => {
+const ListaProductAdmin = ({ adminLista, currentPosts, paginate, currentPage, totalPosts, page, arrayBuscar }) => {
 
     const {tokenUser} = UserHook()
     const {obtenerProductos, formatPrecio} = ProductosHook()
 
     const eliminarProducto = async (codigo) => {
+        return console.log(codigo);
         const config = {
             headers: {
                 Authorization: `Bearer ${tokenUser}`,
@@ -20,7 +22,7 @@ const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, pa
 
         try {
             const resp = await instance.delete(`/productos/${codigo}`, config);
-            console.log(resp.data.msg)
+            toast.success(resp.data.msg)
             obtenerProductos()
         } catch (error) {
             console.log(error);
@@ -28,8 +30,9 @@ const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, pa
     };
 
     return (
-        <div className="my-3 contenedor-tabla-productos overflow-auto">
-            <Table bordered hover className="text-center tabla-de-productos">
+        <div className="my-3">
+            <div className='overflow-auto'>
+            <Table bordered hover className="text-center">
                 <thead>
                     <tr>
                         <th>Codigo</th>
@@ -43,7 +46,7 @@ const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, pa
                     </tr>
                 </thead>
                 <tbody>
-                    {arrayBuscar.length == 0 ? currentPosts.map((producto, index) => (
+                    {arrayBuscar !== null ? adminLista.map((producto, index) => (
                         <tr key={index}>
                             <td>{producto.codigo}</td>
                             <td>{producto.nombre}</td>
@@ -54,14 +57,7 @@ const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, pa
                             <td>{producto.destacado ? "Si" : "No"}</td>
                             <td>
                                 <div className="d-flex">
-                                    <Button
-                                        className="mx-1"
-                                        onClick={() => {
-                                            eliminarProducto(producto._id);
-                                        }}
-                                    >
-                                        Eliminar
-                                    </Button>
+                                    <ModalEliminar eliminar={eliminarProducto} id={producto._id} objetivo={"producto"}/>
                                     <Link
                                         to={`/editar-producto/${producto.codigo}`}
                                         className="btn btn-primary mx-1"
@@ -83,14 +79,7 @@ const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, pa
                                 <td>{producto.destacado ? "Si" : "No"}</td>
                                 <td>
                                     <div className="d-flex">
-                                        <Button
-                                            className="mx-1"
-                                            onClick={() => {
-                                                eliminarProducto(producto._id);
-                                            }}
-                                        >
-                                            Eliminar
-                                        </Button>
+                                        <ModalEliminar eliminar={eliminarProducto} id={producto._id} objetivo={"producto"}/>
                                         <Link
                                             to={`/editar-producto/${producto.codigo}`}
                                             className="btn btn-primary mx-1"
@@ -104,8 +93,9 @@ const ListaProductAdmin = ({ currentPosts, paginate, currentPage, totalPosts, pa
                     }
                 </tbody>
             </Table>
+            </div>
             <div>
-                <PaginacionControl postsPerPage={page} totalPosts={totalPosts} paginate={paginate} currentPage={currentPage} />
+                <PaginacionControl postsPerPage={page-5} totalPosts={totalPosts} paginate={paginate} currentPage={currentPage} />
             </div>
         </div>
     )

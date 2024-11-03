@@ -13,16 +13,16 @@ const RecupContrasenia = () => {
 
     const navigate = useNavigate()
 
-    const handleRecuperarContrasenia = async(e) => {
+    const handleRecuperarContrasenia = async (e) => {
         e.preventDefault()
 
         setBotonBloquear(true)
 
         let email = e.target.email.value
 
-        if(!regexEmail.test(email)){
+        if (!regexEmail.test(email)) {
             setBotonBloquear(false)
-           return console.log("tiene que ingresar un email valido");
+            return console.log("tiene que ingresar un email valido");
         }
 
         let emailAEnviar = {

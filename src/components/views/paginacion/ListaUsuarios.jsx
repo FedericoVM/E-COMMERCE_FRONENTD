@@ -1,12 +1,8 @@
-import { Button, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import PaginacionControl from './PaginacionControl';
-import { UserHook } from '../../../context/Contexto de Usuarios/UserHook';
-import { AdminHook } from '../../../context/Contexto de Admin/AdminHook';
+import ModalEliminar from '../Modal para confirmar/ModalEliminar';
 
 const ListaUsuarios = ({ paginate, currentPage, page, totalPosts, currentPosts, arrayBuscar }) => {
-
-    const {tokenUser} = UserHook()
-    const {mostrarUsuariosAdmin, cambiarRolUser, eliminarUsuario} = AdminHook()
 
     return (
         <>
@@ -23,7 +19,7 @@ const ListaUsuarios = ({ paginate, currentPage, page, totalPosts, currentPosts, 
                         </tr>
                     </thead>
                     <tbody>
-                        {arrayBuscar.length == 0
+                        {!arrayBuscar
                             ? currentPosts.map((usuario, index) => (
                                 <tr key={index} className='text-center'>
                                     <td className="col-4 td-favoritos">
@@ -40,18 +36,11 @@ const ListaUsuarios = ({ paginate, currentPage, page, totalPosts, currentPosts, 
                                     </td>
 
                                     <td className="col-1 td-favoritos">
-                                        <Button onClick={() => {cambiarRolUser(usuario.role, usuario._id, tokenUser, mostrarUsuariosAdmin)}}> {usuario.role === "admin" ? "Desactivar" : "Activar"} </Button>
+                                        <ModalEliminar usuario={usuario} objetivo={"rol"}/>
                                     </td>
 
                                     <td className="col-1 td-favoritos">
-                                        <Button
-                                            onClick={() => {
-                                                eliminarUsuario(usuario._id, tokenUser, mostrarUsuariosAdmin)
-                                            }}
-                                            variant="danger"
-                                        >
-                                            X
-                                        </Button>
+                                        <ModalEliminar usuario={usuario} objetivo={"usuario"}/>
                                     </td>
                                 </tr>
                             ))
@@ -70,24 +59,17 @@ const ListaUsuarios = ({ paginate, currentPage, page, totalPosts, currentPosts, 
                                         {usuario.active ? "Activo" : "Inactivo"}
                                     </td>
                                     <td className="col-1 text-center td-favoritos">
-                                        <Button onClick={() => {cambiarRolUser(usuario.role, usuario._id, tokenUser, mostrarUsuariosAdmin)}}> {usuario.role === "admin" ? "Desactivar" : "Activar"} </Button>
+                                    <ModalEliminar usuario={usuario} objetivo={"rol"}/>
                                     </td>
                                     <td className="col-1 text-center td-favoritos">
-                                        <Button
-                                            onClick={() => {
-                                                eliminarUsuario(usuario._id, tokenUser, mostrarUsuariosAdmin)
-                                            }}
-                                            variant="danger"
-                                        >
-                                            X
-                                        </Button>
+                                    <ModalEliminar usuario={usuario} objetivo={"usuario"}/>
                                     </td>
                                 </tr>
                             ))}
                     </tbody>
                 </Table>
                 <div>
-                    <PaginacionControl postsPerPage={page} totalPosts={totalPosts} paginate={paginate} currentPage={currentPage} />
+                    <PaginacionControl postsPerPage={page-5} totalPosts={totalPosts} paginate={paginate} currentPage={currentPage} />
                 </div>
             </div>
         </>

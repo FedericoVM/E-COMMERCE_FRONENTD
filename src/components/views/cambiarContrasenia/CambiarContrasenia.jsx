@@ -1,9 +1,8 @@
-import React from 'react'
-import { regexPassword } from '../../../RegExp/relugarExp'
 import { UserHook } from '../../../context/Contexto de Usuarios/UserHook'
 import instance from '../../../axios/instance'
 import { useNavigate } from 'react-router-dom'
 import ComponenteNuevoPass from '../../layout/componente recuperar contrasenia/ComponenteNuevoPass'
+import { toast } from 'sonner'
 
 const CambiarContrasenia = () => {
 
@@ -29,12 +28,11 @@ const CambiarContrasenia = () => {
 
         try {
             const resp = await instance.put('/usuario', nuevaContrasenia,config)
-            console.log(resp.data.msj);
             setBotonBloquear(false)
            return use_navigate(`/cuenta-usuario`)
         } catch (error) {
             setBotonBloquear(false)
-            return console.log(error.response.data.msj);
+            return toast.error(error.response.data.msj);
         }
     }
 

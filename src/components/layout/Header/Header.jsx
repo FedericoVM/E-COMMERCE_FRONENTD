@@ -48,7 +48,7 @@ const Header = () => {
     if (aBuscar.length > 3) {
       setBuscarProductos(aBuscar);
     } else {
-      console.log("Se necesitan mas caracteres");
+      return toast.warning("Se necesitan mas caracteres");
     }
     navigate("/busqueda");
   };

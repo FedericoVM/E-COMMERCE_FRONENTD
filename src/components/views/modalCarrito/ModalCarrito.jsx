@@ -8,11 +8,18 @@ import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import { useEffect } from "react";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 import { FormLabel } from "react-bootstrap";
+<<<<<<< HEAD
 import "./modalCarrito.css"
+=======
+import { toast } from "sonner";
+import "./ModalCarrito.css"
+import CarritoVacio from "./carritoVacio/CarritoVacio";
+>>>>>>> develop
 
 const ModalCarrito = () => {
   const [precioTotal, setPrecioTotal] = useState(null);
 
+<<<<<<< HEAD
   const { usuarioCarrito, usuarioEnLinea } = UserHook();
   const {
     productosHome,
@@ -29,6 +36,12 @@ const ModalCarrito = () => {
     }
     setShow(true);
   };
+=======
+    const {usuarioCarrito, showModalCarrito,setShowModalCarrito, handleCloseModalCarrito} = UserHook()
+    const {productosHome, filtrarCarritoAMostrarProducto, productosCarritoAMostrar, formatPrecio} = ProductosHook()
+
+    const handleClose = () => setShowModalCarrito(false);
+>>>>>>> develop
 
   const usuarioInLine = (usuario) => {
     if (usuario === false) {
@@ -61,6 +74,7 @@ const ModalCarrito = () => {
     }
   }, [productosCarritoAMostrar]);
 
+<<<<<<< HEAD
   return (
     <>
       <Button variant="link"  className="p-0" size="lg" onClick={handleShow}>
@@ -108,6 +122,49 @@ const ModalCarrito = () => {
       </Modal>
     </>
   );
+=======
+    return (
+        <>
+            <Button variant="link" onClick={()=>{handleCloseModalCarrito(true)}}>
+                Carrito
+            </Button>
+            <Modal
+                show={showModalCarrito}
+                onHide={handleClose}
+                fullscreen={"md-down"}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title className="text-white">Mi carrito</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="body-modal overflow-auto">
+                    <ListGroup as="ol">
+                        {productosCarritoAMostrar.length > 0 ? (
+                            productosCarritoAMostrar.map((producto, index) => producto===null ? <p>Borrado</p> : (
+                               <CardCarrito producto={producto} key={index} />
+                            ))
+                        ) : (
+                            <CarritoVacio/>
+                        )}
+                    </ListGroup>
+                </Modal.Body>
+                <Modal.Footer className="d-flex flex-column bg-primary bg-opacity-25 flex-sm-row-reverse justify-content-between">
+                    <div className="d-flex m-0 p-0 flex-row align-items-center justify-content-evenly container col-6">
+                    <FormLabel className="total-text">Total:</FormLabel>
+                    <FormLabel className="total-text">{precioTotal !== 0 ? `${formatPrecio(precioTotal)}` : "0"}</FormLabel>
+                    </div>
+                    <div className="d-flex col-12 col-sm-5 m-0 p-0 flex-row justify-content-evenly">
+                    <Button variant="danger" onClick={handleClose}>
+                        Cerrar
+                    </Button>
+                    <Button variant="primary">Comprar</Button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+        </>
+    );
+>>>>>>> develop
 };
 
 export default ModalCarrito;

@@ -3,12 +3,14 @@ import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
 import { UserHook } from "../../../../context/Contexto de Usuarios/UserHook";
 import { ProductosHook } from "../../../../context/Contexto de Productos/ProductosHook";
+import "./CardCarrito.css"
+import { Link } from "react-router-dom";
 
 const CardCarrito = ({ producto }) => {
     const [anularBtnSumar, setAnularBtnSumar] = useState(false);
     const [anularBtnRestar, setAnularBtnRestar] = useState(false);
 
-    const {actualizarCarrito, eliminarProductoDelCarrito} = UserHook()
+    const {actualizarCarrito, eliminarProductoDelCarrito, handleCloseModalCarrito} = UserHook()
     const {formatPrecio} = ProductosHook()
 
     const desabilitarBotones = () => {
@@ -37,19 +39,21 @@ const CardCarrito = ({ producto }) => {
         <>
             <ListGroup.Item
                 as="li"
-                className="d-flex justify-content-start "
-                style={{ height: "10rem" }}
+                className={producto.stock > 0 ? "contenedor-carrito align-items-center d-flex justify-md-content-start col-12": "sin-stock align-items-center d-flex justify-md-content-start col-12"}
             >
-                <div className="flex-shrink-0">
-                    <img src={producto.imagen} className="h-100" alt="..." />
-                </div>
-                <div className="flex-grow-1 ms-3 text-center ">
-                    <span>{producto.nombre}</span>
+                <Link to={`/producto/${producto.idProducto}`} onClick={()=>{handleCloseModalCarrito(false)}} className="flex-shrink-0 contenedor-imagen-carrito justify-content-center align-items-center col-sm-4">
+                    <img src={producto.imagen} className={producto.stock > 0 ? "imagen-card-carrito rounded container":"imagen-card-carrito-sin-stock container rounded"} alt="..." />
+                </Link>
+                <div className="contenedor-info-producto d-flex flex-column justofy-content-center align-items-evenly col-12 m-0 text-center col-sm-8">
+                    <Link to={`/producto/${producto.idProducto}`} onClick={()=>{handleCloseModalCarrito(false)}} className="text-decoration-none text-black">
+                    <span className="producto-nombre">{producto.nombre}</span>
+                    </Link>
                     <p className="mb-1">Precio: {formatPrecio(producto.precio * producto.cantidad)}</p>
-                    <p>Cantidad : {producto.cantidad}</p>
-
-                    <div className="d-flex justify-content-around align-items-center ">
-                        <div>
+                    <div className={producto.stock > 0 ? "d-flex justify-content-evenly align-items-end" : "d-flex justify-content-evenly align-items-end mt-4"}>
+                        {producto.stock > 0 ? 
+                        <div className="d-flex justify-content-center flex-column contenedor-cantidad">
+                        <p className="cantidad-label">Cantidad</p>
+                        <div className="">
                             <Button
                                 variant="primary"
                                 size="sm"
@@ -76,16 +80,18 @@ const CardCarrito = ({ producto }) => {
                                 +
                             </Button>
                         </div>
+                        </div>
+                        : <p className="fs-5 m-0">Sin Stock</p>}
                         <div>
                             <Button
                                 variant="danger"
                                 size="sm"
-                                className="my-2"
+                                className="boton-eliminar-producto-carrito"
                                 onClick={() => {
                                     eliminarProductoDelCarrito(producto.id);
                                 }}
                             >
-                                Quitar
+                                Eliminar
                             </Button>
                         </div>
                     </div>

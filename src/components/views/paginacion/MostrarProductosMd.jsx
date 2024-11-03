@@ -1,22 +1,24 @@
-import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import ProductCard from '../home/productCard/ProductCard'
 import PaginacionControl from './PaginacionControl'
+import { ProductosHook } from '../../../context/Contexto de Productos/ProductosHook'
 
-const MostrarProductosMd = ({ currentPostsMd, paginate, currentPage, totalPosts, page }) => {
+const MostrarProductosMd = ({ currentPostsMd, totalPosts, page }) => {
+    const {currentPageTablet, paginateTablet} = ProductosHook()
+
     return (
-        <Row className=" g-4 d-none d-lg-none d-md-flex mt-3">
+        <Row md={4} className=" g-4 d-none justify-content-center d-lg-none d-md-flex mt-3">
             {currentPostsMd.map((p, index) => (
-                <Col key={index} className="d-flex flex-wrap m-lg-3" md={4}>
+                <Col key={index} className="d-flex flex-wrap">
                     <ProductCard p={p}/>
                 </Col>
             ))}
-            <div className="d-flex justify-content-center align-items-center">
+            <div>
                 <PaginacionControl
                     postsPerPage={page}
                     totalPosts={totalPosts}
-                    paginate={paginate}
-                    currentPage={currentPage}
+                    paginate={paginateTablet}
+                    currentPage={currentPageTablet}
                 />
             </div>
         </Row>

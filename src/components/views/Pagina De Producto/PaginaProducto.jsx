@@ -20,7 +20,7 @@ const PaginaProducto = ( ) =>{
     
     useEffect(()=>{
         encontrarProducto(id, productosHome)
-    }, [productosHome])
+    }, [productosHome, id])
 
     return (
         <div>

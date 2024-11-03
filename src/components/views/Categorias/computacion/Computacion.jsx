@@ -1,19 +1,14 @@
 import ProductosCategorias from "../Productos_categoria";
-import { ProductosHook } from "../../../../context/Contexto de Productos/ProductosHook";
 
-const Computacion = ( ) => {
-  
-  const {productosHome} = ProductosHook()
+const Computacion = ( {productos} ) => {
 
-    const productosComp = productosHome.filter(  p => {
+    const productosComp = productos.filter(  p => {
      return  p.categoria === "Computacion"
     } )
 
   return (
-    <div className="">
-        <div className="">
-        {productosHome.length > 0 ? <ProductosCategorias productos={productosComp} card="categoria"/> :"" }  
-        </div>
+    <div className="min-vh-100">
+        {productos.length > 0 ? <ProductosCategorias productos={productosComp} card="categoria"/> :"" }  
     </div>
   )
 }

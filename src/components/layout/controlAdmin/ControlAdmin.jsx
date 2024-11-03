@@ -6,7 +6,6 @@ import { UserHook } from '../../../context/Contexto de Usuarios/UserHook';
 import { ProductosHook } from '../../../context/Contexto de Productos/ProductosHook';
 import { AdminHook } from '../../../context/Contexto de Admin/AdminHook';
 import "./controlAdmin.css"
-import { NavDropdown } from 'react-bootstrap';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 const ControlAdmin = ( ) => {
@@ -19,13 +18,25 @@ const ControlAdmin = ( ) => {
     return navigate(`/${destino}`)
   }
 
+  const adminProductos = () => {
+    navigate('/admin-productos')
+  }
+
+  const adminUsuarios = () => {
+    navigate('/admin-usuarios')
+  }
+
   return (
     <div className='d-flex align-items-center'>
       <div>
-          <NavDropdown
-            id="dropdown-item-button"
-            title={`Hola ${usuarioInfo.nombre}`}
-            className='dropDownButtonControlAdmin text-capitalize px-1 px-md-0'
+        {[DropdownButton].map((DropdownType, idx) => (
+          <DropdownType
+            as={ButtonGroup}
+            key={idx}
+            id={`dropdown-button-drop-${idx}`}
+            size="sm"
+            variant="secondary"
+            title={`${usuarioInfo.nombre}`}
           >
             <DropdownItem className='control-admin-nav-items' onClick={() => {redirigirA('cuenta-usuario')}}>Mi cuenta</DropdownItem>
             <Dropdown.Divider/>
@@ -33,7 +44,8 @@ const ControlAdmin = ( ) => {
             <DropdownItem className='control-admin-nav-items' onClick={() => {redirigirA('admin-usuarios')}}>Usuarios</DropdownItem>
             <Dropdown.Divider />
             <DropdownItem className='control-admin-nav-items' onClick={() => deslogin(resetCarritoYFavoritos, navigate, tokenUser, setUsuariosAdmin)}>Salir</DropdownItem>
-          </NavDropdown>
+          </DropdownType>
+          ))}
       </div>
       <div className='mx-1'>
         <img src={usuarioInfo.imagen} onClick={() => {redirigirA('cuenta-usuario')}} className="imagenUsuarioHeader img-thumbnail rounded-circle" />

@@ -1,6 +1,10 @@
 import * as yup from "yup";
 import { regexCaracterEspeciales } from "../RegExp/relugarExp";
 
+const zizeFile = (value) =>{ return !value || value.size <= 1024 * 1024}
+
+const typeFile = (value) => { return !value || ['image/png', 'image/jpeg'].includes(value.type)}
+
 export const schemaCrearProducto = yup.object().shape({
     nombreProducto: yup
     .string()
@@ -14,8 +18,6 @@ export const schemaCrearProducto = yup.object().shape({
     .required("Este campo es requerido"),
     stockProducto: yup
     .number()
-    .min(5, "El minimo es de 5")
-    .max(100, "El maximo es de 100")
     .required("El Stock es requerido"),
     precioProducto: yup
     .number()
@@ -29,11 +31,32 @@ export const schemaCrearProducto = yup.object().shape({
     .string()
     .min(30, "Minimo de 30 caracteres")
     .max(2000, "Maximo de 550 caracteres")
-    .required(),
+    .required("La descripcion es requerida"),
     destacarProducto: yup
     .string(),
+    descuento: yup
+    .number()
+    .when('destacarProducto',{
+        is: "Si",
+        then: () => yup.number()
+        .min(1,"El minimo es de 1%")
+        .max(70,"El maximo es 70%")
+        .required('El campo es obligatorio'),
+        otherwise: () => yup
+        .number()
+        .nullable()
+    }),
+    inputToSchema: yup
+    .boolean(),
     imagenProducto: yup
     .mixed()
-    .test("FILE_SIZE", "La imagen es muy grande.",(value) => !value || value.size <= 1024 * 1024)
-    .test("FILE_TYPE", "Solo archivos .png o .jpeg",(value) => !value || ['image/png', 'image/jpeg'].includes(value.type))
+    .test("FILE_SIZE", "La imagen es muy grande.",(value) => zizeFile(value))
+    .test("FILE_TYPE", "Solo archivos .png o .jpeg",(value) => typeFile(value))
+    .when('inputToSchema', {
+        is: false,
+        then: ()=> yup.mixed()
+        .test("FILE_SIZE", "La imagen es muy grande.",(value) => zizeFile(value))
+        .test("FILE_TYPE", "Solo archivos .png o .jpeg",(value) => typeFile(value))
+        .required('El campo es obligatorio.')
+    })
 })

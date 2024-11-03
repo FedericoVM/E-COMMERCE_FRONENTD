@@ -8,6 +8,7 @@ const regObservacion = /^[a-zA-Z0-9_.-]*$/
 
 export const validarNombre = (nombre) => {
   if (regExpProductName.test(nombre) && nombre.trim() !== "" && nombre.length < 15){
+    console.log(nombre);
     return true;
   } else {
     return false
@@ -24,6 +25,7 @@ export const validarUrl = (url) => {
 
 export const validarTelefono = (telefono) => {
     if (regNumero.test(telefono) && telefono.trim() !== ""){
+        console.log(telefono);
         return true;
     } else {
         return false
@@ -32,6 +34,7 @@ export const validarTelefono = (telefono) => {
 
 export const validarEmail = (email) => {
     if (regEmail.test(email) && email.trim() !== "") {
+        console.log('email');
         return true;
     } else {
         return false
@@ -39,7 +42,8 @@ export const validarEmail = (email) => {
 }
 
 export const validarObservacion = (observacion) => {
-    if (regObservacion.test(observacion) && observacion.trim() !== "") {
+    if (observacion.trim() !== "") {
+        console.log('observacion');
         return true;
     } else {
         return false

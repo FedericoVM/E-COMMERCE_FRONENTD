@@ -1,0 +1,23 @@
+.imagen-destacado{
+    height: 12rem;
+    width: 14rem;
+}
+
+.card-destacado-nombre-producto{
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.contenedor-card-destacado {
+    transition: all 0.2s ease;
+}
+
+.contenedor-card-destacado:hover {
+    box-shadow: 5px 5px 10px rgb(207, 206, 206);
+    border-radius: 2%;
+}
+
+.card-destacado-body{
+    height: 10rem !important;
+}

@@ -21,27 +21,54 @@ import VentanaDeBusqueda from "../components/views/Busqueda/VentanaDeBusqueda";
 import RecupContrasenia from "../components/views/recupContrasenia/RecupContrasenia";
 import VerificarUsuario from "../components/views/verificar Usuario/VerificarUsuario";
 import RecuperarContrasenia from "../components/views/Recuperar contrasenia/RecuperarContrasenia";
+import { Toaster } from 'sonner';
+import { ProductosHook } from "../context/Contexto de Productos/ProductosHook";
+import { useEffect, useState } from "react";
+import Nosotros from "../components/views/nosotros/Nosotros";
 
 export const RouterPrincipal = () => {
 
-  const {usuarioRol} = UserHook()
+  const {usuarioRol, usuarioFavoritos} = UserHook()
+
+  const {productosHome, filtrarFavoritosAMostrarProducto} = ProductosHook()
+
+  const [productosFiltrados, setProductosFiltrados] = useState([])
+
+  const filtrarProductosSinStock = (productos) =>{
+    const filtrados = productos.filter((p) =>{
+      return p.stock > 0
+    })
+    setProductosFiltrados(filtrados)
+  }
+
+  useEffect(()=>{
+    filtrarProductosSinStock(productosHome)
+  }, [productosHome])
+
+  useEffect(()=>{
+    if (usuarioRol.length > 0) {
+      filtrarFavoritosAMostrarProducto(productosHome, usuarioFavoritos)
+    }
+  },[usuarioFavoritos])
 
   return (
-    <>
+    <div className="d-flex flex-column">
       <BrowserRouter>
+      <Toaster richColors closeButton position="bottom-right"/>
         < Header/>
-        <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/computacion" element={<Computacion/>}/>
-          <Route path="/electrodomesticos" element={<Electrodomesticos/>}/>
-          <Route path="/aireLibre" element={<AireLibre/>}/>
+        <Routes className="flex-grow">
+          <Route path="/" element={<Home productos={productosFiltrados}/>}/>
+          <Route path="/computacion" element={<Computacion productos={productosFiltrados}/>}/>
+          <Route path="/electrodomesticos" element={<Electrodomesticos productos={productosFiltrados}/>}/>
+          <Route path="/aireLibre" element={<AireLibre productos={productosFiltrados}/>}/>
           <Route path="/contacto" element={<Contacto/>}/>
-          <Route path="/destacados" element={<Destacados/>}/>
+          <Route path="/destacados" element={<Destacados productos={productosFiltrados}/>}/>
           <Route path="/producto/:id" element={<PaginaProducto/>}/>
-          <Route path="/busqueda" element={<VentanaDeBusqueda/>}/>
+          <Route path="/busqueda" element={<VentanaDeBusqueda productos={productosFiltrados}/>}/>
           <Route path="/recuperar-contrasenia" element={<RecupContrasenia/>}/>
           <Route path="/recuperacion-contrasenia/:token" element={<RecuperarContrasenia/>}/>
           <Route path="/usuario/:id/verify/:token" element={<VerificarUsuario/>}/>
+          <Route path="/nosotros" element={<Nosotros/>}/>
 
           <Route element={<RutaProtegidaAdmin autenticado={usuarioRol.includes("admin") || usuarioRol.includes("usuario")} />}>
             <Route path="/editar-usuario/:id" element={<EditarUsuario/>}/>
@@ -56,8 +83,9 @@ export const RouterPrincipal = () => {
             <Route path="/editar-producto/:id" element={<EditarProducto/>} />
           </Route>
         </Routes>
+        <Footer/>
       </BrowserRouter>
-      <Footer />
-    </>
+      
+    </div>
   );
 };

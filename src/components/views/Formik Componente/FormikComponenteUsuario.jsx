@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
-import Form from 'react-bootstrap/Form'
-import {Formik, Form as FormFormik} from "formik";
-import Button from 'react-bootstrap/Button'
-import { Image } from 'react-bootstrap'
+import Form from "react-bootstrap/Form";
+import { Formik, Form as FormFormik } from "formik";
+import Button from "react-bootstrap/Button";
+import { Image } from "react-bootstrap";
 import { schemaRegistro } from "../../../validacionesSchema/register";
 import CustomInputUser from "../FormitImputsUsers/CustomInputUser";
 import CustomInputEdad from "../FormitImputsUsers/CustomInputEdad";
@@ -11,10 +11,13 @@ import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import ModalConfirmar from "../Modal para confirmar users/ModalConfirmar";
 import { Link } from "react-router-dom";
 
-const FormikComponenteUsuario = ({onSubmit, passwordRequerida, confirmarPasswordRequerida}) => {
-
-  const {usuarioInfo, botonBloquear} = UserHook()
-  const imagenRef = useRef(null)
+const FormikComponenteUsuario = ({
+  onSubmit,
+  passwordRequerida,
+  confirmarPasswordRequerida,
+}) => {
+  const { usuarioInfo, botonBloquear } = UserHook();
+  const imagenRef = useRef(null);
 
     const [initialValuesRegistro] = useState({
         nombre : "",
@@ -45,7 +48,7 @@ const FormikComponenteUsuario = ({onSubmit, passwordRequerida, confirmarPassword
           errors,
           touched,
           handleChange,
-          setFieldValue
+          setFieldValue,
         }) => (
           <FormFormik className="d-flex flex-column col-11 col-md-10 form">
             <CustomInputUser
@@ -82,14 +85,23 @@ const FormikComponenteUsuario = ({onSubmit, passwordRequerida, confirmarPassword
                   />
                   <div className="d-flex flex-row flex-md-column justify-content-around col-12">
                   <Button
-                  variant="outline-success"
+                    className="btn-avatar text-white"
+                    variant="btn"
                     type="button"
                     disabled={botonBloquear}
                     onClick={() => {
                       imagenRef.current.click();
                     }}
                   >
-                    {usuarioInfo? "Cambiar avatar" : "Seleccionar avatar"}
+                    {usuarioInfo ? "Cambiar avatar" : "Seleccionar avatar"}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={values.avatar ? "info" : "outline-info"}
+                    disabled={values.avatar ? false : true}
+                    onClick={() => setFieldValue("avatar", "")}
+                  >
+                    Quitar Imagen
                   </Button>
                   <Button className="my-md-2" variant={values.avatar ? "info":"outline-info"} disabled={values.avatar ? false : true} type="button" onClick={() => setFieldValue('avatar', "")}>Quitar Imagen</Button>
                   </div>
@@ -103,21 +115,27 @@ const FormikComponenteUsuario = ({onSubmit, passwordRequerida, confirmarPassword
                   ) : (
                     <Image
                     roundedCircle
-                      src={usuarioInfo? usuarioInfo.imagen:"https://smallimg.pngkey.com/png/small/810-8105695_person-icon-grey-person-icon-grey-png.png"}
-                      className="img-upload img-thumbnail my-2"
-                    />
-                  )}
-                </div>
+                    src={
+                      usuarioInfo
+                        ? usuarioInfo.imagen
+                        : "https://smallimg.pngkey.com/png/small/810-8105695_person-icon-grey-person-icon-grey-png.png"
+                    }
+                    className="img-upload img-thumbnail"
+                  />
+                )}
               </div>
-              {!usuarioInfo &&
+            </div>
+            {!usuarioInfo && (
               <div>
                 <Form.Label>Password *</Form.Label>
                 <Form.Control disabled={botonBloquear} onChange={handleChange} value={values.password} className={errors.password || passwordRequerida ? "border mb-3 border-danger border-1 shadow-lg border-opacity-75" : "mb-3"} type="password" name="password"/>
                 {errors.password && <div className="text-validation">{errors.password}</div>}
               </div>
-              }
-              {passwordRequerida === true && <p className="error text-center">La contrasenia es necesaria</p>}
-              {!usuarioInfo &&
+            )}
+            {passwordRequerida === true && 
+              <p className="error text-center">La contraseña es necesaria</p>
+            }
+            {!usuarioInfo && 
               <CustomInputUser
               label = "Confirmar Password *"
               name = "confirmarPassword"
@@ -134,6 +152,6 @@ const FormikComponenteUsuario = ({onSubmit, passwordRequerida, confirmarPassword
       </Formik>
     </div>
   );
-              }
+};
 
-export default FormikComponenteUsuario
+export default FormikComponenteUsuario;

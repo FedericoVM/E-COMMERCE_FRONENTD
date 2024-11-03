@@ -1,0 +1,35 @@
+@media (max-width: 300px){
+    .boton-reenviar-token{
+        font-size: 0.9rem !important;
+    }
+}
+
+.boton-reenviar-token{
+    border-color: #913175;
+    background-color: whitesmoke;
+    font-size: 1.08rem;
+    color: rgb(41, 40, 40);
+}
+
+.boton-reenviar-token:hover {
+    border-color: #913175;
+    background-color: #913175;
+}
+
+.boton-reenviar-token:active{
+    border-color: #913175 !important;
+    background-color: #752b5f !important;
+}
+
+.boton-reenviar-token:disabled {
+    border-color: #913175 !important;
+    background-color: #752b5f !important;
+}
+
+.modal-reenviar-token-header{
+    background-color: #752b5f !important;   
+}
+
+.modal-reenviar-token-header{
+    color:aliceblue;
+}

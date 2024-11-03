@@ -73,8 +73,8 @@ const Login = ( ) => {
   return (
     <>
       {valuesM.map((v, idx) => (
-        <Button key={idx} className="me-2 mb-2" onClick={() => handleShowModal(v, setFullScreenLogin, setShowLogin)}>
-          Login
+        <Button key={idx} variant="outline" className="ingresar"  size="sm" onClick={() => handleShowModal(v, setFullScreenLogin, setShowLogin)}>
+          Ingresar
         </Button>
       ))}
       <Modal show={showLogin} fullscreen={fullScreenLogin} onHide={() => resetErrorMensaje()}>
@@ -83,10 +83,10 @@ const Login = ( ) => {
           className="modalHeader d-flex align-items-center"
         >
           <Modal.Title className="text-center">
-            <h3 className="text-white fw-bold">Rolling Store</h3>
+            <h4 className="text-white fw-bold">Rolling Store</h4>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="modal-body">
           <h4 className="text-center ">Bienvenido/a</h4>
           <div>
             <Form onSubmit={handleSubmit}>
@@ -102,24 +102,24 @@ const Login = ( ) => {
                 <p className="text-validation">{errorMensaje}</p>
               )}
               <Button
-                className="w-100 text-center"
-                variant="primary"
+                className="w-auto btn-iniciar-sesion"
+                size="sm"
                 type="submit"
                 disabled={botonBloquear}
               >
                 Iniciar Sesión
               </Button>
-              <Form.Group className="my-3">
+              <Form.Group className="mt-2" >
                 No tienes cuenta?
-                <Button disabled={botonBloquear} onClick={() => {setShowLogin(false); handleShowModal(valuesM[0], setFullScreenRegistro, setShowRegistro)}} className="link-form ms-2 text-white">
+                <Button disabled={botonBloquear} variant="link" size="sm" onClick={() => {setShowLogin(false); handleShowModal(valuesM[0], setFullScreenRegistro, setShowRegistro)}} className="link-form ms-2">
                   Registrate
                 </Button>
               </Form.Group>
             </Form>
-            <Form.Group className="my-3">
-                Olvidaste la contrasenia?
-                <Button disabled={botonBloquear} onClick={() => {setShowLogin(false); navigate('recuperar-contrasenia')}} className="link-form ms-2 text-white">
-                  Recuperar Contrasenia
+            <Form.Group>
+                Olvidaste la contraseña?
+                <Button disabled={botonBloquear} variant="link" size="sm" onClick={() => {setShowLogin(false); navigate('recuperar-contrasenia')}} className="link-form ms-2">
+                  Recuperar Contraseña
                 </Button>
               </Form.Group> 
           </div>

@@ -1,0 +1,56 @@
+.body-verificar-usuario{
+    height: 75vh;
+}
+
+.card-content-verificar{
+    height: 80%;
+    border-color: #913174a9 !important;
+}
+
+.boton-inicio-verificar-usuario{
+    border-color: #913175;
+    background-color: whitesmoke;
+    font-size: 1.08rem;
+    color: rgb(41, 40, 40);
+}
+
+.boton-inicio-verificar-usuario:active{
+    border-color: #913175 !important;
+    background-color: #752b5f !important;
+}
+
+.boton-inicio-verificar-usuario:hover{
+    border-color: #913175;
+    background-color: #913175;
+}
+
+@media (max-width: 575px) {
+    .card-content-verificar{
+        height: 90%;
+    }
+}
+
+@media (max-width: 300px){
+    .boton-inicio-verificar-usuario{
+        font-size: 0.9rem;
+    }
+}
+
+.text-logo-verificar-usuario{
+    font-size: 2rem;
+    color: rgb(160, 38, 105);
+}
+
+.imagen-verificar-usuario{
+    height: 30%;
+}
+
+.body-card-verificar-usuario{
+    height: 70% !important;
+}
+
+.texto-response-back{
+    font-size: 1.2rem;
+    color: rgb(64, 87, 87);
+    font-weight: 500;
+}

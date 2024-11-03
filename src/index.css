@@ -56,13 +56,17 @@ input[type=number] {
 }
 
 .img-upload {
-    height: 250px;
-    width: 400px;
+    height: 200px;
+    width: 200px;
 }
 
 .imagenUsuarioHeader {
     height: 40px;
     width: 40px;
+}
+
+.imagenUsuarioHeader:hover{
+    cursor: pointer;
 }
 
 .imagen-pagina-producto{

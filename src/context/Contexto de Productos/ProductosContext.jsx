@@ -10,6 +10,10 @@ import {
 } from "./typesProductos";
 
 const ProductosProvider = ({ children }) => {
+<<<<<<< HEAD
+  const [productosHome, setProductosHome] = useState(null);
+  const [buscarProductos, setBuscarProductos] = useState(null)
+=======
   const [productosHome, setProductosHome] = useState([]);
   const [buscarProductos, setBuscarProductos] = useState(null);
   const [currentPageWeb, setCurretPageWeb] = useState(1);
@@ -27,6 +31,7 @@ const ProductosProvider = ({ children }) => {
   const paginateMobile = (pageNumber) =>{
     setCurretPageMobile(pageNumber)
   }
+>>>>>>> develop
 
   const initialStateProductContext = {
     productosCarritoAMostrar: [],

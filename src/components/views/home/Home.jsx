@@ -3,16 +3,21 @@ import publicidad from "../../../assets/img/main/publicidad.jpg";
 import CarouselHome from "./carouselHome/carouselHome";
 import Paginacion from "../paginacion/Paginacion";
 import Publicidad from "./Publicidad/Publicidad";
+import ProductoNoEncontrado from "../../layout/producto no encontrado/ProductoNoEncontrado";
+import CargandoProductos from "../../layout/cargando productos/CargandoProductos";
+import ResponseBackProductos from "../../layout/respuesta de request de productos/ResponseBackProductos";
 
 const Home = ({productos}) => {
  
   return (
     <>
+    <div className="d-none d-sm-block">
       <CarouselHome />
-      <div className="">
-        <Row className="mx-0 d-flex min-vh-100">
+      </div>
+      <div >
+        <Row className=" mx-0 d-flex">
           <Col lg={10}>
-            {productos.length > 0 ? <Paginacion lista={productos} card={"card"}/> : <h1>Sin productos...</h1>}
+            {productos !== null ? <ResponseBackProductos productosHome={productos}/> : <CargandoProductos/>}
           </Col>
           <Col lg={2} className="d-none d-lg-inline publicidad">
             <Publicidad/>

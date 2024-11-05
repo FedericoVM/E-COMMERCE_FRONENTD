@@ -7,6 +7,7 @@
 }
 
 .descripcion-pagina-producto{
+    white-space: pre-wrap;
     color: rgb(54, 56, 56);
 }
 

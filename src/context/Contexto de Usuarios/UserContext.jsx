@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from "react";
+import { useState, useReducer} from "react";
 import { UseUser } from "./UseUser";
 import instance from "../../axios/instance";
 import UserReducer from "./UserReducer";

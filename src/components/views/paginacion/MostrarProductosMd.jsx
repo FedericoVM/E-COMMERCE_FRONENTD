@@ -7,13 +7,15 @@ const MostrarProductosMd = ({ currentPostsMd, totalPosts, page }) => {
     const {currentPageTablet, paginateTablet} = ProductosHook()
 
     return (
-        <Row md={4} className=" g-4 d-none justify-content-center d-lg-none d-md-flex mt-3">
+        <div className='d-flex flex-column'>
+        <Row md={4} className=" g-4 d-none d-lg-none d-md-flex mt-3">
             {currentPostsMd.map((p, index) => (
                 <Col key={index} className="d-flex flex-wrap">
                     <ProductCard p={p}/>
                 </Col>
             ))}
-            <div>
+        </Row>
+        <div className='d-none d-lg-none d-md-flex'>
                 <PaginacionControl
                     postsPerPage={page}
                     totalPosts={totalPosts}
@@ -21,7 +23,7 @@ const MostrarProductosMd = ({ currentPostsMd, totalPosts, page }) => {
                     currentPage={currentPageTablet}
                 />
             </div>
-        </Row>
+        </div>
     )
 }
 

@@ -10,15 +10,13 @@ import {
 } from "./typesProductos";
 
 const ProductosProvider = ({ children }) => {
-<<<<<<< HEAD
-  const [productosHome, setProductosHome] = useState(null);
-  const [buscarProductos, setBuscarProductos] = useState(null)
-=======
+  
   const [productosHome, setProductosHome] = useState([]);
   const [buscarProductos, setBuscarProductos] = useState(null);
   const [currentPageWeb, setCurretPageWeb] = useState(1);
   const [currentPageTablet, setCurretPageTablet] = useState(1);
   const [currentPageMobile, setCurretPageMobile] = useState(1);
+  const [errorMercado, setErrorMercado] = useState(null)
 
   const paginateWeb = (pageNumber) =>{
     setCurretPageWeb(pageNumber)
@@ -31,7 +29,6 @@ const ProductosProvider = ({ children }) => {
   const paginateMobile = (pageNumber) =>{
     setCurretPageMobile(pageNumber)
   }
->>>>>>> develop
 
   const initialStateProductContext = {
     productosCarritoAMostrar: [],
@@ -187,6 +184,27 @@ const ProductosProvider = ({ children }) => {
     dispatchProduct({type: RESET_CARRITO_Y_FAVORITOS, payload: initialStateProductContext})
   }
 
+  const comprarProducto = async (idProducto, tokenUser) =>{
+
+    const config = {
+      headers: {
+        authorization: `Bearer ${tokenUser}`
+      }
+    }
+    const productoAComprar = {
+      producto_id : idProducto
+    }
+
+    try {
+      const pago = await instance.post("/mercadoPago/payment",productoAComprar, config)
+      if (pago) {
+        window.location.href = `${pago.data.redirecttUrl}`
+      }
+    } catch (error) {
+      setErrorMercado('Algo paso')
+    }
+  } 
+
   const formatPrecio = (precio) => {
     let formatoARetornar = Intl.NumberFormat("es-AR", {
       style: "currency",
@@ -223,7 +241,10 @@ const ProductosProvider = ({ children }) => {
         currentPageMobile,
         paginateWeb,
         paginateTablet,
-        paginateMobile
+        paginateMobile,
+        comprarProducto,
+        errorMercado,
+        setErrorMercado
       }}
     >
       {children}

@@ -1,5 +1,6 @@
-import {useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
+import { FaShoppingCart } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import ListGroup from "react-bootstrap/ListGroup";
 import CardCarrito from "./cardCarrito/CardCarrito";
@@ -12,22 +13,30 @@ import "./ModalCarrito.css"
 import CarritoVacio from "./carritoVacio/CarritoVacio";
 import instance from "../../../axios/instance";
 import ModalEsperaPagoBack from "../Modal espera pago/ModalEsperaPagoBack";
+import "./modalCarrito.css"
+import { toast } from "sonner";
+import "./ModalCarrito.css"
+import CarritoVacio from "./carritoVacio/CarritoVacio";
 
-const ModalCarrito = ( ) => {
-    
-    const [precioTotal, setPrecioTotal] = useState(null)
+const ModalCarrito = () => {
+  const [precioTotal, setPrecioTotal] = useState(null);
 
-    const {usuarioCarrito, showModalCarrito,setShowModalCarrito, handleCloseModalCarrito, usuarioInfo, tokenUser} = UserHook()
-    const {productosHome, filtrarCarritoAMostrarProducto, productosCarritoAMostrar, formatPrecio, setErrorMercado} = ProductosHook()
+  const { usuarioCarrito, showModalCarrito,setShowModalCarrito, handleCloseModalCarrito, usuarioInfo, tokenUser } = UserHook();
+  const {
+    productosHome,
+    filtrarCarritoAMostrarProducto,
+    productosCarritoAMostrar,
+    formatPrecio,
+    setErrorMercado} = ProductosHook();
 
     const handleClose = () => setShowModalCarrito(false);
 
-    const sumarTotalCarrito = (productosArray) => {
-        let total = 0;
-if (productosArray) {
-        productosArray.forEach(element => {
-            total += element.precio * element.cantidad         
-        });
+  const sumarTotalCarrito = (productosArray) => {
+    let total = 0;
+    if (productosArray) {
+      productosArray.forEach((element) => {
+        total += element.precio * element.cantidad;
+      });
     }
     setPrecioTotal(total)
     }
@@ -56,12 +65,12 @@ if (productosArray) {
         }
     }
 
-    useEffect(()=>{
+  useEffect(() => {
     if (usuarioCarrito) {
-        filtrarCarritoAMostrarProducto(usuarioCarrito, productosHome)
+      filtrarCarritoAMostrarProducto(usuarioCarrito, productosHome);
     }
     if (usuarioCarrito === null) {
-        setPrecioTotal(null)
+      setPrecioTotal(null);
     }
     },[usuarioCarrito])
 
@@ -97,10 +106,10 @@ if (productosArray) {
                         )}
                     </ListGroup>
                 </Modal.Body>
-                <Modal.Footer className="d-flex flex-column bg-primary bg-opacity-25 flex-sm-row-reverse justify-content-between">
-                    <div className="d-flex m-0 p-0 flex-row align-items-center justify-content-evenly container col-6">
-                    <FormLabel className="total-text">Total:</FormLabel>
-                    <FormLabel className="total-text">{precioTotal !== 0 ? `${formatPrecio(precioTotal)}` : "0"}</FormLabel>
+                <Modal.Footer className="d-flex flex-row justify-content-between">
+                    <div className="d-flex flex-row align-items-center justify-content-evenly container col-6">
+                    <FormLabel className="fs-5">Total:</FormLabel>
+                    <FormLabel className="fs-4">{precioTotal !== 0 ? `${formatPrecio(precioTotal)}` : "0"}</FormLabel>
                     </div>
                     <div className="d-flex col-12 col-sm-5 m-0 p-0 flex-row justify-content-evenly">
                     <Button variant="danger" onClick={handleClose}>

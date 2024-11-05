@@ -1,76 +1,86 @@
-div.contenedor {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.mensaje-error{
+  font-size: 0.75rem;
+  color: red;
 }
 
-div.contenedor-form {
-  height: 70%;
-  width: 25%;
-  border: 2px solid rgba(95, 169, 230, 0.315);
-  border-radius: 15px;
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.contenedor-form {
+  height: 60vh !important;
+  border-color: #913174a9 !important;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.74) 0%, rgba(250, 245, 245, 0.74) 5%, rgba(240, 234, 243, 0.74) 95%);
 }
 
-.div-img {
-  border-radius: 50%;
+.body-nuevo-password{
+  height: 70vh;
 }
 
 .img-candado {
-  width: 5rem;
+  width: 8rem;
   margin: 1rem;
 }
 
-.form-cambiar-contrasenia {
-  width: 100%;
-  height: 30%;
-  margin-top: 1rem;
+.form-recuperar-contrasenia {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  align-items: start;
 }
 
-.form-password {
-  padding: 0.5rem;
-  width: 80%;
+@media (min-width: 768px) {
+  .form-cambiar-password{
+    padding: 0.5rem;
+    width: 100% !important;
+  }
 }
 
 .boton-cambiar-contrasenia {
-    background-color: rgb(197, 198, 199);
-  border: 0;
-  color: rgb(18, 148, 187);
-  border-radius: 15px;
-  padding: 0.7rem;
+  background-color: rgb(255, 255, 255);
+  border-color: #913175 !important;
+  color: rgb(51, 54, 54);
+  padding: 0.4rem;
 }
 
-
-
-@media (max-width: 1180px) {
-
-    div.contenedor-form {
-        width: 40%;
-        height: 50%;
-      }
+.boton-cambiar-contrasenia:hover{
+  background-color: #913175 !important;
 }
-
 
 @media (max-width: 653px) {
   .texto-rolling {
     font-size: 1.5rem;
   }
+}
 
-  div.contenedor-form {
-    width: 95%;
-    height: 60%;
+@media (576px <= width <= 767px){
+  .mensaje-error{
+    font-size: 0.75rem;
+    color: red;
+    width: 40% !important;
+    white-space: normal !important;
+    word-break:normal !important;
+    overflow: hidden !important;
+    display: inline !important;
   }
 
-  .form-password {
-    width: 85%;
+  .form-cambiar-password{
+   width: 80% !important;
+  }
+}
+
+@media (max-width: 575px){
+  .body-nuevo-password{
+    height: 90vh !important;
+  }
+  
+  .contenedor-form{
+    height: 75vh !important;
+  }
+  
+  .mensaje-error-sm{
+    font-size: 0.75rem;
+    color: red;
+  }
+}
+
+@media (max-width: 400px){
+  .form-recuperar-contrasenia{
+    width: 90% !important;
   }
 }

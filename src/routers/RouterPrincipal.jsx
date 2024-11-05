@@ -52,11 +52,11 @@ export const RouterPrincipal = () => {
   },[usuarioFavoritos])
 
   return (
-    <>
+    <div className="d-flex flex-column">
       <BrowserRouter>
       <Toaster richColors closeButton position="bottom-right"/>
         < Header/>
-        <Routes>
+        <Routes className="flex-grow">
           <Route path="/" element={<Home productos={productosFiltrados}/>}/>
           <Route path="/computacion" element={<Computacion productos={productosFiltrados}/>}/>
           <Route path="/electrodomesticos" element={<Electrodomesticos productos={productosFiltrados}/>}/>
@@ -86,6 +86,6 @@ export const RouterPrincipal = () => {
         <Footer/>
       </BrowserRouter>
       
-    </>
+    </div>
   );
 };

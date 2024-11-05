@@ -5,12 +5,12 @@ import Form from "react-bootstrap/Form";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 
-const CustomInputPrecio = ({ label, ...props }) => {
+const CustomInputPrecio = ({ label,inputDescuento,...props }) => {
   const [field, meta] = useField(props);
   const [inputPrecio, setInputPrecio] = useState("");
 
-  const {formatPrecio} = ProductosHook()
-  const {botonBloquear} = UserHook()
+  const { formatPrecio } = ProductosHook()
+  const { botonBloquear } = UserHook()
 
   useEffect(() => {
     setInputPrecio(field.value);
@@ -21,7 +21,7 @@ const CustomInputPrecio = ({ label, ...props }) => {
       <Form.Group as={Row} className="mb-3">
         <Col sm="4" className="">
           <Form.Control
-          disabled={botonBloquear}
+            disabled={botonBloquear}
             sm="2"
             className="h-100"
             onKeyPress={(e) => {
@@ -39,7 +39,7 @@ const CustomInputPrecio = ({ label, ...props }) => {
               className=""
               sm="2"
               type="text"
-              value={formatPrecio(inputPrecio)}
+              value={formatPrecio( inputDescuento < 71 && inputPrecio -  (inputPrecio * (inputDescuento/100) ))}
               disabled={true}
             />
           </FloatingLabel>
@@ -48,6 +48,8 @@ const CustomInputPrecio = ({ label, ...props }) => {
       {meta.touched && meta.error && (
         <div className="text-validation">{meta.error}</div>
       )}
+
+      
     </>
   );
 };

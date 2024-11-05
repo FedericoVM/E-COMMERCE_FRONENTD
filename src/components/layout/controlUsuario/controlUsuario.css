@@ -1,0 +1,25 @@
+.dropDownButtonControlUsuario .dropdown-menu{
+    position: absolute !important; 
+}
+
+.dropDownButtonControlUsuario{
+    border: 1px solid #913175;
+    border-radius: 4px !important;
+    background: none !important;
+    font-weight: 500 !important;
+    color: rgb(53, 52, 52);
+    border-color: #913175 !important;
+}
+
+.dropDownButtonControlUsuario:hover .nav-link{
+    transition: all 0.2s ease-out;
+    background-color: #913175 !important;
+    color: white !important;
+    border-color: #913175;
+}
+
+.control-usuario-nav-items:hover{
+    transition: all 0.2s ease-out;
+    color: white !important;
+    background-color: #913175;
+}

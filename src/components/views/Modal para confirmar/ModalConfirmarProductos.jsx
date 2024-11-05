@@ -1,41 +1,42 @@
+import { yupToFormErrors } from 'formik';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useNavigate } from 'react-router-dom';
 import {toast} from "sonner"
 
-const ModalConfirmarProductos = ({onSubmit, initialValues, touched, errors, resetForm, productoEdit}) =>{
+const ModalConfirmarProductos = ({onSubmit, initialValues, resetForm, productoEdit, validateForm, valoresIniciales, setInitialValuesForm}) =>{
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const navigate = useNavigate()
-
-    const confirmarError = (errors) =>{
-
-      if (productoEdit){
-        if (Object.keys(errors).length > 0){
-          return toast.error("Compruebe que los datos sean correctos")
+    const confirmarError = () =>{
+      validateForm().then((formErrors) => {
+        if (Object.keys(formErrors).length > 0) {
+          return toast.error("Compruebe que los datos sean correctos");
         }
-        onSubmit(initialValues)
+        handleShow();
+      });
+  }
+
+  const submitProducto = () =>{
+    return console.log(initialValues);
+    
+    if(productoEdit){
+      onSubmit(initialValues)
+      resetForm()
         return handleClose()
-      } else {
-        if(!(initialValues.imagenProducto.type === "image/jpeg" || initialValues.imagenProducto.type === "image/png")){
-            return toast.error("Verifique los campos obligatorios")
-        }
-
-        if(Object.keys(errors).length > 0 || Object.keys(touched).length === 0){
-            return toast.error("Verifique los campos obligatorios")
-        }
-        onSubmit(initialValues, resetForm)
-        return handleClose()
-    }
+    } else {
+    onSubmit(initialValues);
+    resetForm({values: valoresIniciales()})
+    setInitialValuesForm(valoresIniciales())
+    return handleClose()
+  }
   }
   
     return (
       <>
-        <Button variant="primary" className='d-flex align-self-end my-3' onClick={handleShow}>
+        <Button variant="primary" type='submit' className='d-flex align-self-end my-3' onClick={confirmarError}>
           Guardar
         </Button>
         <Modal show={show} centered keyboard size='sm' onHide={handleClose}>
@@ -47,7 +48,7 @@ const ModalConfirmarProductos = ({onSubmit, initialValues, touched, errors, rese
             <Button variant="secondary" onClick={handleClose}>
               Cancelar
             </Button>
-            <Button type='submit' variant="primary" onClick={() => {confirmarError(errors)}}>
+            <Button variant="primary" type='submit' onClick={submitProducto}>
               {productoEdit ? "Guardar Cambios" : "Guardar"}
             </Button>
           </Modal.Footer>

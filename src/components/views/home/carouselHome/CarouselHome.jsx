@@ -1,25 +1,22 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import img_carousel from "../../../../assets/img/carousel/img-1.webp";
 import img_carousel_1 from "../../../../assets/img/carousel/img-2.webp";
 import tarjetas from "../../../../assets/img/pagos/tarjeta.png";
 import img_envio from "../../../../assets/img/pagos/envio.png";
-import "./carouselHome.css"
-
+import "./carouselHome.css";
 
 const CarouselHome = () => {
     return (
         <>
-            <Carousel fade>
-                <Carousel.Item>
-                    <img className="d-block w-100" src={img_carousel} alt="First slide" />
+            <Carousel fade className="contenedor-carousel">
+                <Carousel.Item className="carousel-item">
+                    <img className="d-block w-100" src={import.meta.env.VITE_IMG_CAROUSEL} alt="First slide" />
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src={img_carousel_1}
+                        src={import.meta.env.VITE_IMG_CAROUSEL}
                         alt="Second slide"
                     />
                 </Carousel.Item>

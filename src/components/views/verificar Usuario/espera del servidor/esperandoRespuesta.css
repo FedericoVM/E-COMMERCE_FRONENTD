@@ -1,0 +1,111 @@
+.esperando-respuesta-body{
+    height: 75vh;
+}
+
+.esperando-respuesta-card-content{
+    height: 80%;
+    border-color: #913174a9 !important;
+}
+
+.esperando-respuesta-text-logo{
+    font-size: 2rem;
+    color: rgb(160, 38, 105);
+}
+
+.esperando-respuesta-animacion-body{
+    height: 30%;
+}
+
+.esperando-respuesta-content{
+    height: 70%;
+}
+
+.esperando-respuesta-boton-inicio{
+    border-color: #913175;
+    background-color: whitesmoke;
+    font-size: 1.08rem;
+    color: rgb(41, 40, 40);
+}
+
+.esperando-respuesta-boton-inicio:active{
+    border-color: #913175 !important;
+    background-color: #752b5f !important;
+}
+
+.esperando-respuesta-boton-inicio:hover{
+    border-color: #913175;
+    background-color: #913175;
+}
+
+.animacion-de-espera-1, .animacion-de-espera-2, .animacion-de-espera-3{
+    background-color: blueviolet;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+}
+
+.animacion-de-espera-1{
+    animation: esperaAnimacion1 1.5s infinite;
+}
+
+.animacion-de-espera-2{
+    animation: esperaAnimacion2 1.5s infinite;
+}
+
+.animacion-de-espera-3{
+    animation: esperaAnimacion3 1.5s infinite;
+}
+
+@keyframes esperaAnimacion1 {
+    0% {
+        transform: scale(1);
+    }
+    25%{
+        transform: scale(2);
+    }
+    50% {
+        transform: scale(1);
+    }
+    75%{
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes esperaAnimacion2 {
+    0% {
+        transform: scale(1);
+    }
+    25%{
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(2);
+    }
+    75%{
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes esperaAnimacion3 {
+    0% {
+        transform: scale(1);
+    }
+    25%{
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1);
+    }
+    75%{
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

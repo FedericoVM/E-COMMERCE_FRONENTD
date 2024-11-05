@@ -1,67 +1,62 @@
+.body-contenedor{
+    height: 70vh;
+}
+
+.contenedor-elementos{
+    height: 60vh;
+    background-color: rgba(234, 216, 248, 0.295);
+    border-color: #913174a9 !important;
+}
+
+.recup-contrasenia-titulo{
+    color: rgb(160, 38, 105);
+}
 
 .div-recuperar-contrasenia {
     width: 100%;
-   
     display: flex;
     flex-direction: column;
-    align-items: center;
-
-}
-
-.contenedor-form-recuperar-contrasenia {
-    width: 30%;
-    height: 80%;
-    border: 1px solid rgba(108, 164, 228, 0.459);
-    border-radius: 15px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.form-cambiar-contrasenia {
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
     align-items: center;
 }
 
 .input_email {
     width: 90%;
-    padding: 0.5rem;
 }
 
-button.btn-recup {
-    padding: 6px;
+.recup-contrasenia-boton-submit{
+    border-color: #913175;
+    background-color: whitesmoke;
+    font-size: 1.08rem;
+    color: rgb(41, 40, 40);
 }
 
-button.btn-volver {
-    width: 20%;
-    padding: 4px;
+.recup-contrasenia-boton-submit:hover{
+    border-color: #913175;
+    background-color: #913175;
 }
 
+.recup-contrasenia-boton-submit:active{
+    border-color: #913175 !important;
+    background-color: #752b5f !important;
+}
 
 @media (max-width:654px) {
-
-    .contenedor-form-recuperar-contrasenia {
-        width: 80%;
-        height: 70%;
-    }
-
     .form-cambiar-contrasenia {
         width: 100%;
         background-color: azure;
     }
 
-    button.btn-recup {
-        width: 90%;
+    .error-respuesta-recup-contrasenia{
+        text-wrap:wrap !important;
+        text-align: center;
+        height: auto !important;
     }
-    
+}
 
-    button.btn-volver {
-        width: 25%;
-        padding: 4px;
-    }
+.error-respuesta-recup-contrasenia{
+    font-size: small;
+    text-wrap:nowrap;
+    color: red;
+    height: 0.7rem;
+    padding-bottom: 2%;
 }

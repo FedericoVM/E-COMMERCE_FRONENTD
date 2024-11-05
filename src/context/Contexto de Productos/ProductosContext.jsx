@@ -10,6 +10,7 @@ import {
 } from "./typesProductos";
 
 const ProductosProvider = ({ children }) => {
+  
   const [productosHome, setProductosHome] = useState([]);
   const [buscarProductos, setBuscarProductos] = useState(null);
   const [currentPageWeb, setCurretPageWeb] = useState(1);

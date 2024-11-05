@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ProductoNoEncontrado from "./ProductoNoEncontrado";
+import ProductoNoEncontrado from "../../layout/producto no encontrado/ProductoNoEncontrado";
 import ContenidoPaginaProducto from "./ContenidoPaginaProducto";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 

@@ -10,9 +10,11 @@ const CambiarContrasenia = () => {
 
     const use_navigate = useNavigate()
 
-    const handleCambiarContrasenia = async(values) =>{
+    const handleCambiarContrasenia = async(e) =>{
 
-        let contrasenia = values
+        setBotonBloquear(true)
+
+        let contrasenia = e.password        
 
         let nuevaContrasenia = {
             password : contrasenia

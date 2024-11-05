@@ -99,10 +99,11 @@ const Registro = () => {
       {valuesModal.map((v, idx) => (
         <Button
           key={idx}
-          className="me-2 mb-1"
+          size="sm"
+          className="crear-cuenta"
           onClick={() => handleShowModal(v, setFullScreenRegistro, setShowRegistro)}
         >
-          Registrarse
+          Crear cuenta
         </Button>
       ))}
       <Modal

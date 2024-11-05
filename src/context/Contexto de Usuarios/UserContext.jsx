@@ -158,10 +158,6 @@ const UserProvider = ({ children }) => {
     return toast("Sesion finalizada")
   }
 
-  const modalEsperaLink = () => {
-
-  }
-
   return (
     <UseUser.Provider
       value={{
@@ -193,7 +189,7 @@ const UserProvider = ({ children }) => {
         setBotonBloquear,
         showModalCarrito,
         setShowModalCarrito,
-        handleCloseModalCarrito
+        handleCloseModalCarrito,
       }}
     >
       {children}

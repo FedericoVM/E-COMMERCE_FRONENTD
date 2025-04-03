@@ -1,14 +1,21 @@
+import { useEffect, useState } from "react";
 import ProductosCategorias from "../Productos_categoria";
+import { ProductosHook } from "../../../../context/Contexto de Productos/ProductosHook";
+import CargandoProductos from "../../../layout/cargando productos/CargandoProductos";
 
 const Computacion = ( {productos} ) => {
 
-    const productosComp = productos.filter(  p => {
-     return  p.categoria === "Computacion"
-    } )
+  const [computacionProductos, setComputacionProductos] = useState([])
+
+  const {filtrarProductosCategoria} = ProductosHook()
+
+  useEffect(()=>{
+    filtrarProductosCategoria(productos, setComputacionProductos, "Computacion")
+  },[productos])
 
   return (
     <div className="min-vh-100">
-        {productos.length > 0 ? <ProductosCategorias productos={productosComp} card="categoria"/> :"" }  
+        {computacionProductos.length > 0 ? <ProductosCategorias productos={computacionProductos} card="categoria" categoria={'Computacion'}/> : <CargandoProductos/> }  
     </div>
   )
 }

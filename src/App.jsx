@@ -8,7 +8,7 @@ import AdminProvider from "./context/Contexto de Admin/AdminContext";
 
 function App() {
   return (
-    <div className="">
+    <div className=" background-paginas">
       <UserProvider>
         <AdminProvider>
         <ProductosProvider>

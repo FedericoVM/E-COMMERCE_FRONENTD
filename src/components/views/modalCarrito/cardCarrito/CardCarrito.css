@@ -1,15 +1,97 @@
+.contenedor-imagen-carrito{
+    position: relative;
+}
+
 .imagen-card-carrito{
-    height: 8rem;
+    height: 8.7rem;
     width: 100%;
 }
 
+.boton-restar-carrito{
+    background-color: white !important;
+    border-color: rgb(230, 142, 60) !important;
+    color: rgb(230, 142, 60) !important;
+    position: relative;
+}
+
+.boton-restar-carrito::after {
+    content: '';
+    position: absolute;
+    background-color: rgb(230, 142, 60);
+    height: 3px;
+    width: 10px;
+    top: 50%;
+    right: 25%;
+}
+
+.boton-restar-carrito:hover {
+    background-color:rgb(230, 142, 60) !important;
+}
+
+.boton-restar-carrito:hover::after{
+    background-color: white;
+}
+
+.boton-restar-carrito:active{
+    background-color: rgb(141, 74, 11) !important
+}
+
+.boton-sumar-carrito{
+    background-color: white !important;
+    border-color: blueviolet !important;
+    color: blueviolet;
+    position: relative;
+    transition: all 0.1s ease;
+}
+
+.boton-sumar-carrito::after{
+    content: '+';
+    color: blueviolet;
+    position: absolute;
+    font-size:xx-large;
+    top: -45%;
+    right: 8%;
+}
+
+.boton-sumar-carrito:hover{
+    background-color: blueviolet !important;
+    color: white !important;
+}
+
+.boton-sumar-carrito:hover::after{
+    color: white;
+}
+
+.boton-sumar-carrito:active{
+    background-color: rgb(29, 6, 51) !important; 
+}
+
+.boton-eliminar-producto-carrito{
+    background-color: white !important;
+    border-color: rgb(230, 142, 60);
+    color: rgb(230, 142, 60);
+    font-weight: 600;
+}
+
+.boton-eliminar-producto-carrito:hover{
+    background-color: rgb(230, 142, 60) !important;
+    color: white;
+    border-color: rgb(230, 142, 60) !important;
+}
+
+.boton-eliminar-producto-carrito:active{
+    background-color: rgb(172, 97, 28) !important;
+}
+
 .producto-nombre{
-    font-weight: 400;
+    font-size: 1.12rem;
+    color: rgb(73, 59, 77);
 }
 
 .cantidad-label{
     position: relative;
-    top: 10px
+    top: 10px;
+    color: rgb(90, 88, 88);
 }
 
 .contenedor-cantidad{
@@ -43,9 +125,34 @@
     opacity: 0.5;
 }
 
+@media screen and (min-width: 401px) {
+    .label-destacado{
+        position: absolute;
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+        font-size: small;
+        font-weight: 900;
+        font-family: monospace;
+        line-height:0.6%;
+        color: rgb(248, 248, 225);
+        background-color: rgba(101, 13, 172, 0.562);
+        padding: 7px !important;
+    }
+}
+
 @media screen and (max-width: 400px){
     .contenedor-carrito{
         flex-direction: column;
+    }
+
+    .label-destacado{
+        position: absolute;
+        font-weight: 900;
+        font-family: monospace;
+        line-height:0.6%;
+        color: rgb(248, 248, 225);
+        background-color: rgba(101, 13, 172, 0.562) !important;
+        padding: 7px !important;
     }
 
     .sin-stock{

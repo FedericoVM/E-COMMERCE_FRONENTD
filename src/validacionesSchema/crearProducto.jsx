@@ -18,7 +18,14 @@ export const schemaCrearProducto = yup.object().shape({
     .required("Este campo es requerido"),
     stockProducto: yup
     .number()
-    .required("El Stock es requerido"),
+    .min(0, "El numero no puede ser negativo")
+    .required("El Stock es requerido")
+    .when('inputToSchema', {
+        is: false,
+        then: ()=> yup.number()
+        .min(3, "El minimo es de 3")
+        .required('El campo es obligatorio.')
+    }),
     precioProducto: yup
     .number()
     .max(99999999, "Maximo de 8 digitos")

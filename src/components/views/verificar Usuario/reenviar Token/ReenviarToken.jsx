@@ -6,6 +6,7 @@ import { regexEmail } from '../../../../RegExp/relugarExp';
 import instance from '../../../../axios/instance';
 import { UserHook } from '../../../../context/Contexto de Usuarios/UserHook';
 import "./reenviarToken.css"
+import { toast } from 'sonner';
 
 const ReenviarToken = () =>{
     const [show, setShow] = useState(false);
@@ -24,7 +25,7 @@ const ReenviarToken = () =>{
 
     if(!regexEmail.test(email)){
       setBotonBloquear(false)
-      return console.log("Ingrese un email valido");
+      return toast.warning("Ingrese un email valido");
     }
 
     const emailAEnviar = {
@@ -34,11 +35,11 @@ const ReenviarToken = () =>{
     try {
       let reenviarToken = await instance.post('usuario/reenviar-token',emailAEnviar)
       setBotonBloquear(false)
-      console.log(reenviarToken.data.mensaje);
+      toast.success(reenviarToken.data.mensaje);
       return handleClose()
     } catch (error) {
       setBotonBloquear(false)
-      console.log(error);
+      toast.error(error.response.data.mensaje);
     }
   }
 

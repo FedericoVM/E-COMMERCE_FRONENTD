@@ -1,0 +1,44 @@
+.boton-guardar-productos-form, .boton-seleccionar-imagen-producto, .boton-cerrar-modal-producto, .boton-atras-editar-producto{
+    border-width: 1px;
+    border-color: #913175;
+    color: #913175;
+    font-weight: 500;
+    background-color: white !important;
+}
+
+.boton-guardar-productos-form:hover, .boton-seleccionar-imagen-producto:hover, .boton-cerrar-modal-producto:hover, .boton-atras-editar-producto:hover{
+    background-color: #913175 !important;
+    border-color: #913175 !important;
+    color: white !important;
+}
+
+.boton-quitar-imagen-producto-form{
+    background-color: white !important;
+    border-color: rgb(230, 142, 60) !important;
+    color: rgb(230, 142, 60) !important;
+    position: relative;
+    font-weight: 500;
+}
+
+.boton-quitar-imagen-producto-form:hover{
+    background-color:rgb(230, 142, 60) !important;
+    color: white !important;
+}
+
+.modal-producto-confirm-header{
+    background-color: #913175 !important;
+    color: white;
+}
+
+.boton-submit-modal-producto{
+    background-color: white;
+    color: rgb(216, 7, 111);
+    border-color: rgb(216, 7, 111);
+    font-weight: 500;
+}
+
+.boton-submit-modal-producto:hover{
+    background-color: rgb(216, 7, 111);
+    border-color: rgb(216, 7, 111);
+    color: white;
+}

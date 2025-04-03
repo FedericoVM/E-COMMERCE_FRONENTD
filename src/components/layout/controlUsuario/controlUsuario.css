@@ -11,6 +11,12 @@
     border-color: #913175 !important;
 }
 
+.dropDownButtonControlUsuario a {
+  
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .dropDownButtonControlUsuario:hover .nav-link{
     transition: all 0.2s ease-out;
     background-color: #913175 !important;

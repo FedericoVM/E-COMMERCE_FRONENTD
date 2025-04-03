@@ -64,7 +64,7 @@
   }
 }
 
-@media (max-width: 575px){
+@media (401 >= width <= 575px){
   .body-nuevo-password{
     height: 90vh !important;
   }

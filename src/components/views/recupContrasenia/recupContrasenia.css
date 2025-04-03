@@ -20,17 +20,18 @@
 }
 
 .input_email {
-    width: 90%;
+    width: 70%;
 }
 
-.recup-contrasenia-boton-submit{
+.recup-contrasenia-boton-submit, .btn-volver-recuperar-contrasenia{
     border-color: #913175;
     background-color: whitesmoke;
     font-size: 1.08rem;
     color: rgb(41, 40, 40);
 }
 
-.recup-contrasenia-boton-submit:hover{
+.recup-contrasenia-boton-submit:hover, .btn-volver-recuperar-contrasenia:hover{
+    color: white !important;
     border-color: #913175;
     background-color: #913175;
 }
@@ -50,6 +51,9 @@
         text-wrap:wrap !important;
         text-align: center;
         height: auto !important;
+    }
+    .input_email {
+        width: 100% !important;
     }
 }
 

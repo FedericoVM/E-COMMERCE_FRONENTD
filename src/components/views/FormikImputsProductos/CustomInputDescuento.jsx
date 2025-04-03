@@ -1,7 +1,6 @@
 import React from 'react'
 import { useField } from "formik";
 import { useEffect } from "react";
-import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 
@@ -17,8 +16,7 @@ const CustomInputDescuento = ({ label, setInputDescuento, ...props }) => {
     return (
         <div className='col-6'>
             <Form.Label>{label}</Form.Label>
-            <Form.Group as={Row} className="mb-3">
-                <Col sm="4" className="">
+            <Form.Group className="col-12 col-sm-6">
                     <Form.Control
                         disabled={botonBloquear}
                         sm="2"
@@ -31,7 +29,6 @@ const CustomInputDescuento = ({ label, setInputDescuento, ...props }) => {
                         {...field}
                         {...props}
                     />
-                </Col>
             </Form.Group>
             {meta.touched && meta.error && (
                 <div className="text-validation">{meta.error}</div>

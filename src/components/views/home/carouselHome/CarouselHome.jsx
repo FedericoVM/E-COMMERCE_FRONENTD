@@ -4,25 +4,36 @@ import img_carousel from "../../../../assets/img/carousel/img-1.webp";
 import img_carousel_1 from "../../../../assets/img/carousel/img-2.webp";
 import tarjetas from "../../../../assets/img/pagos/tarjeta.png";
 import img_envio from "../../../../assets/img/pagos/envio.png";
+import ofertas from "../../../../assets/img/carousel/ofertasBanner.jpg"
 import "./carouselHome.css";
+import { useNavigate } from "react-router-dom";
 
 const CarouselHome = () => {
+
+    const navigate = useNavigate()
+
+    const navigateCarousel = (destino) =>{
+        return navigate(`/${destino}`)
+    }
+    
     return (
         <>
             <Carousel fade className="contenedor-carousel">
                 <Carousel.Item className="carousel-item">
-                    <img className="d-block w-100" src={import.meta.env.VITE_IMG_CAROUSEL} alt="First slide" />
+                    <img className="d-block w-100" onClick={()=>{navigateCarousel('destacados')}} src={ofertas} alt="First slide" />
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src={import.meta.env.VITE_IMG_CAROUSEL}
+                        src={img_carousel}
                         alt="Second slide"
+                        onClick={()=>{navigateCarousel('electrodomesticos')}}
                     />
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
+                        onClick={()=>{navigateCarousel('computacion')}}
                         src={img_carousel_1}
                         alt="Second slide"
                     />

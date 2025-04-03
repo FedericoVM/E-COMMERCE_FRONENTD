@@ -1,0 +1,23 @@
+.pagination-boton-menos, .pagination-boton-mas, .pagination-boton-anterior, .pagination-boton-posterior{
+    border-color: rgb(104, 54, 151) !important;
+    color: rgb(104, 54, 151) !important;
+}
+
+.pagination-boton-menos:hover, .pagination-boton-mas:hover, .pagination-boton-anterior:hover, .pagination-boton-posterior:hover{
+    cursor: pointer;
+}
+
+.pagination-boton-menos{
+    border-right: none;
+}
+
+.pagina-actual{
+    border-color: rgb(104, 54, 151) !important;
+    color: white;
+    background-color: rgb(104, 54, 151) !important;
+}
+
+.pagina-actual:hover{
+    color: white !important;
+    cursor:default;
+}

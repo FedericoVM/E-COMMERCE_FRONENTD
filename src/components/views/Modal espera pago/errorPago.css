@@ -1,0 +1,18 @@
+.imagen-productos-sin-stock{
+    height: 5rem;
+}
+
+.nombre-productos-sin-stock{
+    align-content: center;
+}
+
+.titulo-productos-sin-stock{
+    font-size:x-large;
+    color: rgb(63, 61, 61);
+}
+
+.tabla-body-productos-sin-stock{
+    max-height: 25rem !important;
+    overflow: auto;
+
+}

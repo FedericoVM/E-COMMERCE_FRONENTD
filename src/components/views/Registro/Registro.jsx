@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React  from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import InstanceFormData from "../../../axios/instanceFormData";
@@ -8,12 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Registro = () => {
-  const valuesModal = ["lg-down"];
-  const [passwordRequerida, setPasswordRequerida] = useState(false);
-  const [confirmarPasswordRequerida, setConfirmarPasswordRequerida] =
-    useState(false);
-
-    const navigate = useNavigate()
+  const valuesModal = ["md-down"];
+  const navigate = useNavigate();
 
   const {
     showRegistro,
@@ -23,32 +19,16 @@ const Registro = () => {
     setFullScreenLogin,
     setShowLogin,
     handleShowModal,
-    setBotonBloquear
+    setBotonBloquear,
   } = UserHook();
 
-  const onSubmit = async (values, actions) => {
-  
-    setBotonBloquear(true)
+  const onSubmit = async (values) => {
 
-    if (!values.password) {
-      setBotonBloquear(false)
-      return setPasswordRequerida(true);
-    } else {
-      setBotonBloquear(false)
-      setPasswordRequerida(false);
-    }
-
-    if (!values.confirmarPassword) {
-      setBotonBloquear(false)
-      return setConfirmarPasswordRequerida(true);
-    } else {
-      setBotonBloquear(false)
-      setConfirmarPasswordRequerida(false);
-    }
+    setBotonBloquear(true);
 
     const nombre = values.nombre;
     const apellido = values.apellido;
-    const edad = values.edad;
+    const fechaDeNacimiento = values.fechaDeNacimiento;
     const email = values.email;
     const password = values.password;
     const avatar = values.avatar;
@@ -57,7 +37,7 @@ const Registro = () => {
 
     formData.append("nombre", nombre);
     formData.append("apellido", apellido);
-    formData.append("edad", edad);
+    formData.append("fechaDeNacimiento", fechaDeNacimiento);
     formData.append("email", email);
     formData.append("password", password);
     formData.append("avatar", avatar);
@@ -68,31 +48,14 @@ const Registro = () => {
         formData
       );
       toast.success(respuesta.data.msj + ", el link caducara en 3 horas");
-      actions.resetForm();
       setShowRegistro(false);
-      setBotonBloquear(false)
-      navigate('/')
+      setBotonBloquear(false);
+      navigate("/");
     } catch (error) {
-      setBotonBloquear(false)
-      console.log(error.response.data.msj);
+      setBotonBloquear(false);
+      toast.error(error.response.data.msj);
     }
   };
-
-  useEffect(() => {
-    if (confirmarPasswordRequerida === true) {
-      setTimeout(() => {
-        setConfirmarPasswordRequerida(false);
-      }, 3000);
-    }
-  }, [confirmarPasswordRequerida]);
-
-  useEffect(() => {
-    if (passwordRequerida === true) {
-      setTimeout(() => {
-        setPasswordRequerida(false);
-      }, 3000);
-    }
-  }, [passwordRequerida]);
 
   return (
     <>
@@ -101,7 +64,9 @@ const Registro = () => {
           key={idx}
           size="sm"
           className="crear-cuenta"
-          onClick={() => handleShowModal(v, setFullScreenRegistro, setShowRegistro)}
+          onClick={() =>
+            handleShowModal(v, setFullScreenRegistro, setShowRegistro)
+          }
         >
           Crear cuenta
         </Button>
@@ -114,19 +79,28 @@ const Registro = () => {
         <Modal.Header className="modal-header" closeButton>
           <Modal.Title className="text-white">Rolling Store</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="px-0 d-flex flex-column justify-content-center">
           <h4 className="text-center ">Registrarse</h4>
-          <div>
-            <FormikComponenteUsuario
-              passwordRequerida={passwordRequerida}
-              setPasswordRequerida={setPasswordRequerida}
-              onSubmit={onSubmit}
-              confirmarPasswordRequerida={confirmarPasswordRequerida}
-              setConfirmarPasswordRequerida={setConfirmarPasswordRequerida}
-            />
+          <div className="d-flex justify-content-center col-12">
+            <FormikComponenteUsuario onSubmit={onSubmit} />
           </div>
-          <div className="d-flex flex-row col-10 justify-content-start mt-3">
-            <p>Si ya tienes una cuenta <Link className="" onClick={()=> {setShowRegistro(false), handleShowModal(valuesModal[0], setFullScreenLogin, setShowLogin)}}>Inicia Sesion</Link></p>
+          <div className="d-flex flex-row align-self-center mt-3">
+            <p>
+              Si ya tienes una cuenta{" "}
+              <Link
+                className=""
+                onClick={() => {
+                  setShowRegistro(false),
+                    handleShowModal(
+                      valuesModal[0],
+                      setFullScreenLogin,
+                      setShowLogin
+                    );
+                }}
+              >
+                Inicia Sesion
+              </Link>
+            </p>
           </div>
         </Modal.Body>
       </Modal>

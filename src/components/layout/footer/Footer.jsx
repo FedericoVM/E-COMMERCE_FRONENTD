@@ -18,8 +18,8 @@ const Footer = () => {
             <h4 className="text-center fw-bold mt-2">Rolling Store</h4>
           </div>
           <div className="d-flex flex-column flex-sm-row w-100">
-            <div className="d-flex contenedor-acerca-y-soporte flex-column flex-sm-row align-items-center w-100">
-              <div id="acerca" className="mt-3 contenedor-acerca-footer align-items-center d-flex flex-column px-0">
+            <div className="d-flex contenedor-acerca-y-soporte flex-column flex-sm-row align-items-start align-items-sm-center w-100">
+              <div id="acerca" className="mt-3 contenedor-acerca-footer align-items-start align-items-sm-center d-flex flex-column px-0">
                 <h5 className="fw-semibold">Acerca de</h5>
                 <Link
                   className="acerca_link text-decoration-none text-center text-dark"
@@ -36,10 +36,10 @@ const Footer = () => {
               </div>
               <div
                 id="soportes"
-                className="mt-3 contenedor-soporte-footer justify-content-center align-items-center d-flex flex-column px-0"
+                className="mt-3 contenedor-soporte-footer justify-content-center align-items-start align-items-sm-center d-flex flex-column px-0"
               >
                 <h5 className="fw-semibold">Soporte</h5>
-                <Nav.Link className="soportes_link text-center" target="_blank" href="https://www.google.com.ar">
+                <Nav.Link className="soportes_link" target="_blank" href="https://www.google.com.ar">
                   Terminos y condiciones
                 </Nav.Link>
                 <Nav.Link className="soportes_link" target="_blank" href="https://www.google.com.ar">
@@ -50,8 +50,8 @@ const Footer = () => {
                 </Nav.Link>
               </div>
             </div>
-            <div className="d-flex flex-column flex-sm-row contenedor-contacto-y-data-fiscal w-100 my-2 align-items-center justify-content-center">
-                  <div id="contacto" className="my-2 d-flex flex-column contenedor-contacto-footer mt-lg-0">
+            <div className="d-flex flex-column flex-sm-row contenedor-contacto-y-data-fiscal w-100 my-2 align-items-start align-items-sm-center justify-content-center">
+                  <div id="contacto" className="my-2 d-flex flex-column align-items-start contenedor-contacto-footer mt-lg-0">
                     <Nav.Link
                       href="tel:+54381575514"
                       className="contacto_link d-flex align-items-center"
@@ -74,7 +74,7 @@ const Footer = () => {
                       575 - S.M de Tucuman
                     </Nav.Link>
                   </div>
-                  <div id="dataFiscal" className="mt-1 contenedor-data-fiscal-footer d-flex flex-column mt-lg-0">
+                  <div id="dataFiscal" className="mt-1 contenedor-data-fiscal-footer d-flex flex-column mt-lg-0 justify-content-start">
                     <img
                       id="data_fiscal"
                       src={data_fiscal}

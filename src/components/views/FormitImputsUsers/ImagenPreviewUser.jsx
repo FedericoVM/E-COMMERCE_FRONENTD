@@ -20,7 +20,7 @@ const ImagenPreviewUser = ({file}) => {
                 : import.meta.env.VITE_IMAGE_URL_IMAGEN_ERROR
             }
             alt="preview"
-            className=" img-upload img-thumbnail my-2"
+            className="img-upload img-thumbnail my-2"
           />
         ) : (
           "Cargando..."

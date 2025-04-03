@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Paginacion from "../paginacion/Paginacion";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import { AdminHook } from "../../../context/Contexto de Admin/AdminHook";
+import "./adminUsuario.css"
 
 const AdminUsuario = ( ) => {
 
@@ -18,8 +19,8 @@ const AdminUsuario = ( ) => {
   }, [tokenUser]);
 
   return (
-    <div className="container">
-      <div className="w-100">
+    <div className="" style={{minHeight: "61vh"}}>
+      <div className="d-flex flex-column justify-content-center align-items-center">
         {usuariosAdmin ?
         <Paginacion
           setArrayBuscar={setArrayBuscar}
@@ -29,7 +30,6 @@ const AdminUsuario = ( ) => {
           mostrarBarra={mostrarBarra}
         />: "cargando..."}
       </div>
-      <div className="col-12 d-flex d-block d-md-none container justify-content-center align-items-center"></div>
     </div>
   );
 };

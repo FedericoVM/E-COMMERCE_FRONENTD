@@ -1,3 +1,5 @@
+import "./csspaginacion/paginationControl.css"
+
 const PaginacionControl = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
   const pageNumbers = [];
 
@@ -10,28 +12,28 @@ const PaginacionControl = ({ postsPerPage, totalPosts, paginate, currentPage }) 
       <nav className="d-flex justify-content-center mt-3">
         <ul className='pagination'>
           <li className='page-item' disabled={currentPage <= 1 ? true : false}>
-            <button onClick={() => paginate(currentPage - 1)} disabled={currentPage <= 1 ? true : false} className='page-link'>
-              {"<"}
+            <button onClick={() => paginate(1)} disabled={currentPage <= 1 ? true : false} className='page-link pagination-boton-menos'>
+              {"|<<"}
             </button>
           </li>
-          <li className={currentPage <= 1 ? 'd-none' : 'page-item'}>
-            <a onClick={() => paginate(currentPage - 1)} className='page-link'>
+          <li className={currentPage <= 1 ? 'd-none' : 'page-itemr'}>
+            <a onClick={() => paginate(currentPage - 1)} className='page-link pagination-boton-anterior'>
               {currentPage - 1}
             </a>
           </li>
           <li className='page-item'>
-            <a onClick={() => paginate(currentPage)} className={currentPage ? 'active page-link' : 'page-link'}>
+            <a onClick={() => paginate(currentPage)} className={currentPage ? 'pagina-actual page-link' : 'page-link'}>
               {currentPage}
             </a>
           </li>
           <li className={currentPage >= pageNumbers.length ? 'd-none' : 'page-item'}>
-            <a onClick={() => paginate(currentPage + 1)} className='page-link'>
+            <a onClick={() => paginate(currentPage + 1)} className='page-link pagination-boton-posterior'>
               {currentPage + 1}
             </a>
           </li>
           <li className='page-item' disabled={currentPage >= pageNumbers.length ? true : false}>
-            <button onClick={() => paginate(currentPage + 1)} disabled={currentPage >= pageNumbers.length ? true : false} className='page-link'>
-              {">"}
+            <button onClick={() => paginate(pageNumbers.length)} disabled={currentPage >= pageNumbers.length ? true : false} className='page-link pagination-boton-mas'>
+              {">>|"}
             </button>
           </li>
         </ul>

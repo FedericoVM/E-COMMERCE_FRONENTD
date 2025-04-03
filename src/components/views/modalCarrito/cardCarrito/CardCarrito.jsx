@@ -5,13 +5,30 @@ import { UserHook } from "../../../../context/Contexto de Usuarios/UserHook";
 import { ProductosHook } from "../../../../context/Contexto de Productos/ProductosHook";
 import "./CardCarrito.css"
 import { Link } from "react-router-dom";
+import PreciosDelCarrito from "../precios a mostrar carrito/PreciosDelCarrito";
+import productoNoDisponible from "../../../../assets/img/carrito-vacio/productoNoDisponible.jpg"
 
 const CardCarrito = ({ producto }) => {
     const [anularBtnSumar, setAnularBtnSumar] = useState(false);
     const [anularBtnRestar, setAnularBtnRestar] = useState(false);
+    const [productoDestacado, setProductoDestacado] = useState(null)
 
     const {actualizarCarrito, eliminarProductoDelCarrito, handleCloseModalCarrito} = UserHook()
-    const {formatPrecio} = ProductosHook()
+    const {productosHome} = ProductosHook()
+
+    const confirmarDescuento = (productos) =>{
+        const descuentoP = productos.find((element)=>{
+            return element._id === producto.idProducto
+        })
+
+        if(!descuentoP) {
+            return setProductoDestacado(null)
+        }
+
+        if(descuentoP.destacado === true){
+            setProductoDestacado("Destacado")
+        }
+    }
 
     const desabilitarBotones = () => {
         if(producto.cantidad === producto.stock) {
@@ -32,24 +49,26 @@ const CardCarrito = ({ producto }) => {
 
     useEffect(()=> {
         desabilitarBotones();
-        habilitarBotones()
-    },[producto])
+        habilitarBotones();
+        confirmarDescuento(productosHome)
+    },[productosHome, producto])
 
     return (
         <>
             <ListGroup.Item
                 as="li"
-                className={producto.stock > 0 ? "contenedor-carrito align-items-center d-flex justify-md-content-start col-12": "sin-stock align-items-center d-flex justify-md-content-start col-12"}
+                className={producto.stock > 0 ? "contenedor-carrito rounded align-items-center d-flex justify-md-content-start col-12": "rounded sin-stock align-items-center d-flex justify-md-content-start col-12"}
             >
-                <Link to={`/producto/${producto.idProducto}`} onClick={()=>{handleCloseModalCarrito(false)}} className="flex-shrink-0 contenedor-imagen-carrito justify-content-center align-items-center col-sm-4">
-                    <img src={producto.imagen} className={producto.stock > 0 ? "imagen-card-carrito rounded container":"imagen-card-carrito-sin-stock container rounded"} alt="..." />
+                <Link to={`/producto/${producto.idProducto}`} onClick={()=>{handleCloseModalCarrito(false)}} className="flex-shrink-0 contenedor-imagen-carrito border justify-content-center align-items-center col-sm-4">
+                    {productoDestacado === 'Destacado' && <p className="label-destacado m-0 rounded">{productoDestacado}</p>}
+                    <img src={producto.imagen !== "No Disponible"? producto.imagen : productoNoDisponible} className={producto.stock > 0 ? "imagen-card-carrito rounded container":"imagen-card-carrito-sin-stock container rounded"} alt="..." />
                 </Link>
-                <div className="contenedor-info-producto d-flex flex-column justofy-content-center align-items-evenly col-12 m-0 text-center col-sm-8">
+                <div className="contenedor-info-producto d-flex flex-column justify-content-center align-items-evenly col-12 m-0 text-center col-sm-8 rounded">
                     <Link to={`/producto/${producto.idProducto}`} onClick={()=>{handleCloseModalCarrito(false)}} className="text-decoration-none text-black">
                     <span className="producto-nombre">{producto.nombre}</span>
                     </Link>
-                    <p className="mb-1">Precio: {formatPrecio(producto.precio * producto.cantidad)}</p>
-                    <div className={producto.stock > 0 ? "d-flex justify-content-evenly align-items-end" : "d-flex justify-content-evenly align-items-end mt-4"}>
+                    <PreciosDelCarrito producto={producto}/>
+                    <div className={producto.stock > 0 ? "d-flex justify-content-evenly" : "d-flex justify-content-evenly align-items-end mt-4"}>
                         {producto.stock > 0 ? 
                         <div className="d-flex justify-content-center flex-column contenedor-cantidad">
                         <p className="cantidad-label">Cantidad</p>
@@ -57,7 +76,7 @@ const CardCarrito = ({ producto }) => {
                             <Button
                                 variant="primary"
                                 size="sm"
-                                className="m-0"
+                                className="m-0 boton-restar-carrito"
                                 name="restar"
                                 disabled={anularBtnRestar === true}
                                 onClick={(e) => {
@@ -70,7 +89,7 @@ const CardCarrito = ({ producto }) => {
                             <Button
                                 variant="secondary"
                                 size="sm"
-                                className="m-0"
+                                className="m-0 boton-sumar-carrito"
                                 name="sumar"
                                 disabled={anularBtnSumar === true}
                                 onClick={(e) => {
@@ -81,8 +100,8 @@ const CardCarrito = ({ producto }) => {
                             </Button>
                         </div>
                         </div>
-                        : <p className="fs-5 m-0">Sin Stock</p>}
-                        <div>
+                        : <p className="fs-5 m-0">{producto.stock === "No Disponible" ? "No Disponible" : "Sin Stock"}</p>}
+                        <div className="align-self-end">
                             <Button
                                 variant="danger"
                                 size="sm"

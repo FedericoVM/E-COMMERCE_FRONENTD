@@ -2,6 +2,138 @@
     min-height: 25rem;
 }
 
+.producto-nombre-lista-favorito{
+    color:rgb(37, 36, 36)
+}
+
+.admin-producto-tabla-casilla-precio{
+    font-size: small;
+}
+
 .tabla-favoritos{
     overflow-y: auto;
+}
+
+.boton-eliminar-pagina-favoritos, .boton-modal-eliminar-producto-user{
+    background-color: white !important;
+    color: rgb(219, 129, 44);
+    border-color: rgb(219, 129, 44);
+}
+
+.boton-eliminar-pagina-favoritos:hover, .boton-modal-eliminar-producto-user:hover{
+    background-color:  rgb(219, 129, 44) !important;
+    color: white !important;
+    border-color: rgb(219, 129, 44) !important;;
+}
+
+.boton-cambiar-rol-user:hover, .boton-editar-producto:hover{
+    background-color: rgb(216, 7, 111);
+    border-color: rgb(216, 7, 111);
+    color: white;
+}
+
+.boton-cambiar-rol-user, .boton-editar-producto{
+    background-color: white;
+    color: rgb(216, 7, 111);
+    border-color: rgb(216, 7, 111);
+    font-weight: 500;
+}
+
+.cabecera-de-fila{
+    text-align: center;
+    color: rgb(61, 60, 60);
+}
+
+.cabecera-tabla-favoritos, .cabecera-tabla-productos-admin{
+    border-color: rgba(219, 121, 190, 0.719) !important;
+}
+
+.tabla-body-favoritos, .body-tabla-productos-admin{
+    border-color: rgba(219, 121, 190, 0.719) !important;
+}
+
+.label-buscador-paginacion{
+    color: rgb(56, 55, 56);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.boton-buscar-paginacion{
+    border-width: 2px;
+    border-color: #913175;
+    color: #913175;
+    background:none;
+    font-weight: 500;
+}
+
+.boton-buscar-paginacion:hover{
+    background-color: #913175;
+    border-color: #913175;
+}
+
+.boton-refresh-paginacion{
+    border-width: 2px;
+    background-color: white !important;
+    border-color: rgb(230, 142, 60) !important;
+    color: rgb(230, 142, 60) !important;
+    font-weight: 500;
+}
+
+.boton-refresh-paginacion:hover{
+    background-color:rgb(230, 142, 60) !important;
+    color: white !important;
+}
+
+@media (max-width:400px) {
+    .input-buscador-paginacion{
+        width: 95% !important;
+    }    
+}
+
+.th-codigo, .th-acciones, .th-categoria{
+    width: 130px !important;
+}
+
+.th-nombre{
+    width: 230px !important;
+}
+
+.th-precio, .th-marca{
+    width: 100px;
+}
+
+.th-stock{
+    width: 70px;
+}
+
+.th-destacado{
+    width: 95px;
+}
+
+.td-tabla-codigo, .td-tabla-acciones, .td-tabla-categoria{
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    align-content: center;
+    height: 65px !important;
+}
+
+.td-tabla-nombre{
+    align-content: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+}
+
+.td-tabla-marca, .td-tabla-precio{
+    align-content: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+}
+
+.td-tabla-stock{
+    align-content: center;
+}
+
+.td-tabla-destacado{
+    align-content: center;
 }

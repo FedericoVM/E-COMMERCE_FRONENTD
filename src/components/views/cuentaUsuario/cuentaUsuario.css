@@ -1,5 +1,33 @@
+.contenedor-form-editar-usuario{
+    background-color: #972e7707;
+}
+
 .usuario-avatar {
     width: 200px;
     height: 200px;
-    border: 2px solid black;
+    border: 5px solid #815c767c;
+}
+
+.boton-cambiar-contrasenia-cuenta-usuario, .boton-editar-cuenta-usuario{
+    font-size: 0.95rem;
+    background: none !important;
+    border: 1px solid !important;
+    border-color: #913175 !important;
+    font-weight: 600;
+    color: #913175;
+    transition: all 0.1s ease-in;
+}
+
+.boton-cambiar-contrasenia-cuenta-usuario:hover, .boton-editar-cuenta-usuario:hover {
+    background-color: #913175 !important;
+    color: white;
+}
+
+@media (width <= 350px) {
+    .contenedor-botones-pagina-usuario{
+        display: flex;
+        align-items: center;
+        flex-direction: column-reverse !important;
+        height: 6rem;
+    }
 }

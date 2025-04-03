@@ -1,7 +1,52 @@
 .btn-avatar{
-    background-color: rgb(148, 43, 148);
+    background-color: rgb(255, 248, 248);
+    color: #913175;
+    font-weight: 500;
+    border-color: #913175;
+}
+
+.custom-select-mes { 
+    max-height: 100px !important;
+    overflow: auto;
 }
 
 .btn-avatar:hover{
-    background-color:rgb(173, 52, 173); ;
+    background-color:#913175;
+    color: rgb(255, 248, 248);
+    border-color: #913175;
+}
+
+.btn-quitar-avatar{
+    background-color: white !important;
+    border-color: rgb(230, 142, 60) !important;
+    color: rgb(230, 142, 60) !important;
+    font-weight: 500 !important;
+}
+
+.btn-quitar-avatar:hover{
+    background-color: rgb(230, 142, 60) !important;
+    color: white !important;
+    border-color: rgb(230, 142, 60) !important;
+}
+
+.boton-submit-user, .boton-volver-componente-usuario, .boton-cerrar-modal-usuario-form, .boton-submit-modal-usuario-form{
+    border-width: 1px;
+    border-color: #913175 !important;
+    color: #913175;
+    font-weight: 600;
+    background: none;
+}
+
+.boton-submit-user:hover, .boton-volver-componente-usuario:hover, .boton-cerrar-modal-usuario-form:hover, .boton-submit-modal-usuario-form:hover{
+    transition: all 0.2s ease-in-out;
+    color: white !important;
+    background-color: #913175;
+}
+
+.modal-user-header{
+    background-color: #913175 !important;
+}
+
+.modal-titulo-user{
+    color: white;
 }

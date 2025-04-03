@@ -1,5 +1,5 @@
 import { Button, Form } from 'react-bootstrap'
-import {Formik, Form as FormPassword, useFormik} from 'formik'
+import {useFormik} from 'formik'
 import "./cambiarContrasenia.css"
 import candado from '../../../assets/cambiarContrasenia/bloquear.png'
 import { UserHook } from '../../../context/Contexto de Usuarios/UserHook'
@@ -7,10 +7,7 @@ import { recuperacionPassword } from '../../../validacionesSchema/recuperarPassw
 
 const ComponenteNuevoPass = ({handleCambiarContrasenia}) =>{
 
-    const [contrasenia, setContrasenia] = useState(null)
-
     const {botonBloquear} = UserHook()
-//Verificar del back que el usuario debe tener su cuenta activada
         const {
             values,
             errors,

@@ -1,0 +1,14 @@
+.boton-cerrar-modal-pago-cards{
+    font-size: 0.95rem;
+    background: none !important;
+    border: 1px solid !important;
+    border-color: #913175 !important;
+    font-weight: 600;
+    color: #913175 !important;
+    transition: all 0.1s ease-in;
+}
+
+.boton-cerrar-modal-pago-cards:hover{
+    background-color: #913175 !important;
+    color: white !important;
+}

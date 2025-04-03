@@ -23,8 +23,8 @@
     border-color: #913175 !important;
 }
 
-.modalHeader{
-    background-color:rgba(89, 19, 155, 0.966) ;
+.modal-header{
+    background-color:#913175 ;
 }
 
 .error{
@@ -32,10 +32,14 @@
 }
 
 .btn-iniciar-sesion{
-    background-color:rgba(89, 19, 155, 0.966);
-    border: none;
+    font-weight: 500;
+    background: none!important;
+    border-color: #913175;
+    color: #913175;
 }
 
 .btn-iniciar-sesion:hover{
-    background-color: #CD5888;
+    background-color: #913175 !important;
+    color: white;
+    border-color: #913175 !important;
 }

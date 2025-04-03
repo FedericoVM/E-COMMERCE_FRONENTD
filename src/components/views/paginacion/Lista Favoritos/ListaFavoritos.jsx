@@ -1,10 +1,11 @@
 import { Button, Table } from "react-bootstrap";
-import PaginacionControl from "./PaginacionControl";
-import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
-import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
+import PaginacionControl from "../PaginacionControl";
+import { UserHook } from "../../../../context/Contexto de Usuarios/UserHook";
+import { ProductosHook } from "../../../../context/Contexto de Productos/ProductosHook";
 import { BsFillTrashFill } from "react-icons/bs";
-import "./csspaginacion/ListaFavoritos.css"
+import "../csspaginacion/ListaFavoritos.css"
 import { Link } from "react-router-dom";
+import PrecioFavoritosListaDestacado from "./precios destacado lista favoritos/PrecioFavoritosListaDestacado";
 
 const ListaFavoritos = ({
   page,
@@ -18,8 +19,8 @@ const ListaFavoritos = ({
   return (
     <>
       <div className="d-flex flex-column w-100">
-        <h2 className="text-center">Favoritos</h2>
-        <div className="mt-3  contenedor-lista-favoritos overflow-auto">
+        <h2 className="text-center titulos-de-paginas align-self-center">Favoritos</h2>
+        <div className="mt-3 contenedor-lista-favoritos overflow-auto">
           <Table
             striped
             bordered
@@ -28,15 +29,15 @@ const ListaFavoritos = ({
             className="container w-75"
           >
             <thead>
-              <tr>
-                <th className="text-center">Imagen</th>
-                <th className="text-center">Producto</th>
-                <th className="text-center">Stock</th>
-                <th className="text-center">Precio</th>
-                <th className="text-center">Eliminar</th>
+              <tr className="cabecera-tabla-favoritos">
+                <th className="cabecera-de-fila">Imagen</th>
+                <th className="cabecera-de-fila">Producto</th>
+                <th className="cabecera-de-fila">Stock</th>
+                <th className="cabecera-de-fila">Precio</th>
+                <th className="cabecera-de-fila">Eliminar</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="tabla-body-favoritos">
               {currentPostsSm.map((product, index) => (
                 <tr key={index}>
                   <td className="col-2 text-center td-favoritos">
@@ -48,18 +49,18 @@ const ListaFavoritos = ({
                   </td>
                   <td className="col-4 text-center td-favoritos">
                   <Link to={`/producto/${product._id}`} className="text-decoration-none text-black">
-                    <span className="producto-nombre">{product.nombre}</span>
+                    <span className="producto-nombre-lista-favorito">{product.nombre}</span>
                     </Link>
                   </td>
-                  <td className="col-3 text-center td-favoritos">
+                  <td className="col-2 text-center td-favoritos">
                     {product.stock}
                   </td>
-                  <td className="col-2 text-center td-favoritos">
-                    {formatPrecio(product.precio)}
+                  <td className="col-3 text-center td-favoritos">
+                    {product.destacado ? <PrecioFavoritosListaDestacado producto={product}/> : <>{formatPrecio(product.precio)}</>}
                   </td>
                   <td className="col-1 text-center td-favoritos">
                     <Button
-                      variant="danger"
+                      className="boton-eliminar-pagina-favoritos"
                       onClick={() => {
                         eliminarDeFavoritos(product._id, tokenUser,obtenerUsuarioFavoritos);
                       }}

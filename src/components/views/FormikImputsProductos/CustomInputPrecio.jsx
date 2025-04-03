@@ -1,6 +1,5 @@
 import { useField } from "formik";
 import { useEffect, useState } from "react";
-import { Col, FloatingLabel, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
@@ -16,14 +15,13 @@ const CustomInputPrecio = ({ label,inputDescuento,...props }) => {
     setInputPrecio(field.value);
   }, [field.value]);
   return (
-    <>
-      <Form.Label>{label}</Form.Label>
-      <Form.Group as={Row} className="mb-3">
-        <Col sm="4" className="">
+    <div className="col-12 d-flex flex-column justify-content-between">
+      <Form.Group className="mb-3 col-12 d-flex flex-column flex-sm-row justify-content-between align-items-center">
+        <div className="col-12 col-sm-4">
+        <Form.Label>{label}</Form.Label>
           <Form.Control
             disabled={botonBloquear}
-            sm="2"
-            className="h-100"
+            className="col-12 col-sm-4"
             onKeyPress={(e) => {
               if (!/[0-9]/.test(e.key)) {
                 e.preventDefault();
@@ -32,25 +30,21 @@ const CustomInputPrecio = ({ label,inputDescuento,...props }) => {
             {...field}
             {...props}
           />
-        </Col>
-        <Col sm="4" className="my-2 my-sm-0">
-          <FloatingLabel controlId="floatingSelect" label="Previsualisacion">
+        </div>
+        <div className="my-2 col-12 col-sm-6 my-sm-0">
+          <Form.Label>Previsualisacion</Form.Label>
             <Form.Control
-              className=""
-              sm="2"
+              className="col-12"
               type="text"
               value={formatPrecio( inputDescuento < 71 && inputPrecio -  (inputPrecio * (inputDescuento/100) ))}
               disabled={true}
             />
-          </FloatingLabel>
-        </Col>
+        </div>
       </Form.Group>
       {meta.touched && meta.error && (
         <div className="text-validation">{meta.error}</div>
       )}
-
-      
-    </>
+    </div>
   );
 };
 

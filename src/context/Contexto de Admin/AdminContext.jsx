@@ -21,7 +21,7 @@ const AdminProvider = ({children}) => {
           let filtrarUsuarios = listaUsuarios.data
           setUsuariosAdmin(filtrarUsuarios);
         } catch (error) {
-          console.log(error.response.data);
+          toast.error(error.response.data.mensaje);
         }
       };
 
@@ -47,16 +47,14 @@ const AdminProvider = ({children}) => {
 
         try {
             const resp = await instanceFormData.put(`/auth/${usuarioId}`, formData, config);
-            console.log("Se cambio el rol ");
             mostrarUsuariosAdmin(tokenUser)
-            toast("hecho")
+            toast("Se cambio el rol")
         } catch (error) {
-            return console.log(error);
+            return toast.error('Hubo problemas con el servidor.')
         }
     }
 
     const eliminarUsuario = async (id_usuario, tokenUser, mostrarUsuariosAdmin) => {
-        return console.log("text");
       const config = {
           headers: {
               authorization: `Bearer ${tokenUser}`,
@@ -65,10 +63,10 @@ const AdminProvider = ({children}) => {
 
       try {
           const resp = await instance.delete(`/auth/${id_usuario}`, config);
-          console.log(resp.data.mensaje);
+          toast.success(resp.data.mensaje);
           mostrarUsuariosAdmin(tokenUser)
       } catch (error) {
-          console.log(error.response.data);
+          toast.error(error.response.data);
       }
   };
 

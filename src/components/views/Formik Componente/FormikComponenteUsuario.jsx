@@ -1,151 +1,96 @@
-import React, { useRef, useState } from "react";
-import Form from "react-bootstrap/Form";
+import React, { useState } from "react";
 import { Formik, Form as FormFormik } from "formik";
-import Button from "react-bootstrap/Button";
-import { Image } from "react-bootstrap";
 import { schemaRegistro } from "../../../validacionesSchema/register";
 import CustomInputUser from "../FormitImputsUsers/CustomInputUser";
-import CustomInputEdad from "../FormitImputsUsers/CustomInputEdad";
-import ImagenPreviewUser from "../FormitImputsUsers/ImagenPreviewUser";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import ModalConfirmar from "../Modal para confirmar users/ModalConfirmar";
 import { Link } from "react-router-dom";
+import "./componenteUsuarioProd.css";
+import CustomImageUser from "./CustomImageUser";
+import CustomFecha from "../FormitImputsUsers/CustomFecha";
 
-const FormikComponenteUsuario = ({
-  onSubmit,
-  passwordRequerida,
-  confirmarPasswordRequerida,
-}) => {
-  const { usuarioInfo, botonBloquear } = UserHook();
-  const imagenRef = useRef(null);
+const FormikComponenteUsuario = ({ onSubmit }) => {
+  const { usuarioInfo } = UserHook();
 
-    const [initialValuesRegistro] = useState({
-        nombre : "",
-        apellido : "",
-        edad : "",
-        email: "",
-        avatar : "",
-        password : "",
-        confirmarPassword: ""
-    })
+  const submitFake = () => {};
 
-    const [initialValuesEditar] = useState({
-      nombre: usuarioInfo && usuarioInfo.nombre,
-      apellido: usuarioInfo && usuarioInfo.apellido,
-      edad: usuarioInfo && usuarioInfo.edad,
-      email: usuarioInfo && usuarioInfo.email,
-      avatar: ""
-    })
+  const [initiaValuesUser] = useState({
+    nombre: usuarioInfo ? usuarioInfo.nombre : "",
+    apellido: usuarioInfo ? usuarioInfo.apellido : "",
+    fechaDeNacimiento: usuarioInfo ? usuarioInfo.fechaDeNacimiento : "",
+    email: usuarioInfo ? usuarioInfo.email : "",
+    avatar: "",
+    password: "",
+    confirmarPassword: "",
+    inputBoleanoToSchema: usuarioInfo ? true : false,
+  });
 
   return (
-    <div className="d-flex justify-content-center">
+    <div className="d-flex justify-content-center col-11">
       <Formik
-      initialValues={usuarioInfo? initialValuesEditar : initialValuesRegistro}
-      validationSchema={schemaRegistro}
-      onSubmit={onSubmit}>
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          setFieldValue,
-        }) => (
+        initialValues={initiaValuesUser}
+        validationSchema={schemaRegistro}
+        onSubmit={submitFake}
+      >
+        {({ values, errors, setFieldValue, resetForm, validateForm }) => (
           <FormFormik className="d-flex flex-column col-11 col-md-10 form">
             <CustomInputUser
-            label = {!usuarioInfo ? "Nombre*" : "Nombre"}
-            name = "nombre"
-            type = "text"
+              label={!usuarioInfo ? "Nombre*" : "Nombre"}
+              name="nombre"
+              type="text"
             />
             <CustomInputUser
-            label = {!usuarioInfo ? "Apellido*" : "Apellido"}
-            name = "apellido"
-            type = "text"
+              label={!usuarioInfo ? "Apellido*" : "Apellido"}
+              name="apellido"
+              type="text"
             />
-            <CustomInputEdad
-            label = "Edad"
-            name = "edad"
-            type = "number"
-            />
+            {!usuarioInfo && <CustomFecha
+            label="Dia de nacimiento*"
+            name="fechaDeNacimiento"
+            type="date"            
+            />}
             <CustomInputUser
-            label = {!usuarioInfo ? "Email*" : "Email"}
-            name = "email"
-            type = "email" 
+              label={!usuarioInfo ? "Email*" : "Email"}
+              name="email"
+              type="email"
             />
-             <div className="d-flex flex-column my-1 justify-content-around flex-md-row align-items-center">
-                <div className="col-12 justify-content-around mb-2 mb-md-0 col-md-4 d-flex flex-column">
-                  <label className="text-center h6 mb-3">Imagen de Perfil</label>
-                  <input
-                    ref={imagenRef}
-                    type="file"
-                    hidden
-                    disabled={botonBloquear}
-                    onChange={(e) => {
-                      setFieldValue("avatar", e.target.files[0]);
-                    }}
-                  />
-                  <div className="d-flex flex-row flex-md-column justify-content-around col-12">
-                  <Button
-                    className="btn-avatar text-white"
-                    variant="btn"
-                    type="button"
-                    disabled={botonBloquear}
-                    onClick={() => {
-                      imagenRef.current.click();
-                    }}
-                  >
-                    {usuarioInfo ? "Cambiar avatar" : "Seleccionar avatar"}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant={values.avatar ? "info" : "outline-info"}
-                    disabled={values.avatar ? false : true}
-                    onClick={() => setFieldValue("avatar", "")}
-                  >
-                    Quitar Imagen
-                  </Button>
-                  <Button className="my-md-2" variant={values.avatar ? "info":"outline-info"} disabled={values.avatar ? false : true} type="button" onClick={() => setFieldValue('avatar', "")}>Quitar Imagen</Button>
-                  </div>
-                  {errors.avatar && 
-                    <p className="error text-center">{errors.avatar}</p>
-                  }
-                  </div>
-               <div className="col-12 col-md-7 d-flex justify-content-center">
-                  {values.avatar ? (
-                    <ImagenPreviewUser file={values.avatar} />
-                  ) : (
-                    <Image
-                    roundedCircle
-                    src={
-                      usuarioInfo
-                        ? usuarioInfo.imagen
-                        : "https://smallimg.pngkey.com/png/small/810-8105695_person-icon-grey-person-icon-grey-png.png"
-                    }
-                    className="img-upload img-thumbnail"
-                  />
-                )}
-              </div>
-            </div>
+            <CustomImageUser
+              label="Imagen de Perfil"
+              name="avatar"
+              type="file"
+              errors={errors.avatar}
+              setFieldValue={setFieldValue}
+              imagenUsuarioForm={values.avatar}
+            />
             {!usuarioInfo && (
-              <div>
-                <Form.Label>Password *</Form.Label>
-                <Form.Control disabled={botonBloquear} onChange={handleChange} value={values.password} className={errors.password || passwordRequerida ? "border mb-3 border-danger border-1 shadow-lg border-opacity-75" : "mb-3"} type="password" name="password"/>
-                {errors.password && <div className="text-validation">{errors.password}</div>}
-              </div>
-            )}
-            {passwordRequerida === true && 
-              <p className="error text-center">La contraseña es necesaria</p>
-            }
-            {!usuarioInfo && 
               <CustomInputUser
-              label = "Confirmar Password *"
-              name = "confirmarPassword"
-              type = "password"
+                label="Password*"
+                name="password"
+                type="password"
               />
-            }
-            {confirmarPasswordRequerida === true && <p className="error text-center">Requiere confimar la contrasenia</p>}
+            )}
+            {!usuarioInfo && (
+              <CustomInputUser
+                label="Confirmar Password *"
+                name="confirmarPassword"
+                type="password"
+              />
+            )}
             <div className="d-flex flex-row-reverse justify-content-evenly align-items-center ">
-            {usuarioInfo ? <ModalConfirmar onSubmit={onSubmit}   values={values} touched={touched} errors={errors}/> :<Button disabled={botonBloquear} className="col-6 align-self-center" type="submit">{usuarioInfo ? "Guardar": "Registrarse"}</Button>}
-            {usuarioInfo && <Link to='/cuenta-usuario' className='btn btn-primary'>volver</Link>}
+              <ModalConfirmar
+                onSubmit={onSubmit}
+                resetForm={resetForm}
+                validateForm={validateForm}
+                values={values}
+              />
+              {usuarioInfo && (
+                <Link
+                  to="/cuenta-usuario"
+                  className="boton-volver-componente-usuario btn"
+                >
+                  Volver
+                </Link>
+              )}
             </div>
           </FormFormik>
         )}

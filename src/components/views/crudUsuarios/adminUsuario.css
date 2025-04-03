@@ -1,0 +1,49 @@
+.th-adminUser-nombre-apellido{
+    width: 180px;
+}
+
+.th-adminUser-email{
+    width: 300px;
+}
+
+.th-adminUser-rol, .th-adminUser-Eliminar{
+    width: 100px;
+}
+
+.th-adminUser-activo, .th-adminUser-boton-cambio-rol{
+    width: 150px;
+}
+
+.modal-eliminar-cambiar-user-header{
+    background-color: #913175 !important;
+}
+
+.titulo-modal-eliminar-cambiar-user{
+    color: white
+}
+
+.boton-cancelar-modal-eliminar-cambiar-user{
+    color: #913175;
+    font-weight: 500;
+    background: none;
+    border-width: 1px !important;
+    border-color: #913175 !important;
+}
+
+.boton-cancelar-modal-eliminar-cambiar-user:hover{
+    color: white;
+    background-color: #913175;
+}
+
+.boton-cambiar-modal-eliminar-cambiar-user{
+    background-color: white;
+    color: rgb(216, 7, 111);
+    border-color: rgb(216, 7, 111);
+    font-weight: 500;
+}
+
+.boton-cambiar-modal-eliminar-cambiar-user:hover{
+    background-color: rgb(216, 7, 111);
+    color: white;
+    border-color: rgb(216, 7, 111);
+}

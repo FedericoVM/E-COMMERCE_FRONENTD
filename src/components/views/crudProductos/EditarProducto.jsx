@@ -61,12 +61,12 @@ const EditarProducto = ( ) => {
       navigate('/admin-productos')
     } catch (error) {
       setBotonBloquear(false)
-      toast.error(error.response.data)
+      toast.error(error.response.data.msg)
     }
   }
   
   return (
-    <div>
+    <div className="d-flex flex-column justify-content-center col-12 align-items-center">
       <h1 className='text-center'>Administrar Productos</h1>
       <hr />
       {productoEdit!==null ? <FormikComponente onSubmit={editarProducto} productoEdit={productoEdit}/>:"Cargando"

@@ -1,0 +1,24 @@
+.precio-sin-descuento-pagina-producto{
+    font-size: 1rem;
+    text-decoration: line-through;
+    color: rgb(112, 107, 107);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.precio-con-descuento-pagina-producto{
+    font-size: 1.5rem;
+    color: rgb(51, 50, 50);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.descuento-pagina-producto{
+    font-size: 1.5rem;
+    color: rgb(134, 192, 76);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+@media (width >= 450px) and (width <=649px) {
+    .contenedor-precio-descuento{
+        width: 100% !important;
+    }
+}

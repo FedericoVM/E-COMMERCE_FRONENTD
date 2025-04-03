@@ -1,7 +1,12 @@
 .content-producto-no-encontrado{
-    height: 80vh;
+    min-height: 60vh;
 }
 
 .imagen-producto-no-encontrado{
     height: 100%;
+}
+
+.titulo-pagina-producto-no-encontrado{
+    padding-top: 5px;
+    color: rgb(66, 66, 66);
 }

@@ -1,4 +1,3 @@
-import { yupToFormErrors } from 'formik';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -20,7 +19,6 @@ const ModalConfirmarProductos = ({onSubmit, initialValues, resetForm, productoEd
   }
 
   const submitProducto = () =>{
-    return console.log(initialValues);
     
     if(productoEdit){
       onSubmit(initialValues)
@@ -36,19 +34,19 @@ const ModalConfirmarProductos = ({onSubmit, initialValues, resetForm, productoEd
   
     return (
       <>
-        <Button variant="primary" type='submit' className='d-flex align-self-end my-3' onClick={confirmarError}>
+        <Button type='submit' className='boton-guardar-productos-form' onClick={confirmarError}>
           Guardar
         </Button>
         <Modal show={show} centered keyboard size='sm' onHide={handleClose}>
-          <Modal.Header closeButton closeVariant='white'>
+          <Modal.Header closeButton closeVariant='white' className='modal-producto-confirm-header'>
             <Modal.Title>Rolling Store</Modal.Title>
           </Modal.Header>
           <Modal.Body>{productoEdit ? "Desea guardar cambios?" : "Desea agregar este producto?"}</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button className='boton-cerrar-modal-producto' onClick={handleClose}>
               Cancelar
             </Button>
-            <Button variant="primary" type='submit' onClick={submitProducto}>
+            <Button className='boton-submit-modal-producto' type='submit' onClick={submitProducto}>
               {productoEdit ? "Guardar Cambios" : "Guardar"}
             </Button>
           </Modal.Footer>

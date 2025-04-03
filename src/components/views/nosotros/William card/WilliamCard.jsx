@@ -4,7 +4,7 @@ import { VscGithub } from "react-icons/vsc";
 const WilliamCard = () => {
   return (
     <div className="contenedor-card d-flex flex-column justify-content-around align-items-center m-3">
-      <div className="contenedor-imagen flex-column rounded justify-content-center align-items-center col-md-10 col-lg-12 d-flex flex-sm-row flex-lg-column">
+      <div className="contenedor-imagen flex-column rounded justify-content-center align-items-center col-md-10 col-lg-12 d-flex flex-sm-row my-2 flex-lg-column">
         <img
           src={import.meta.env.VITE_IMAGE_URL_AVATAR_NOSOTROS_WILLIAM}
           alt="avatar"
@@ -15,12 +15,9 @@ const WilliamCard = () => {
             William Jose Medina Pizarro
           </p>
           <p className="text-white text-opacity-75 col-12 my-1 col-sm-10 col-md-10 mx-md-2 presentacion col-lg-10 text-center">
-            Desde que descubrí el mundo de la programación, me ha fascinado la
-            capacidad de crear soluciones a problemas complejos y de contribuir
-            al desarrollo de tecnologías que impactan positivamente en la vida
-            de las personas.
+          Hola, soy William y estoy empezando en la programación. Me interesa mucho el area de la logica en la programacion. Me encanta la idea de crear soluciones con código y mejorar cada día. Estoy aquí para aprender, compartir experiencias y crecer en este camino.
           </p>
-          <div className="d-md-block d-flex d-lg-none w-50 flex-row justify-content-evenly">
+          <div className="d-md-block d-flex d-sm-flex my-2 d-lg-none w-50 d-md-flex flex-row justify-content-evenly">
             <button className="boton-linkedin rounded rounded-4 p-1">
               <FaLinkedin className="logo-linkedin" />
             </button>

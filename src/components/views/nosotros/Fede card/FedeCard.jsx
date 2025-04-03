@@ -5,7 +5,7 @@ import { VscGithub } from "react-icons/vsc";
 const FedeCard = () => {
   return (
     <div className="contenedor-card d-flex flex-column justify-content-around align-items-center m-3">
-      <div className="contenedor-imagen flex-column rounded justify-content-center align-items-center col-md-10 col-lg-12 d-flex flex-sm-row flex-lg-column">
+      <div className="contenedor-imagen flex-column rounded justify-content-center align-items-center col-md-10 col-lg-12 d-flex flex-sm-row my-2 flex-lg-column">
         <img
           src={import.meta.env.VITE_IMAGE_URL_AVATAR_NOSOTROS_FEDERICO}
           alt="avatar"
@@ -19,7 +19,7 @@ const FedeCard = () => {
             al desarrollo de tecnologías que impactan positivamente en la vida
             de las personas.
           </p>
-          <div className="d-md-block d-flex d-sm-flex d-lg-none w-50 d-md-flex flex-row justify-content-evenly">
+          <div className="d-md-block d-flex d-sm-flex my-2 d-lg-none w-50 d-md-flex flex-row justify-content-evenly">
             <button className="boton-linkedin rounded rounded-4 p-1">
               <FaLinkedin className="logo-linkedin" />
             </button>

@@ -8,13 +8,13 @@ const CustomSelect = ({ label,setInputDescuento, ...props }) => {
     const { botonBloquear } = UserHook()
 
     return (
-        <div className="d-flex justify-content-between col-12">
-        <div className="col-5">
+        <div className="d-flex justify-content-between align-items-end col-12 mb-3">
+        <div className="col-5 align-self-end col-sm-4">
             <Form.Label>
                 {label}
             </Form.Label>
             <Form.Select
-                className="mb-3"
+                className=""
                 {...field}
                 {...props}
                 disabled={botonBloquear}

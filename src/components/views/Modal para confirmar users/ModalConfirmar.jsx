@@ -1,67 +1,38 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { UserHook } from '../../../context/Contexto de Usuarios/UserHook';
-import { regexPassword } from '../../../RegExp/relugarExp';
 
-const ModalConfirmar = ({onSubmit, values, errors}) =>{
+const ModalConfirmar = ({onSubmit, resetForm, validateForm, values}) =>{
     const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const {id} = useParams()
+  const {usuarioInfo} = UserHook()
 
-  const navigate = useNavigate()
-  const {tokenUser, setBotonBloquear} = UserHook()
+  const confirmarErrores = () =>{
+    validateForm().then((formErrors) =>{
+      if(Object.keys(formErrors).length > 0){
+        return toast.error('Compruebe que los datos sean correctos');
+      }
+      handleShow()
+    })
+  }
 
-  const confirmarDatosInputs = (values, errors) =>{
-
-    setBotonBloquear(true)
-
-    if(Object.keys(errors).length > 0){
-      handleClose()
-      setBotonBloquear(false)
-      return toast.error("Compruebe que los datos no tengan errores")
+  const submitDatos = () =>{
+    if(usuarioInfo){
+      onSubmit(values)
     }
     onSubmit(values)
-    handleClose()
-    navigate('/cuenta-usuario')
-    setBotonBloquear(false)
-    return toast.success("Cambios Guardados");
-  }
-
-  const confirmarCambiarContrasenia = () => {
-    setBotonBloquear(true)
-
-    if(!values){
-      setBotonBloquear(false)
-      handleClose()
-      return toast.error("La casilla esta vacia")
-    }
-
-    if(values.length > 30){
-      setBotonBloquear(false)
-      return toast.warning('Exedio el maximo de caracteres');
-  }
-
-  if(!regexPassword.test(values)){
-      setBotonBloquear(false)
-      return toast.error("la contrasenia debe contener un minimo de 5 caracteres con caracteres especiales y mayusculas")
-  }
-
-  onSubmit(values)
-  setBotonBloquear(false)
-  handleClose()
-  navigate('/cuenta-usuario')
-  return toast.success('Se guardaron los cambios')
+    resetForm()
+    return handleClose()
   }
 
   return (
     <>
-      <Button variant="primary" className='my-3' onClick={handleShow}>
-        Guardar
+      <Button type='submit' className='my-3 boton-submit-user' onClick={confirmarErrores}>
+        {usuarioInfo ? "Guardar" : "Registrarse"}
       </Button>
       <Modal
         show={show}
@@ -70,17 +41,17 @@ const ModalConfirmar = ({onSubmit, values, errors}) =>{
         centered
         size='sm'
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Rolling Store</Modal.Title>
+        <Modal.Header closeButton className='modal-user-header'>
+          <Modal.Title className='modal-titulo-user'>Rolling Store</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {!id ? "Desea cambiar su contrasenia?" : "Desea guardar los cambios?"}
+          {usuarioInfo ? "Desea guardar los cambios?" : "Enviaremos un token a su correo para completar el registro"}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button className="boton-cerrar-modal-usuario-form" onClick={handleClose}>
             Close
           </Button>
-          {!id? <Button variant="primary" onClick={() => {confirmarCambiarContrasenia()}}>Guardar</Button> : <Button variant="primary" onClick={() => {confirmarDatosInputs(values, errors)}}>Guardar</Button>}
+          <Button className="boton-submit-modal-usuario-form" type='submit' onClick={submitDatos}>{usuarioInfo ? 'Guardar' : 'Registrarse'}</Button>
         </Modal.Footer>
       </Modal>
     </>

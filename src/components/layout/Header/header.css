@@ -1,5 +1,38 @@
 .header-nav{
-  background-color: #E9E8E8 !important;
+  background-color: #913175 !important;
+}
+
+.btn-hover{
+  border-bottom: 1px solid rgb(160, 157, 157) !important;
+  width: 40%;
+  color: rgb(85, 84, 84) !important;
+}
+
+.logotipo-header{
+  font-weight: 800;
+  color: #913175;
+}
+
+.btn-canvas{
+  border-top: 1px solid black;
+  width: 50% !important;
+}
+
+.canvas-header{
+  background-color: #913175;
+}
+
+.contenedor-header-botones > button {
+  background-color: white;
+}
+
+.logotipo-header-tablet{
+  font-weight: 800;
+  color: whitesmoke;
+}
+
+.logotipo-header-tablet:hover{
+  color: rgb(203, 207, 211);
 }
 
 .boton-buscar-header{
@@ -19,6 +52,10 @@
 }
 
 @media (width >= 768px) {
+  .header-nav{
+    background-color: #f1e6f3 !important;
+  }
+
   .navbar-items-header{
     text-align: center;
   }
@@ -35,6 +72,9 @@
   
   .btn-hover {
     border-radius: 5px !important;
+    border-top:none;
+    border-bottom: none;
+    width: auto;
   }
   
   .btn-hover:hover{
@@ -54,7 +94,7 @@
 }
 
 .logotipo-header:hover{
-  color: black;
+  color: #913190;
 }
 
 .redes-header img {

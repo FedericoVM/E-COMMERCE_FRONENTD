@@ -19,7 +19,7 @@ import { ProductosHook } from "../../../context/Contexto de Productos/ProductosH
 import { AdminHook } from "../../../context/Contexto de Admin/AdminHook";
 import { useEffect, useState } from "react";
 import { USUARIO_EN_LINEA } from "../../../context/Contexto de Usuarios/typesUser";
-import { Offcanvas } from "react-bootstrap";
+import { Offcanvas, PopoverBody } from "react-bootstrap";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 
 const Header = () => {
@@ -37,7 +37,7 @@ const Header = () => {
     obtenerUsuarioFavoritos,
     dispatch,
   } = UserHook();
-  const { resetCarritoYFavoritos, setBuscarProductos } = ProductosHook();
+  const { resetCarritoYFavoritos, setBuscarProductos, productosHome } = ProductosHook();
   const { setUsuariosAdmin } = AdminHook();
 
   const handleSubmit = (e) => {
@@ -53,10 +53,22 @@ const Header = () => {
     navigate("/busqueda");
   };
 
-  const totalProductosCarrito = (array) => {
+  const totalProductosCarrito = (array, productos) => {
     let numeroDeProductos = 0;
     if (array.length > 0) {
       array.forEach((element) => {
+        
+        let productoEncontrado = productos.find((e)=>{
+          return e._id === element.productos
+        })
+
+        if(!productoEncontrado){
+          return numeroDeProductos += 0
+        }
+        
+        if(productoEncontrado.stock === 0){
+          return numeroDeProductos += 0
+        }
         numeroDeProductos += element.cantidad;
       });
     }
@@ -70,7 +82,7 @@ const Header = () => {
 
   useEffect(() => {
     if (usuarioCarrito) {
-      totalProductosCarrito(usuarioCarrito);
+      totalProductosCarrito(usuarioCarrito, productosHome);
     }
   }, [usuarioCarrito]);
 
@@ -109,10 +121,10 @@ const Header = () => {
       <Navbar
         bg="light"
         expand="md"
-        className="header-nav justify-content-between"
+        className="header-nav justify-content-between sticky-top"
       >
-        <Container fluid>
-          <Link className="d-flex fs-4 d-block d-md-none text-decoration-none align-self-center">
+        <Container className="contenedor-header-botones" fluid>
+          <Link to={"/"} className="d-flex logotipo-header-tablet fs-4 d-block d-md-none text-decoration-none align-self-center">
             Rolling Store
           </Link>
           <Navbar.Toggle aria-controls="offcanvasNavbar-expand-md"/>
@@ -122,16 +134,16 @@ const Header = () => {
               placement="start"
             className="flex-md-column canvas-bs-header justify-md-content-space"
           >
-            <Offcanvas.Header closeButton>
+            <Offcanvas.Header className="canvas-header" closeButton>
                 <Offcanvas.Title id="offcanvasNavbarLabel-expand-md">
-                  <Link to={"/"} className="d-flex logotipo-header fs-4 text-decoration-none align-self-center">
+                  <Link to={"/"} className="d-flex logotipo-header text-white fs-4 text-decoration-none align-self-center">
                   Rolling Store
                 </Link>
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body className="d-flex flex-column">
               <div className=" d-flex flex-column d-md-flex flex-md-row justify-content-md-around">
-                <Link to={"/"} className="d-flex logotipo-header fs-4 d-none d-md-block text-decoration-none align-self-center">
+                <Link to={"/"} className="d-flex logotipo-header fs-2 d-none d-md-block text-decoration-none align-self-center">
                   Rolling Store
                 </Link>
                 <Form onSubmit={handleSubmit} className="search col-md-5 d-flex ">
@@ -154,13 +166,13 @@ const Header = () => {
                   >
                     Nostros
                   </Link>
-                  <Link
+                  <a
                     href="https://www.google.com"
                     target="_blank"
                     className="px-md-1 px-lg-2 py-0 text-secondary btn-hover text-decoration-none"
                   >
                     Ayuda
-                  </Link>
+                  </a>
                   <Nav.Link href="https://es-la.facebook.com/" target="_blank">
                     <img src={facebook} alt="img-1" />
                   </Nav.Link>
@@ -206,18 +218,16 @@ const Header = () => {
                     className="text-decoration-none btn-hover px-md-1 px-lg-2 text-secondary"
                     to="/contacto"
                   >
-                    {" "}
                     Contacto
                   </NavLink>
                   <NavLink
                     className="text-decoration-none btn-hover px-md-1 px-lg-2 text-secondary"
                     to="/favoritos"
                   >
-                    {" "}
                     Favoritos
                   </NavLink>
                 </div>
-                <div className="col-md-4 d-flex col-12 mt-3 mt-md-0 flex-row-reverse align-items-center gap-1 d-md-flex  gap-md-3 justify-content-between justify-content-md-center">
+                <div className="col-md-4 d-flex col-12 mt-3 mt-md-0 flex-row-reverse align-items-center gap-1 d-md-flex  gap-md-3 justify-content-center justify-content-md-center">
                   {usuarioEnLinea ? (
                     <div className="col-md-8 col-10">
                       <ContenedorLogin />

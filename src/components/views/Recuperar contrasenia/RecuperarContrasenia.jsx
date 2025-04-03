@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom"
 import ComponenteNuevoPass from "../../layout/componente recuperar contrasenia/ComponenteNuevoPass"
-import { regexPassword } from "../../../RegExp/relugarExp"
 import instance from "../../../axios/instance"
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook"
+import { toast } from "sonner"
 
 const RecuperarContrasenia = () =>{
     const {token} = useParams()
@@ -23,12 +23,12 @@ const RecuperarContrasenia = () =>{
 
         try {
             const resp = await instance.put(`/usuario/cambiar-contrasenia/${token}`, nuevaContrasenia)
-            console.log(resp.data.mensaje);
+            toast.success(resp.data.mensaje);
             setBotonBloquear(false)
             navigate('/')
         } catch (error) {
             setBotonBloquear(false)
-            return console.log(error.response.data.mensaje);
+            return toast.error(error.response.data.mensaje);
         }
     }
     return (

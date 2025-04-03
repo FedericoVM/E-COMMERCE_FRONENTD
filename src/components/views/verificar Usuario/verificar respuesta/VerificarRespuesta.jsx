@@ -6,7 +6,7 @@ import "./verificar-usuario.css"
 const VerificarRespuesta = ({mensajeOk ,mensajeError, errorStatus}) => {
 
   return (
-    <div className="d-flex align-items-center w-100 body-verificar-usuario justify-content-center">
+    <div className="d-flex align-items-center col-11 col-md-10 col-lg-6 body-verificar-usuario justify-content-center">
       <Card className="text-center text-center col-11 col-sm-10 col-md-9 col-lg-7 card-content-verificar border border-3">
         <Card.Header className="h4 text-logo-verificar-usuario">Rolling Store</Card.Header>
         <img className="imagen-verificar-usuario col-sm-6 align-self-center" alt="error" src={mensajeOk ? import.meta.env.VITE_IMAGE_URL_VERIFICAR_CUENTA_SUCCESS : import.meta.env.VITE_IMAGE_URL_VERIFICAR_CUENTA_ERROR}/>

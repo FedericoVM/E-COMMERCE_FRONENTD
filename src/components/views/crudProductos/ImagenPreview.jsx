@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ImagenPreview = ({ file}) => {
+const ImagenPreview = ({ file, clasName}) => {
   const [preview, setPreview] = useState(null);
   const reader = new FileReader();
   reader.readAsDataURL(file);
@@ -18,10 +18,13 @@ const ImagenPreview = ({ file}) => {
               : import.meta.env.VITE_IMAGE_URL_IMAGEN_ERROR
           }
           alt="preview"
-          className=" img-upload img-thumbnail rounded rounded-5"
+          className={clasName ? clasName : "imagen-producto-crud img-thumbnail rounded rounded-2"}
         />
       ) : (
-        "Cargando..."
+        <img
+        className={clasName ? clasName : "imagen-producto-crud img-thumbnail rounded rounded-2"}
+        src="https://th.bing.com/th/id/OIP.tUidC71DuFwjno8Thjy2lgHaHa?rs=1&pid=ImgDetMain"
+        />
       )}
     </div>
   );

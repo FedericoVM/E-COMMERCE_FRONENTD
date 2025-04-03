@@ -29,6 +29,7 @@ const CambiarContrasenia = () => {
         try {
             const resp = await instance.put('/usuario', nuevaContrasenia,config)
             setBotonBloquear(false)
+            toast.success("Cambios guardados con exito")
            return use_navigate(`/cuenta-usuario`)
         } catch (error) {
             setBotonBloquear(false)

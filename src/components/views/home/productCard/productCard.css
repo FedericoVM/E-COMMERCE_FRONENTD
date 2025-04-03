@@ -1,10 +1,27 @@
   .title-precio {
-    font-size: 1.11rem;
+    font-size: 0.85rem !important;
+    color: rgb(255, 255, 255) !important;
     font-weight: 450;
     position: absolute;
     top: 3px !important;
     left: 3px !important;
-    background: rgba(26, 5, 5, 0.356);
+    background: rgba(61, 61, 61, 0.719);
+  }
+
+  .img-contenedor-card{
+    position: relative;
+    overflow: hidden;
+  }
+
+  .destacado-D-Card{
+    color: rgb(248, 248, 225);
+    background-color: rgba(101, 13, 172, 0.562);
+    position: absolute;
+    bottom: 0px !important;
+    left: 0px !important;
+    font-weight: 600;
+    z-index: 3;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.884);
   }
 
   .contenedor-nombre-producto-card{
@@ -20,14 +37,19 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .precio-card{
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(63, 61, 61);
+  }
   
   .boton-favorito {
-    font-size: larger;
+    font-size: 1.2rem;
     background: rgba(182, 180, 180, 0.671);
     border: none;
-    color: rgb(77, 77, 190);
+    color: rgb(174, 66, 207);
     position: absolute;
-    border-radius: 50%;
   }
   
   .card-img {
@@ -41,12 +63,31 @@
 
   .boton-comprar-card{
     font-size: 0.95rem;
+    background: none !important;
+    border: 1px solid !important;
+    border-color: #913175 !important;
+    font-weight: 600;
+    color: #913175;
+    transition: all 0.1s ease-in;
+  }
+
+  .boton-comprar-card:hover, .boton-carrito-card:hover{
+    background-color: #913175 !important;
+    color: white;
+  }
+
+  .boton-carrito-card{
+    background-color: none !important;
+    color: #913175;
+    border: 1px solid !important;
+    border-color: #913175;
+    transition: all 0.1s ease-in;
   }
 
   .card-body{
     padding: 0 !important;
     margin: 0 !important;
-   height: 7.6rem !important; 
+   height: 9.2rem !important; 
     width: 100% !important;
     transition: transform 0.3s ease;
   }
@@ -60,7 +101,6 @@
   }
 
   .text-descripcion-marca{
-    
     color: rgb(90, 89, 89) !important;
   }
 
@@ -78,15 +118,7 @@
 
 .boton-favorito:hover {
   background: rgba(155, 153, 153, 0.671);
-  color: rgb(70, 70, 236);
-}
-
-.corazon-lleno{
-  display: none;
-  transition: all 0.5s ease;
-}
-
-.boton-favorito:hover{
+  color: rgb(174, 66, 207);
   .corazon-vacio{
     display: none;
   }
@@ -95,12 +127,24 @@
   }
 }
 
+.corazon-lleno{
+  display: none;
+  transition: all 0.5s ease;
+}
+
 .boton-favorito:active{
   background: rgba(182, 180, 180, 0.671) !important;
     color: rgb(77, 77, 190) !important;
     .corazon-lleno{
       transform: scale(1.7) !important;
     }
+}
+
+@media screen and (min-width: 768px) {
+  .destacado-D-Card{
+    border-top-left-radius: 0% !important;
+    border-bottom-left-radius: 0% !important;
+  }
 }
 
 @media screen and (min-width: 576px) and (max-width: 767px) {
@@ -120,7 +164,7 @@
 
 @media screen and (max-width: 360px) {
 
-  .contenedor-marca-stock-producto{
+  .contenedor-marca-stock-producto-under-sm{
     flex-direction: column !important;
   }
 
@@ -132,11 +176,11 @@
   }
 
   .card-body{
-    height: 9.2rem !important;
+    height: 10.4rem !important;
   }
 
   .boton-comprar-card{
-    font-size: 0.90rem;
+    font-size: 0.8rem;
   }
 
   .card{
@@ -144,11 +188,25 @@
   }
 
   .title-precio {
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
     font-weight: 400 !important;
     position: absolute;
     top: 3px !important;
     left: 3px !important;
-    background: rgba(26, 5, 5, 0.11);
+    background: rgba(61, 61, 61, 0.815);
+  }
+
+  .precio-card, .precio-card span{
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgb(63, 61, 61);
+  }
+
+  .text-descripcion{
+    font-size: 0.8rem !important;
+  }
+
+  .text-descripcion-marca{
+    font-size: 1rem !important;
   }
 }

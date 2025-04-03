@@ -9,7 +9,7 @@ const CustomInputUser = ({label, ...props}) => {
 
     return (
         <>
-        <Form.Label className="m-0 p-0">{label}</Form.Label>
+        <Form.Label className="m-0 p-0 label-input-componente">{label}</Form.Label>
         <Form.Control
         {...field}
         {...props}

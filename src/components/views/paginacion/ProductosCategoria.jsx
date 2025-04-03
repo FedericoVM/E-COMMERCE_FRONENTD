@@ -9,7 +9,7 @@ const ProductosCategoria = ({ currentPosts, currentPostsMd, currentPostsSm, tota
     return (
         <>
             <div className='d-none d-lg-block'>
-                <Row lg={5} className="g-4 d-lg-flex mt-1">
+                <Row lg={5} className="g-3 d-lg-flex mt-1">
                     {currentPosts.map((p, index) => (
                         <Col key={index} className='d-flex justify-content-center'>
                             <ProductCard p={p}/>
@@ -18,7 +18,7 @@ const ProductosCategoria = ({ currentPosts, currentPostsMd, currentPostsSm, tota
                 <PaginacionControl postsPerPage={page} totalPosts={totalPosts} currentPage={currentPageWeb} paginate={paginateWeb} />
             </div>
             <div className='d-none d-lg-none d-md-flex flex-column mt-3'>
-                <Row md={4} className='g-4 d-flex mt-1'>
+                <Row md={4} className='g-3 d-flex mt-1'>
                     {currentPostsMd.map((p, index) => (
                         <Col key={index} className='d-flex flex-wrap m-lg-3'>
                             <ProductCard p={p}/>
@@ -28,7 +28,7 @@ const ProductosCategoria = ({ currentPosts, currentPostsMd, currentPostsSm, tota
                 <PaginacionControl postsPerPage={page-3} totalPosts={totalPosts} currentPage={currentPageTablet} paginate={paginateTablet} />
             </div>
             <div className='d-md-none d-lg-none mt-1'>
-                <Row xs={2} className="g-4 d-flex mt-1">
+                <Row xs={2} className="g-3 d-flex mt-1">
                     {currentPostsSm.map((p, index) => (
                         <Col key={index} className=''>
                             <ProductCard p={p}/>

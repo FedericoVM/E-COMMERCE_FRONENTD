@@ -11,6 +11,7 @@ const EditarUsuario = ( ) => {
     const use_navigate = useNavigate()
 
     const onSubmit = async (values) => {
+       
         setBotonBloquear(true)
 
         const config = {
@@ -26,7 +27,7 @@ const EditarUsuario = ( ) => {
         formData.append('edad', values.edad);
         formData.append('email', values.email);
         formData.append('avatar', values.avatar);
-
+        
         try {
             const resp = await instanceFormData.put(`/usuario/${usuarioInfo.id_usuario}`, formData,config)
             const nuevoToken = resp.data.token
@@ -38,12 +39,12 @@ const EditarUsuario = ( ) => {
            return use_navigate(`/cuenta-usuario`)
         } catch (error) {
             setBotonBloquear(false)
-            return console.log(error.message);
+            return toast.error(error.response.data.mensage);
         }
     }
 
     return (
-        <div className='d-flex justify-content-center mb-2'>
+        <div className='d-flex align-self-center border-start rounded contenedor-form-editar-usuario border-end justify-content-center mt-3 col-12 col-sm-9 col-md-7 col-lg-6'>
             {usuarioInfo ? <FormikComponenteUsuario onSubmit={onSubmit}/> : <h2>Cargando</h2>}
         </div>
     )

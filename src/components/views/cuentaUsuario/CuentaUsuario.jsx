@@ -9,32 +9,32 @@ const CuentaUsuario = () => {
 
     return (
         <div className='d-flex flex-column justify-content-center align-items-center'>
-            <h2 className='my-3'>Mi Cuenta</h2>
+            <h2 className='my-3 titulos-de-paginas'>Mi Cuenta</h2>
             <div className=''>
-                    <Image className='usuario-avatar' src={ usuarioInfo ? usuarioInfo.imagen : ""} alt='foto-perfil' roundedCircle />
+                    <Image className='usuario-avatar' src={usuarioInfo.imagen} alt='foto-perfil' roundedCircle />
             </div>
-            <div className='d-flex flex-column my-3 justify-content-center align-items-center col-md-4'>
-                <Form className='col-12'>
+            <div className='d-flex flex-column my-3 justify-content-center align-items-center col-12'>
+                <Form className='col-11 col-sm-8 col-md-4'>
                     <Form.Group className='mb-3' controlId="formBasicEmail">
                         <Form.Label>Nombre</Form.Label>
-                        <Form.Control type="text" placeholder = { usuarioInfo ? usuarioInfo.nombre : ""} disabled  />
+                        <Form.Control type="text" placeholder = {usuarioInfo.nombre} disabled  />
                     </Form.Group>
                     <Form.Group className='mb-3' controlId="formBasicEmail">
                         <Form.Label>Apellido</Form.Label>
-                        <Form.Control type="text" placeholder =  {usuarioInfo ? usuarioInfo.apellido : ""}  disabled/>
+                        <Form.Control type="text" placeholder =  {usuarioInfo.apellido}  disabled/>
                     </Form.Group>
                     <Form.Group className='mb-3' controlId="formBasicEmail">
-                        <Form.Label>Edad</Form.Label>
-                        <Form.Control type="text" placeholder = {usuarioInfo ? usuarioInfo.edad : ""}  disabled />
+                        <Form.Label>Fecha De Nacimiento</Form.Label>
+                        <Form.Control type="text" placeholder = {usuarioInfo.fechaDeNacimiento}  disabled />
                     </Form.Group>
                     <Form.Group className='mb-3' controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="text" placeholder = {usuarioInfo ? usuarioInfo.email : "" }  disabled />
+                        <Form.Control type="text" placeholder = {usuarioInfo.email}  disabled />
                     </Form.Group>
                 </Form>
-                <div className='d-flex justify-content-evenly w-100'>
-                <Link to={'/cambiarPassword'} className="btn btn-primary">Cambiar Contrasenia</Link>
-                <Link to={`/editar-usuario/${ usuarioInfo ? usuarioInfo.id_usuario : ""}` } className="btn btn-primary">Editar</Link>
+                <div className='contenedor-botones-pagina-usuario d-flex justify-content-evenly col-11 col-sm-8 col-md-5'>
+                <Link to={'/cambiarPassword'} className="btn boton-cambiar-contrasenia-cuenta-usuario">Cambiar Contrasenia</Link>
+                <Link to={`/editar-usuario/${usuarioInfo.id_usuario}`} className="btn boton-editar-cuenta-usuario">Editar</Link>
                 </div>
             </div>
         </div>

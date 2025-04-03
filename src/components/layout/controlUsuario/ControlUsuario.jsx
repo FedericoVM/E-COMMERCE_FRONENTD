@@ -1,17 +1,23 @@
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useNavigate } from "react-router-dom";
 import { UserHook } from '../../../context/Contexto de Usuarios/UserHook';
 import { ProductosHook } from '../../../context/Contexto de Productos/ProductosHook';
 import "./controlUsuario.css"
 import { NavDropdown } from 'react-bootstrap';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
+import { useEffect, useState } from 'react';
 
 const ControlUsuario = ( ) => {
 
-  const {usuarioInfo, deslogin, tokenUser} = UserHook()
+  const [nombreUsuario, setNombreUsuario] = useState(null)
+
+  const {usuarioInfo, deslogin} = UserHook()
   const {resetCarritoYFavoritos} = ProductosHook()
+
+  const seleccionarPrimerNombre = () =>{
+    let nombre = usuarioInfo.nombre.split(" ")
+    return setNombreUsuario(nombre[0])
+  }
 
   const navigate = useNavigate()
 
@@ -19,20 +25,24 @@ const ControlUsuario = ( ) => {
     navigate('/cuenta-usuario'); 
   }
 
+  useEffect(()=>{
+    seleccionarPrimerNombre()
+  },[nombreUsuario])
+
   return (
-    <div className='d-flex mx-2 mx-md-0 align-items-center justify-content-start'>
+    <div className='d-flex mx-2 mx-md-0 align-items-center col-9 col-md-12 col-lg-9 justify-content-evenly'>
       <div>
           <NavDropdown
             id="dropdown-item-button"
-            title = {`Hola ${usuarioInfo.nombre}`}
+            title = {`Hola ${nombreUsuario}`}
             className='dropDownButtonControlUsuario text-capitalize'
           >
             <DropdownItem className='control-usuario-nav-items' onClick={miCuenta}>Mi cuenta</DropdownItem>
             <Dropdown.Divider/>
-            <DropdownItem className='control-usuario-nav-items' onClick={()=> deslogin(resetCarritoYFavoritos, navigate, tokenUser)}>Salir</DropdownItem>
+            <DropdownItem className='control-usuario-nav-items' onClick={()=> deslogin(resetCarritoYFavoritos, navigate)}>Salir</DropdownItem>
           </NavDropdown>
       </div>
-      <div className='mx-1 '>
+      <div className=''>
         <img src={usuarioInfo.imagen} onClick={miCuenta} className="imagenUsuarioHeader img-thumbnail rounded-circle"/>
       </div>
     </div>

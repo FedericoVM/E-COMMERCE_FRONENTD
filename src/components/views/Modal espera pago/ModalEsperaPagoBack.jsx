@@ -5,35 +5,38 @@ import { useState } from 'react';
 import { ProductosHook } from '../../../context/Contexto de Productos/ProductosHook';
 import { UserHook } from '../../../context/Contexto de Usuarios/UserHook';
 import { toast } from 'sonner';
+import ErrorPago from './ErrorPago';
 
 const ModalEsperaPagoBack = ({comprarProducto, classPropiedad}) =>{
 
   const {errorMercado, setErrorMercado} = ProductosHook();
-  const {tokenUser} = UserHook()
+  const {tokenUser, setBrilloModalCarrito} = UserHook()
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
     setShow(false);
     setErrorMercado(null)
+    setBrilloModalCarrito(false)
   };
   const handleShow = () => setShow(true);
 
   const procesarRespuesta = async() =>{
+
     if (!tokenUser) {
       return toast.warning('Inicie sesion para poder comprar.')
     }
     handleShow()
+    setBrilloModalCarrito(true)
     await comprarProducto();
   }
 
     return(
         <>
-        <Button className={classPropiedad} onClick={async() => {procesarRespuesta()}}>
+        <Button className={classPropiedad} onClick={procesarRespuesta}>
           Comprar
         </Button>
         <Modal
-        size='sm'
           show={show}
           onHide={handleClose}
           backdrop="static"
@@ -41,13 +44,13 @@ const ModalEsperaPagoBack = ({comprarProducto, classPropiedad}) =>{
           centered
         >
           <Modal.Header closeButton = {errorMercado == null ? false : true}>
-            <Modal.Title>{errorMercado == null ? 'Procesando':'Error'}</Modal.Title>
+            <Modal.Title className='text-white'>{errorMercado == null ? 'Procesando':'Error'}</Modal.Title>
           </Modal.Header>
-          <Modal.Body className='text-center'>
-            {errorMercado == null?  <Spinner/>: errorMercado}
+          <Modal.Body className='text-center tabla-body-productos-sin-stock'>
+            {errorMercado === null?  <Spinner/>: <ErrorPago/>}
           </Modal.Body>
           <Modal.Footer>
-            <Button disabled={errorMercado == null ? true : false} variant="secondary" onClick={handleClose}>
+            <Button disabled={errorMercado == null ? true : false} onClick={handleClose}>
               Close
             </Button>
           </Modal.Footer>

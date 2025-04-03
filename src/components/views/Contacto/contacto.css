@@ -1,0 +1,23 @@
+.boton-enviar-contacto{
+    background-color: white;
+    border-color: #913175;
+    color: #913175;
+}
+
+.boton-enviar-contacto:hover{
+    background-color: #913175;
+    border: white;
+    color: white;
+}
+
+.boton-enviar-contacto:active{
+    background-color: #471839 !important;
+}
+
+.formulario-contacto{
+    border-color:#91317459 !important;
+}
+
+.mapa-contacto{
+    border-color: #91317459 !important;
+}

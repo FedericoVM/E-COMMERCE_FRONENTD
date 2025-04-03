@@ -5,8 +5,8 @@ import { Button } from "react-bootstrap";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import ImagenPreview from "../crudProductos/ImagenPreview";
 
-const CustomImputImagen = ({ label, setFieldValue, productoEdit, imagenProducto, ...props }) => {
-  const [field, meta] = useField(props);
+const CustomImputImagen = ({ label, errors, setFieldValue, productoEdit, imagenProducto, ...props }) => {
+  const [meta] = useField(props);
 
   const {botonBloquear}= UserHook()
 
@@ -27,8 +27,7 @@ const CustomImputImagen = ({ label, setFieldValue, productoEdit, imagenProducto,
       />
       <div className="d-flex flex-row flex-md-column justify-content-around col-12">
         <Button
-          className="my-md-2"
-          variant="outline-success"
+          className="my-md-2 boton-seleccionar-imagen-producto"
           type="button"
           disabled={botonBloquear}
           onClick={() => {
@@ -38,7 +37,7 @@ const CustomImputImagen = ({ label, setFieldValue, productoEdit, imagenProducto,
           {productoEdit ? "Cambiar imagen" : "Seleccionar Imagen"}
         </Button>
         <Button
-          variant={imagenProducto ? "info" : "outline-info"}
+        className="boton-quitar-imagen-producto-form"
           disabled={imagenProducto ? false : true}
           type="button"
           onClick={() => setFieldValue("imagenProducto", "")}
@@ -46,12 +45,12 @@ const CustomImputImagen = ({ label, setFieldValue, productoEdit, imagenProducto,
           Quitar Imagen
         </Button>
       </div>
-      {meta.error && <p className="error text-center">{meta.error}</p>}
+      {errors && <p className="error text-center">{errors}</p>}
     </div>
     <div className="col-12 col-md-7 d-flex justify-content-center">
         {imagenProducto ? <ImagenPreview file={imagenProducto} errors={meta.error}/> 
         : 
-        <img src={productoEdit? productoEdit.imagen : import.meta.env.VITE_IMG_PRODUCTEDIT} className="img-upload img-thumbnail rounded rounded-5"/>}
+        <img src={productoEdit? productoEdit.imagen : import.meta.env.VITE_IMG_PRODUCTEDIT} className="imagen-producto-crud img-thumbnail rounded rounded-2"/>}
     </div>
     </div>
   );

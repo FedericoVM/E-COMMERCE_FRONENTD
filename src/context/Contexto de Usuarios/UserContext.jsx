@@ -20,8 +20,12 @@ const UserProvider = ({ children }) => {
   const [fullScreenLogin, setFullScreenLogin] = useState(true)
   const [botonBloquear, setBotonBloquear] = useState(false)
   const [showModalCarrito, setShowModalCarrito] = useState(false)
+  const [brilloModalCarrito, setBrilloModalCarrito] = useState(false)
 
   const handleCloseModalCarrito = (state) =>{
+    if(!tokenUser){
+      return toast.warning('Tiene que iniciar sesion')
+    }
     setShowModalCarrito(state)
   }
 
@@ -51,7 +55,7 @@ const UserProvider = ({ children }) => {
       }
     }
     } catch (error) {
-      console.log(error);
+      toast.error('Intente nuevamente.');
     }
   };
 
@@ -66,7 +70,7 @@ const UserProvider = ({ children }) => {
       const carrito = await instance.get("/carrito", config);
       dispatch({ type: OBTENER_USER_CARRITO, payload: carrito.data });
     } catch (error) {
-      return console.log(error.response.data);
+      return toast.error(error.response.data);
     }
   };
 
@@ -90,7 +94,7 @@ const UserProvider = ({ children }) => {
       }
     } else {
       if (cantidad === 1) {
-        return console.log("La cantidad minima es 1");
+        return toast.warning("La cantidad minima es 1");
       } else {
         cant = { cantidad: (cantidad -= 1) };
       }
@@ -100,7 +104,7 @@ const UserProvider = ({ children }) => {
       let resultado = await instance.put(`/carrito/${id}`, cant, config);
       obtenerCarritoUsuario(tokenUser);
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.mensaje);
     }
   };
 
@@ -116,7 +120,7 @@ const UserProvider = ({ children }) => {
       toast.success(resultado.data.mensaje);
       obtenerCarritoUsuario(tokenUser);
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.mensaje);
     }
   };
 
@@ -131,16 +135,11 @@ const UserProvider = ({ children }) => {
       const favoritos = await instance.get("/favoritos", config);
       dispatch({ type: OBTENER_USER_FAVORITOS, payload: favoritos.data });
     } catch (error) {
-      return console.log(error.favoritos.data);
+      return toast.error(error.favoritos.data);
     }
   };
 
-  const deslogin = async (resetCarritoYFavoritos, navigate, token_usuario, setUsuariosAdmin) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token_usuario}`,
-      },
-    };
+  const deslogin = async (resetCarritoYFavoritos, navigate, setUsuariosAdmin) => {
 
     localStorage.clear();
     dispatch({type: RESET_USUARIO, payload: initialStateUser})
@@ -148,11 +147,6 @@ const UserProvider = ({ children }) => {
     setTokenUser(null)
     if (setUsuariosAdmin) {
       setUsuariosAdmin(null)
-    }
-    try {
-      const logout = await instance.delete("/usuario/logout", config)
-    } catch (error) {
-      console.log(error);
     }
     navigate('/')
     return toast("Sesion finalizada")
@@ -190,6 +184,8 @@ const UserProvider = ({ children }) => {
         showModalCarrito,
         setShowModalCarrito,
         handleCloseModalCarrito,
+        brilloModalCarrito,
+        setBrilloModalCarrito
       }}
     >
       {children}

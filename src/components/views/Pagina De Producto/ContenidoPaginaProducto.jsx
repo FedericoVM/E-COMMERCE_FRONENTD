@@ -1,84 +1,66 @@
 import { Button } from "react-bootstrap";
-import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 import "./contenidoPaginaProducto.css"
+import PaginaProductoPrecioDesc from "./precios pagina producto/PaginaProductoPrecioDesc";
+import EliminarFavorito from "../../layout/boton favorito/EliminarFavorito";
+import AgregarFavorito from "../../layout/boton favorito/AgregarFavorito";
+import ModalEsperaPagoBack from "../Modal espera pago/ModalEsperaPagoBack";
 
 const ContenidoPaginaProducto = ({ productoAMostrar }) => {
 
-  const { obtenerUsuarioFavoritos, tokenUser, usuarioEnLinea } =
+  const { obtenerUsuarioFavoritos, tokenUser, usuarioEnLinea, obtenerCarritoUsuario} =
     UserHook();
-  const {agregarAFavoritos, eliminarDeFavoritos, cambiarBotonFavorito, productosFavoritosAMostrar} = ProductosHook();
+  const {agregarAFavoritos, eliminarDeFavoritos, agregarAlCarrito, comprarProducto, cambiarBotonFavorito, productosFavoritosAMostrar, formatPrecio} = ProductosHook();
 
   const favoritoExistente = cambiarBotonFavorito(usuarioEnLinea, productosFavoritosAMostrar, productoAMostrar._id)
 
   return (
     <div className="d-flex justify-content-center align-items-center flex-column">
-      <div className="d-flex flex-column contenedor-imagen-y-descripcion-pagina border-bottom align-items-center my-2 col-12 justify-content-evenly col-lg-10">
-        <div className="imagen-pagina-producto col-6 col-md-6 mb-4 mb-md-0 border rounded">
+      <div className="d-flex flex-column contenedor-imagen-y-descripcion-pagina border-bottom my-3 col-12 justify-content-evenly col-lg-10">
+        <div className="imagen-pagina-producto align-self-center col-md-6 mb-4 mb-md-0 rounded">
         <img
           src={`${productoAMostrar.imagen}`}
           className="imagen-pagina-producto rounded"
         />
-        {favoritoExistente === true ?
-        <Button
-        variant="primary"
-          className="boton-favorito"
-          onClick={()=> {
-            eliminarDeFavoritos(productoAMostrar._id, tokenUser, obtenerUsuarioFavoritos)
-          }}
-        >
-          <BsSuitHeartFill/>
-        </Button>
+        {favoritoExistente ?
+        <EliminarFavorito eliminarFavorito={()=>{eliminarDeFavoritos(productoAMostrar._id, tokenUser, obtenerUsuarioFavoritos)}}/>
         :
-        <Button
-          variant="primary"
-          className="boton-favorito"
-          onClick={() => {agregarAFavoritos(productoAMostrar._id, obtenerUsuarioFavoritos, tokenUser, usuarioEnLinea);
-          }}
-        >
-          <BsSuitHeart className="corazon-vacio"/>
-          <BsSuitHeartFill className="corazon-lleno"/>
-        </Button>
+        <AgregarFavorito agregarAFavorito={()=>{agregarAFavoritos(productoAMostrar._id, obtenerUsuarioFavoritos, tokenUser, usuarioEnLinea)}}/>
         }
         </div>
-        <div className="col-md-5 contenedor-nombre-marca-stock-precio-pagina col-12 d-flex align-items-center flex-column justify-content-center">
-          <p className="text-center nombre-pagina-producto my-2 col-10">{productoAMostrar.nombre}</p>
-          <br className="d-none d-md-block" />
+        <div className="col-md-5 border-start contenedor-caracteristicas-prodicto-pagina col-12 d-flex align-items-center flex-column justify-content-evenly">
+          <p className="text-center nombre-pagina-producto mb-0 col-10">{productoAMostrar.nombre}</p>
           <div className="d-flex flex-column col-12">
-          <div className="col-12 d-flex flex-row justify-content-start align-items-center">
-            <div className="d-flex contenedor-marca-pagina-producto flex-column col-5">
-              <p className="text-center fs-5">Marca:</p>
-              <p className="text-center fs-5">{productoAMostrar.marca}</p>
+          <div className="col-12 col-sm-11 col-md-12 d-flex flex-row contenedor-marca-categoria-stock-pagina align-items-center">
+            <div className="d-flex contenedor-marca-pagina-producto flex-column col-4">
+              <p className="text-center fs-5 m-0">Marca:</p>
+              <p className="text-center fs-5 m-0">{productoAMostrar.marca}</p>
             </div>
-            <div className="d-flex contenedor-categoria-pagina-producto flex-column col-4">
-              <p className="text-center fs-5">Categoria:</p>
-              <p className="text-center fs-5">
+            <div className="d-flex contenedor-categoria-pagina-producto flex-column col-5">
+              <p className="text-center m-0">Categoria:</p>
+              <p className="text-center m-0">
                 {productoAMostrar.categoria}
               </p>
             </div>
             <div className="d-flex contenedor-stock-pagina-producto flex-column col-3">
-              <p className="text-center fs-5">Stock:</p>
-              <p className="text-center fs-5">{productoAMostrar.stock}</p>
+              <p className="text-center m-0 fs-5">Stock:</p>
+              <p className="text-center m-0 fs-5">{productoAMostrar.stock}</p>
             </div>
           </div>
-          <div className="d-flex flex-column flex-md-row col-12 justify-content-evenly align-items-center">
-            <p className="precio-pagina-producto col-md-7 align-self-center text-center">
-              {Intl.NumberFormat("es-AR", {
-                style: "currency",
-                currency: "ARS",
-                minimumFractionDigits: 0,
-              }).format(productoAMostrar.precio)}
-            </p>
-            <div className="d-flex flex-row flex-md-column justify-content-evenly col-12 col-sm-12 col-md-4 mb-4">
-                <Button variant="success my-md-2">Agregar al Carrito</Button>
-                <Button className="my-md-2">Comprar</Button>
+          <div className="d-flex contenedor-precio-y-botones flex-column flex-md-row my-2 my-md-0 col-12 m-0 justify-content-between align-items-center">
+            {!productoAMostrar.destacado ? <p className="precio-pagina-producto m-0 col-md-7 align-self-center text-center">
+              {formatPrecio(productoAMostrar.precio)}
+            </p>: <PaginaProductoPrecioDesc producto={productoAMostrar}/>}
+            <div className="d-flex align-items-center contenedor-botones flex-row flex-md-column justify-content-evenly my-2 col-12 col-sm-12 col-md-4">
+                <Button className="boton-carrito-pagina-producto col-md-12" onClick={()=>agregarAlCarrito(productoAMostrar._id, obtenerCarritoUsuario, tokenUser, usuarioEnLinea)}>Agregar al Carrito</Button>
+                <ModalEsperaPagoBack classPropiedad={" my-2 boton-comprar-pagina-producto col-md-12"} comprarProducto={()=> comprarProducto(productoAMostrar._id, tokenUser)}/>
             </div>
           </div>
           </div>
         </div>
       </div>
-      <div className="d-flex p-2 py-md-2 px-md-3 rounded contenedor-descripcion-pagina-producto flex-column col-md-11 col-lg-9">
+      <div className="d-flex m-2 py-md-2 px-md-3 rounded contenedor-descripcion-pagina-producto flex-column col-md-11 col-lg-9">
       <p className="col-lg-8 m-0 fs-5">Descripcion:</p>
       <section className="descripcion-pagina-producto">{productoAMostrar.descripcion}</section>
       </div>

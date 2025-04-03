@@ -25,6 +25,7 @@ import { Toaster } from 'sonner';
 import { ProductosHook } from "../context/Contexto de Productos/ProductosHook";
 import { useEffect, useState } from "react";
 import Nosotros from "../components/views/nosotros/Nosotros";
+import ModalDePagoParaLasCards from "../components/views/home/modal de pago/ModalDePagoParaLasCards";
 
 export const RouterPrincipal = () => {
 
@@ -42,6 +43,20 @@ export const RouterPrincipal = () => {
   }
 
   useEffect(()=>{
+    const handleWheel = (event) => {
+      if (document.activeElement.type === "number") {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  })
+
+  useEffect(()=>{
     filtrarProductosSinStock(productosHome)
   }, [productosHome])
 
@@ -53,6 +68,7 @@ export const RouterPrincipal = () => {
 
   return (
     <div className="d-flex flex-column">
+      <ModalDePagoParaLasCards/>
       <BrowserRouter>
       <Toaster richColors closeButton position="bottom-right"/>
         < Header/>

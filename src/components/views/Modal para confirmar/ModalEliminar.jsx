@@ -30,27 +30,27 @@ const ModalEliminar = ({ usuario, objetivo, eliminar, id }) => {
 
   return (
     <>
-      <Button variant={objetivo === "rol" ? "primary": "danger"} onClick={handleShow}>
+      <Button className={objetivo == "rol" ? "boton-cambiar-rol-user":"boton-modal-eliminar-producto-user"} onClick={handleShow}>
       {objetivo === "rol" ? "Cambiar" : <BsTrashFill />}
       </Button>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Rolling Store</Modal.Title>
+        <Modal.Header className="modal-eliminar-cambiar-user-header" closeButton>
+          <Modal.Title className="titulo-modal-eliminar-cambiar-user">Rolling Store</Modal.Title>
         </Modal.Header>
         {objetivo === "producto" && <Modal.Body>Desea eliminar este producto?</Modal.Body>}
         {objetivo === "usuario" && <Modal.Body>Desea eliminar a este usuario?</Modal.Body>}
         {objetivo === "rol" && <Modal.Body>Desea cambiar de rol a este usuario?</Modal.Body>}
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button className="boton-cancelar-modal-eliminar-cambiar-user" onClick={handleClose}>
             Cancelar
           </Button>
           <Button
-            variant={objetivo === "rol" ? "primary": "danger"}
+            className="boton-cambiar-modal-eliminar-cambiar-user"
             onClick={() => {
               eliminarYCerrarModal(usuario, objetivo);
             }}
           >
-            {objetivo === "rol" ? "Cambiar" : <BsTrashFill />}
+            {objetivo === "rol" ? "Cambiar" : "Eliminar"}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -1,0 +1,70 @@
+.imagen-destacado{
+    height: 12rem;
+    width: 14rem;
+}
+
+.contenedor-precios-destacado{
+    position: absolute;
+    position: absolute;
+    top: 3px !important;
+    left: 3px !important;
+    background: rgba(61, 61, 61, 0.582);
+}
+
+.porcentaje-card-destacado{
+    color: rgb(166, 243, 159);
+    font-weight: 500;
+}
+
+.precio-sin-descuento{
+    font-size: 0.8rem;
+    color: rgb(243, 240, 236);
+    font-weight: 500;
+    text-decoration: line-through;
+}
+
+.contenedor-precios-destacado > p:last-child , .descuento-card-destacado{
+    color: antiquewhite;
+    font-weight: 500;
+    font-size: 1.1rem !important;
+}
+
+.descuento-card-destacado{
+    color: rgb(121, 231, 121);
+}
+
+.card-destacado-nombre-producto{
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(37, 37, 37) !important;
+}
+
+.contenedor-card-destacado {
+    transition: all 0.2s ease;
+}
+
+.contenedor-card-destacado:hover {
+    box-shadow: 5px 5px 10px rgba(128, 111, 133, 0.356);
+    border-radius: 2%;
+}
+
+.card-destacado-body{
+    height: 10rem !important;
+}
+
+.boton-comprar-destacado, .boton-carrito-destacado{
+    background-color: #864072 !important;
+    border-color: #864072 !important;
+    color: white;
+    font-weight: 600;
+}
+
+.boton-carrito-destacado:hover, .boton-comprar-destacado:hover {
+    background-color: #4b153b !important;
+    color: white !important;
+}
+
+.descripcion-card-producto{
+    color: rgb(77, 76, 76);
+}

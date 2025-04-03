@@ -1,6 +1,21 @@
-
 .imagen-lista-productos{
     height: 5rem;
+}
+
+.titulos-de-paginas{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:rgb(82, 41, 82);
+    
+}
+
+.label-input-componente{
+    color: rgb(85, 84, 84);
+}
+
+.label-imagen-imput-componente{
+    color: rgb(65, 64, 64);
+    font-size: 1.2rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .td-favoritos{
@@ -17,14 +32,6 @@
 .descripcion-card-producto{
     height: 10vh;
      overflow: auto;
- }
- 
- .title-precio{
-    font-weight: 500;
-     position: absolute;
-     top: 0px;
-     left: 0px;
-     background: rgba(26, 5, 5, 0.637);
  }
  
  .boton-favorito{
@@ -58,6 +65,21 @@ input[type=number] {
 .img-upload {
     height: 200px;
     width: 200px;
+    border: 5px solid #815c767c;
+}
+
+.imagen-producto-crud{
+    height: 320px;
+    width: 380px;
+}
+
+@media (width < 380px){
+    .imagen-producto-crud{
+        width: 100%;
+        height: 280px;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
 }
 
 .imagenUsuarioHeader {
@@ -86,8 +108,13 @@ input[type=number] {
     color: rgb(36, 31, 31);
 }
 
-@media screen and (max-width: 416px) {
+@media screen and (max-width: 649px) {
     .imagen-pagina-producto{
-        width: 250px;
+        height: 250px;
+        width: 230px;
     }
+}
+
+.background-paginas{
+    background-color: rgb(248, 241, 248) !important;
 }

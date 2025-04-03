@@ -1,6 +1,3 @@
-import "./nosotros.css";
-import {FaLinkedin} from "react-icons/fa"
-import {FaGithub} from "react-icons/fa"
 import FedeCard from "./Fede card/FedeCard";
 import WilliamCard from "./William card/WilliamCard";
 
@@ -9,7 +6,7 @@ const Nosotros = () => {
   return (
     <div className="d-flex flex-column col-12 justify-content-center align-content-center">
       <div className="d-flex justify-content-center align-items-center flex-column my-3">
-        <p className="w-75 text-center m-0 fs-1">Rolling Store</p>
+        <p className=" text-center fs-1 align-self-center titulos-de-paginas">Rolling Store</p>
         <p className="col-11 col-md-10 col-lg-9 fw-light m-0 text-center">
           Somos una empresa emergente, comprometida en cumplir y sobrepasar las
           expectativas y necesidades de nuestros clientes actuales y futuros.

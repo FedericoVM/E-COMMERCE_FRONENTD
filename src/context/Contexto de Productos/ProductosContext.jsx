@@ -16,7 +16,8 @@ const ProductosProvider = ({ children }) => {
   const [currentPageWeb, setCurretPageWeb] = useState(1);
   const [currentPageTablet, setCurretPageTablet] = useState(1);
   const [currentPageMobile, setCurretPageMobile] = useState(1);
-  const [errorMercado, setErrorMercado] = useState(null)
+  const [errorMercado, setErrorMercado] = useState(null);
+  const [modalCompraCard, setModalCompraCard] = useState(false)
 
   const paginateWeb = (pageNumber) =>{
     setCurretPageWeb(pageNumber)
@@ -45,9 +46,8 @@ const ProductosProvider = ({ children }) => {
       const res = await instance.get("/productos");
       setProductosHome(res.data.toReversed());
     } catch (error) {
-      console.log(error);
+      toast.error(error.data.msg);
     }
-    productosHome;
   };
 
   const filtrarCarritoAMostrarProducto = (carrito, productos) => {
@@ -77,10 +77,12 @@ const ProductosProvider = ({ children }) => {
         } else {
           let productoCarrito = {
             id: producto._id,
-            imagen: "Eliminado",
-            nombre: "Eliminado",
-            precio: "Eliminado",
-            cantidad: "Eliminado",
+            imagen: "No Disponible",
+            nombre: "No Disponible",
+            precio: "No Disponible",
+            cantidad: 0,
+            stock: "No Disponible",
+            idProducto: producto._id
           };
           resultado.push(productoCarrito);
         }
@@ -110,7 +112,7 @@ const ProductosProvider = ({ children }) => {
         obtenerCarritoUsuario(tokenUser)
         toast.success(resultado.data.mensaje)
     } catch (error) {
-       console.log(error)
+       toast.error(error.data.mensaje)
     }
   }
 
@@ -132,6 +134,7 @@ const ProductosProvider = ({ children }) => {
   };
 
   const agregarAFavoritos = async (productiId, obtenerUsuarioFavoritos, tokenUser, usuarioEnLinea) => {
+
     if(usuarioEnLinea === false) {
       return toast.warning("Tiene que iniciar sesion")
     }
@@ -150,7 +153,7 @@ const ProductosProvider = ({ children }) => {
       toast.success(productoAgregado.data.mensaje);
       obtenerUsuarioFavoritos(tokenUser)
     } catch (error) {
-      console.log(error)
+      toast.error(error.data.mensaje)
     }
   }
 
@@ -176,7 +179,7 @@ const ProductosProvider = ({ children }) => {
       obtenerUsuarioFavoritos(tokenUser)
       toast.success(resp.data.mensaje);
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.mensaje);
     }
   };
 
@@ -185,6 +188,12 @@ const ProductosProvider = ({ children }) => {
   }
 
   const comprarProducto = async (idProducto, tokenUser) =>{
+
+    if(!tokenUser){
+      return toast.warning('Tiene que iniciar sesion')
+    }
+
+    setModalCompraCard(true)
 
     const config = {
       headers: {
@@ -201,7 +210,7 @@ const ProductosProvider = ({ children }) => {
         window.location.href = `${pago.data.redirecttUrl}`
       }
     } catch (error) {
-      setErrorMercado('Algo paso')
+      setErrorMercado(error.response)
     }
   } 
 
@@ -212,6 +221,40 @@ const ProductosProvider = ({ children }) => {
       minimumFractionDigits: 0,
     }).format(precio)
     return formatoARetornar
+  }
+
+  const formatPrecioDescuento = (productos, productoId, cantidad = 1) =>{
+    let precioDescuento = 0;
+    let descuento = 0;
+
+    const encontrarProducto = productos.find((element)=>{
+      return element._id === productoId
+    })
+    
+    if (encontrarProducto.descuento < 10 ) {
+      descuento =+ Number(`0.0${encontrarProducto.descuento}`)
+    } else { 
+      descuento =+ Number(`0.${encontrarProducto.descuento}`)
+    }
+
+    precioDescuento =+ (encontrarProducto.precio - (encontrarProducto.precio * descuento)) * cantidad
+    
+    let precioARetornar = Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 0,
+    }).format(precioDescuento)
+    
+    return precioARetornar
+  }
+  
+  const filtrarProductosCategoria = ( productos, setProductos, categoria) =>{
+
+    const categoriaProducto = productos.filter(p =>{
+      return p.categoria === categoria
+    })
+
+    return setProductos(categoriaProducto)
   }
 
   useEffect(() => {
@@ -226,6 +269,7 @@ const ProductosProvider = ({ children }) => {
         productosHome,
         setProductosHome,
         obtenerProductos,
+        filtrarProductosCategoria,
         filtrarCarritoAMostrarProducto,
         agregarAlCarrito,
         filtrarFavoritosAMostrarProducto,
@@ -234,6 +278,7 @@ const ProductosProvider = ({ children }) => {
         cambiarBotonFavorito,
         resetCarritoYFavoritos,
         formatPrecio,
+        formatPrecioDescuento,
         buscarProductos,
         setBuscarProductos,
         currentPageWeb,
@@ -244,7 +289,9 @@ const ProductosProvider = ({ children }) => {
         paginateMobile,
         comprarProducto,
         errorMercado,
-        setErrorMercado
+        setErrorMercado,
+        modalCompraCard,
+        setModalCompraCard
       }}
     >
       {children}

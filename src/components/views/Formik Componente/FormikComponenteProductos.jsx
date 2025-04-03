@@ -8,13 +8,14 @@ import CustomCodigoUnico from "../FormikImputsProductos/CustomInputCodigoUnico";
 import CustomImputTexarea from "../FormikImputsProductos/CustomInputTextarea";
 import ModalConfirmarProductos from "../Modal para confirmar/ModalConfirmarProductos";
 import CustomImputImagen from "../FormikImputsProductos/CustomImputImagen";
+import "./componenteProductosForm.css"
+import { Link } from "react-router-dom";
 
 const FormikComponente = ({ onSubmit, productoEdit}) => {
 
   const [inputDescuento, setInputDescuento] = useState("");
 
-  const submitFake = () =>{
-  }
+  const submitFake = () => {}
 
   const [productoDestacado] = useState(() => {
     if (productoEdit) {
@@ -45,7 +46,7 @@ const FormikComponente = ({ onSubmit, productoEdit}) => {
   const [initialValuesForm, setInitialValuesForm] = useState(valoresIniciales())
 
   return (
-    <div className="d-flex justify-content-center">
+    <div className="d-flex col-11 col-sm-10 justify-content-center">
       <Formik
         initialValues={initialValuesForm}
         validationSchema={schemaCrearProducto}
@@ -59,7 +60,7 @@ const FormikComponente = ({ onSubmit, productoEdit}) => {
           resetForm,
           validateForm
         }) => (
-          <Form className="form col-11 col-lg-8 d-flex flex-column">
+          <Form className="form col-12 col-lg-8 d-flex flex-column">
             <Custominput
             name="inputToSchema"
             type="text"
@@ -124,7 +125,10 @@ const FormikComponente = ({ onSubmit, productoEdit}) => {
             setFieldValue={setFieldValue}
             imagenProducto={values.imagenProducto}
             />
+            <div className="d-flex flex-row align-self-center align-self-md-end col-9 col-sm-5 justify-content-evenly col-md-5 mt-3">
+              {productoEdit && <Link to={'/admin-productos'} className="boton-atras-editar-producto btn">Atras</Link>}
             <ModalConfirmarProductos onSubmit={onSubmit} valoresIniciales={valoresIniciales} initialValues={values} setInitialValuesForm={setInitialValuesForm} validateForm={validateForm} resetForm={resetForm} productoEdit={productoEdit}/>
+            </div>
           </Form>
         )}
       </Formik>

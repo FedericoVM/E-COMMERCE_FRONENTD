@@ -33,11 +33,11 @@
 }
 
 .contenedor-contacto-footer{
-    width: 60% !important;
+    width: 50% !important;
 }
 
 .contenedor-data-fiscal-footer{
-    width: 40% !important;
+    width: 50% !important;
 }
 
 @media (width >= 350px) and (width <=575px) {

@@ -55,11 +55,11 @@ const AdminProductos = ( ) => {
   };
 
   return (
-    <div className="container d-flex flex-column">
-      <h1 className="text-center">Administrar Productos</h1>
-      <hr/>
+    <div className="d-flex flex-column justify-content-center align-items-center">
+      <h1 className="text-center titulos-de-paginas">Administrar Productos</h1>
+      <hr className="col-12 col-sm-10"/>
         <FormikComponente onSubmit={crearProducto}/>
-      <hr />
+      <hr className="col-12 col-sm-10"/>
         {productosHome.length > 0 && (
           <Paginacion
             lista={arrayBuscar ? arrayBuscar : productosHome}

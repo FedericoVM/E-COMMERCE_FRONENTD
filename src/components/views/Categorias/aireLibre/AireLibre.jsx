@@ -1,15 +1,22 @@
+import { useEffect, useState } from "react";
+import CargandoProductos from "../../../layout/cargando productos/CargandoProductos";
 import ProductosCategorias from "../Productos_categoria";
+import { ProductosHook } from "../../../../context/Contexto de Productos/ProductosHook";
 
 const AireLibre = ({productos}) => {
 
-    const aireLibre = productos.filter(p => {
-      return  p.categoria === "Aire Libre"
-     })
+  const [aireLibreProductos, setAireLibreProductos] = useState([])
+
+  const {filtrarProductosCategoria} = ProductosHook()
+   
+  useEffect(()=>{
+    filtrarProductosCategoria(productos, setAireLibreProductos, "Aire Libre")
+  },[productos])
 
   return (
     <div>
         <div className="min-vh-100">
-          {productos.length > 0 ? <ProductosCategorias productos={aireLibre} card="categoria"/> :"" }  
+          {aireLibreProductos.length > 0 ? <ProductosCategorias productos={aireLibreProductos} card="categoria" categoria={'Aire Libre'}/> :<CargandoProductos/> }  
         </div>
     </div>
   )

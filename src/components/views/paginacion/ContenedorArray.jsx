@@ -4,7 +4,7 @@ import ListaUsuarios from './ListaUsuarios'
 import ListaProductAdmin from './ListaProductAdmin'
 import ProductosCategoria from './ProductosCategoria'
 import ProductosDestacados from './ProductosDestacados'
-import ListaFavoritos from './ListaFavoritos'
+import ListaFavoritos from './Lista Favoritos/ListaFavoritos'
 
 const ContenedorArray = ({ paginate, currentPage, page, totalPosts, currentPosts, card, arrayBuscar, adminLista, currentPostsMd, currentPostsSm }) => {
 

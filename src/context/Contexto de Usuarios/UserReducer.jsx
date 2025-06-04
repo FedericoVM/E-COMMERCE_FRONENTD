@@ -4,7 +4,8 @@ import {
   OBTENER_USER_INFO,
   USUARIO_EN_LINEA,
   USUARIO_ROL,
-  RESET_USUARIO
+  RESET_USUARIO,
+  OBTENER_USUARIO_HISTORIAL_COMPRAS
 } from "./typesUser";
 
 export default (state, action) => {
@@ -35,6 +36,11 @@ export default (state, action) => {
       return {
         ...state,
         usuarioRol: payload,
+      };
+      case OBTENER_USUARIO_HISTORIAL_COMPRAS:
+      return{
+        ...state,
+        usuarioHistorialCompras: payload
       };
       case RESET_USUARIO:
         return payload;

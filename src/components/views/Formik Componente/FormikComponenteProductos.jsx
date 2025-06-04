@@ -4,7 +4,6 @@ import { schemaCrearProducto } from "../../../validacionesSchema/crearProducto";
 import Custominput from "../FormikImputsProductos/CustomImput";
 import CustomSelect from "../FormikImputsProductos/CustomSelect";
 import CustomInputPrecio from "../FormikImputsProductos/CustomInputPrecio";
-import CustomCodigoUnico from "../FormikImputsProductos/CustomInputCodigoUnico";
 import CustomImputTexarea from "../FormikImputsProductos/CustomInputTextarea";
 import ModalConfirmarProductos from "../Modal para confirmar/ModalConfirmarProductos";
 import CustomImputImagen from "../FormikImputsProductos/CustomImputImagen";
@@ -30,8 +29,7 @@ const FormikComponente = ({ onSubmit, productoEdit}) => {
   })
 
   const valoresIniciales = () =>{
-    return {codigoProducto: productoEdit ? productoEdit.codigo : `${Date.now().toString()}`,
-    nombreProducto: productoEdit ? productoEdit.nombre : "",
+    return {nombreProducto: productoEdit ? productoEdit.nombre : "",
     marcaProducto: productoEdit ? productoEdit.marca : "",
     stockProducto: productoEdit ? productoEdit.stock : "",
     precioProducto: productoEdit ? productoEdit.precio : "",
@@ -65,11 +63,6 @@ const FormikComponente = ({ onSubmit, productoEdit}) => {
             name="inputToSchema"
             type="text"
             hidden
-            />
-            <CustomCodigoUnico
-              label="Codigo del Producto (El codigo se genera de manera automatica)"
-              name="codigoProducto"
-              type="text"
             />
             <Custominput
               label="Nombre del Producto *"
@@ -111,6 +104,7 @@ const FormikComponente = ({ onSubmit, productoEdit}) => {
               name="precioProducto"
               type="number"
               inputDescuento={inputDescuento}
+              productoDestacado={values.destacarProducto}
             />
             <CustomSelect label="Destacar Producto" name="destacarProducto" setInputDescuento={setInputDescuento}>
               <option value="">Desea destacar el producto?</option>

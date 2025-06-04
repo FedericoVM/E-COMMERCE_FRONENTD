@@ -10,6 +10,7 @@ import {
   OBTENER_USER_INFO,
   USUARIO_ROL,
   RESET_USUARIO,
+  OBTENER_USUARIO_HISTORIAL_COMPRAS
 } from "./typesUser";
 
 const UserProvider = ({ children }) => {
@@ -40,6 +41,7 @@ const UserProvider = ({ children }) => {
     usuarioFavoritos: null,
     usuarioEnLinea: false,
     usuarioRol: [],
+    usuarioHistorialCompras: null
   };
 
   const [state, dispatch] = useReducer(UserReducer, initialStateUser);
@@ -104,7 +106,11 @@ const UserProvider = ({ children }) => {
       let resultado = await instance.put(`/carrito/${id}`, cant, config);
       obtenerCarritoUsuario(tokenUser);
     } catch (error) {
+      if(error.response.request.status === 400){
       toast.error(error.response.data.mensaje);
+      return obtenerCarritoUsuario(tokenUser)
+      }
+      toast.error(error.response.data.mensaje)
     }
   };
 
@@ -139,6 +145,20 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const obtenerHistorialDeCompras = async(token, email) =>{
+    const config = {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const historial = await instance.get(`/mercadoPago/payment-history/${email}`,config)
+      dispatch({ type: OBTENER_USUARIO_HISTORIAL_COMPRAS, payload: historial.data})
+    } catch (error) {
+      dispatch({ type: OBTENER_USUARIO_HISTORIAL_COMPRAS, payload: error.response.data})
+    }
+  }
+
   const deslogin = async (resetCarritoYFavoritos, navigate, setUsuariosAdmin) => {
 
     localStorage.clear();
@@ -152,6 +172,16 @@ const UserProvider = ({ children }) => {
     return toast("Sesion finalizada")
   }
 
+  const fechaDeCompra = (data) =>{
+    const fecha = new Date(Number(data))
+
+    const anio = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const dia = String(fecha.getDate()).padStart(2,'0');
+
+    return `${anio}-${mes}-${dia}`;
+  }
+
   return (
     <UseUser.Provider
       value={{
@@ -160,12 +190,14 @@ const UserProvider = ({ children }) => {
         usuarioCarrito: state.usuarioCarrito,
         usuarioFavoritos: state.usuarioFavoritos,
         usuarioRol: state.usuarioRol,
+        usuarioHistorialCompras: state.usuarioHistorialCompras,
         initialStateUser,
         obtenerUsuarioFavoritos,
         obtenerInfoUsuario,
         obtenerCarritoUsuario,
         actualizarCarrito,
         eliminarProductoDelCarrito,
+        obtenerHistorialDeCompras,
         dispatch,
         tokenUser,
         setTokenUser,
@@ -185,7 +217,8 @@ const UserProvider = ({ children }) => {
         setShowModalCarrito,
         handleCloseModalCarrito,
         brilloModalCarrito,
-        setBrilloModalCarrito
+        setBrilloModalCarrito,
+        fechaDeCompra
       }}
     >
       {children}

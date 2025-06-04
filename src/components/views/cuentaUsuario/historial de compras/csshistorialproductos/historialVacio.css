@@ -1,0 +1,12 @@
+.historial-vacio-texto{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size:larger;
+    text-align: center;
+    color: rgb(67, 48, 85);
+}
+
+@media (width < 768px) {
+    .body-historial-de-compras-vacio{
+    height: 5rem !important;
+}    
+}

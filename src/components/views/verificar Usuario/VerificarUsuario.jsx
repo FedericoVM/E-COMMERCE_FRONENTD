@@ -31,7 +31,7 @@ const VerificarUsuario = () => {
 
     return (
         <div className="d-flex justify-content-center">
-            {respuestaRecibida === true ? <VerificarRespuesta mensajeOk={mensajeOk} errorStatus={errorStatus} mensajeError={mensajeError}/> :<EsperandoRespuesta/>}
+            {respuestaRecibida !== true ? <VerificarRespuesta mensajeOk={mensajeOk} errorStatus={errorStatus} mensajeError={mensajeError}/> :<EsperandoRespuesta/>}
         </div>
     )
 }

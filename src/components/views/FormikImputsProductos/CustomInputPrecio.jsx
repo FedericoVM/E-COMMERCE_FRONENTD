@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 
-const CustomInputPrecio = ({ label,inputDescuento,...props }) => {
+const CustomInputPrecio = ({ label,inputDescuento, productoDestacado,...props }) => {
   const [field, meta] = useField(props);
   const [inputPrecio, setInputPrecio] = useState("");
 
@@ -36,7 +36,7 @@ const CustomInputPrecio = ({ label,inputDescuento,...props }) => {
             <Form.Control
               className="col-12"
               type="text"
-              value={formatPrecio( inputDescuento < 71 && inputPrecio -  (inputPrecio * (inputDescuento/100) ))}
+              value={productoDestacado === "Si" ? formatPrecio( inputDescuento < 71 && inputPrecio -  (inputPrecio * (inputDescuento/100))): formatPrecio(inputPrecio)}
               disabled={true}
             />
         </div>

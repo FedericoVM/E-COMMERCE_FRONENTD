@@ -33,7 +33,6 @@ const AdminProductos = ( ) => {
     const formData = new FormData();
 
     formData.append("nombre", values.nombreProducto);
-    formData.append("codigo", values.codigoProducto);
     formData.append("marca", values.marcaProducto);
     formData.append("stock", values.stockProducto);
     formData.append("precio", values.precioProducto);

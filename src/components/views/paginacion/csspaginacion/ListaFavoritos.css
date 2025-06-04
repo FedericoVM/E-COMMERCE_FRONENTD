@@ -7,7 +7,7 @@
 }
 
 .admin-producto-tabla-casilla-precio{
-    font-size: small;
+    font-size: 0.9rem;
 }
 
 .tabla-favoritos{
@@ -109,7 +109,11 @@
     width: 95px;
 }
 
-.td-tabla-codigo, .td-tabla-acciones, .td-tabla-categoria{
+.td-tabla-imagen{
+    height: 4rem !important;
+}
+
+.td-tabla-acciones, .td-tabla-categoria{
     overflow: hidden;
     text-overflow: ellipsis !important;
     align-content: center;

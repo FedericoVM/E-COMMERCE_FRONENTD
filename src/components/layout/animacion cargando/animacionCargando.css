@@ -1,0 +1,78 @@
+.animacion-de-espera-1, .animacion-de-espera-2, .animacion-de-espera-3{
+    background-color: #913175;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+}
+
+.animacion-de-espera-1{
+    animation: esperaAnimacion1 1.5s infinite;
+}
+
+.animacion-de-espera-2{
+    animation: esperaAnimacion2 1.5s infinite;
+}
+
+.animacion-de-espera-3{
+    animation: esperaAnimacion3 1.5s infinite;
+}
+
+@keyframes esperaAnimacion1 {
+    0% {
+        transform: scale(1);
+    }
+    25%{
+        transform: scale(1.5);
+    }
+    50% {
+        transform: scale(1);
+    }
+    75%{
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes esperaAnimacion2 {
+    0% {
+        transform: scale(1);
+    }
+    25%{
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    75%{
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes esperaAnimacion3 {
+    0% {
+        transform: scale(1);
+    }
+    25%{
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1);
+    }
+    75%{
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (width < 768px) {
+    .esperando-respuesta-animacion-body{
+        height: 5rem !important;
+    }
+}

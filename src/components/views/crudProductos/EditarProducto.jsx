@@ -6,6 +6,7 @@ import FormikComponente from "../Formik Componente/FormikComponenteProductos";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 import {toast} from "sonner"
+import CargandoProductos from "../../layout/cargando productos/CargandoProductos";
 
 const EditarProducto = ( ) => {
 
@@ -19,7 +20,7 @@ const EditarProducto = ( ) => {
 
   if (productoEdit === null) {
     const productoFind = productosHome.find(producto => {
-      return producto.codigo === id
+      return producto._id === id
     })
     
     if (productoFind !== undefined) {
@@ -43,7 +44,6 @@ const EditarProducto = ( ) => {
     const formData = new FormData()
 
     formData.append('nombre', values.nombreProducto);
-    formData.append('codigo', values.codigoProducto);
     formData.append('marca', values.marcaProducto);
     formData.append('stock', values.stockProducto);
     formData.append('precio', values.precioProducto)
@@ -69,7 +69,7 @@ const EditarProducto = ( ) => {
     <div className="d-flex flex-column justify-content-center col-12 align-items-center">
       <h1 className='text-center'>Administrar Productos</h1>
       <hr />
-      {productoEdit!==null ? <FormikComponente onSubmit={editarProducto} productoEdit={productoEdit}/>:"Cargando"
+      {productoEdit!==null ? <FormikComponente onSubmit={editarProducto} productoEdit={productoEdit}/> : <CargandoProductos/>
     }
     </div>
   )

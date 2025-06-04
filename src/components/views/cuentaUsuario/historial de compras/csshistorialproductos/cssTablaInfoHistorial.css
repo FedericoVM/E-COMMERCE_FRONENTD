@@ -1,0 +1,29 @@
+.imagen-tabla-info-historial{
+    height: 50px;
+    width: 50px;
+}
+
+.td-producto-nombre-info-historial{
+    align-content: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+}
+
+.tabla-info-historial{
+    border-color: rgb(134, 107, 134) !important;
+}
+
+.tabla-info-historial tbody tr:nth-child(2):hover{
+    cursor: pointer;
+    color: rgb(49, 48, 48) !important;
+}
+
+.texto-hover-tabla-info-historial{
+    text-decoration: none;
+    color: rgb(44, 44, 44);
+}
+
+.texto-hover-tabla-info-historial:hover{
+    color: #913175;
+}

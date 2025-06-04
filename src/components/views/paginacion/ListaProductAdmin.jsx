@@ -35,7 +35,7 @@ const ListaProductAdmin = ({ adminLista, paginate, currentPage, totalPosts, page
             <Table bordered hover className="text-center" style={{ tableLayout: 'fixed', width: '100%' }}>
                 <thead>
                     <tr className='cabecera-tabla-productos-admin'>
-                        <th className='th-codigo'>Codigo</th>
+                        <th className='th-codigo'>Imagen</th>
                         <th className='th-nombre'>Nombre</th>
                         <th className='th-precio'>Precio</th>
                         <th className='th-categoria'>Categoria</th>
@@ -48,7 +48,7 @@ const ListaProductAdmin = ({ adminLista, paginate, currentPage, totalPosts, page
                 <tbody className='body-tabla-productos-admin'>
                     {arrayBuscar !== null ? adminLista.map((producto, index) => (
                         <tr key={index} className=''>
-                            <td className='td-tabla-codigo'>{producto.codigo}</td>
+                            <td className='td-tabla-image'><img className='td-tabla-imagen' src={producto.imagen}/></td>
                             <td className='td-tabla-nombre'>{producto.nombre}</td>
                             <td className='td-tabla-precio'>{producto.destacado ? <ComponentePreciosTablaAdmin producto={producto}/>: formatPrecio(producto.precio)}</td>
                             <td className='td-tabla-categoria'>{producto.categoria}</td>
@@ -59,7 +59,7 @@ const ListaProductAdmin = ({ adminLista, paginate, currentPage, totalPosts, page
                                 <div className="d-flex justify-content-evenly">
                                     <ModalEliminar eliminar={eliminarProducto} id={producto._id} objetivo={"producto"}/>
                                     <Link
-                                        to={`/editar-producto/${producto.codigo}`}
+                                        to={`/editar-producto/${producto._id}`}
                                         className="btn boton-editar-producto"
                                     >
                                         Editar
@@ -70,7 +70,7 @@ const ListaProductAdmin = ({ adminLista, paginate, currentPage, totalPosts, page
                     )) :
                         arrayBuscar.map((producto, index) => (
                             <tr key={index}>
-                                <td>{producto.codigo}</td>
+                                <td><img src={producto.imagen}/></td>
                                 <td>{producto.nombre}</td>
                                 <td>{formatPrecio(producto.precio)}</td>
                                 <td>{producto.categoria}</td>
@@ -81,7 +81,7 @@ const ListaProductAdmin = ({ adminLista, paginate, currentPage, totalPosts, page
                                     <div className="d-flex justify-content-evenly">
                                         <ModalEliminar eliminar={eliminarProducto} id={producto._id} objetivo={"producto"}/>
                                         <Link
-                                            to={`/editar-producto/${producto.codigo}`}
+                                            to={`/editar-producto/${producto._id}`}
                                             className="btn mx-1"
                                         >
                                             Editar

@@ -12,7 +12,7 @@ const ModalDePagoParaLasCards = () =>{
         setErrorMercado(null)
         setModalCompraCard(false)
     };
-  
+    
     return (
       <>
         <Button hidden>
@@ -29,7 +29,7 @@ const ModalDePagoParaLasCards = () =>{
             <Modal.Title className='text-white'>{errorMercado === null ? "Comprando" : "Error"}</Modal.Title>
           </Modal.Header>
           <Modal.Body className='d-flex justify-content-center'>
-            {errorMercado === null ? <Spinner/>: errorMercado.data.mensaje}
+            {errorMercado === null ? <Spinner/>: errorMercado.data.message}
           </Modal.Body>
           <Modal.Footer>
             <Button className='boton-cerrar-modal-pago-cards' disabled={errorMercado === null ? true : false} onClick={handleClose}>

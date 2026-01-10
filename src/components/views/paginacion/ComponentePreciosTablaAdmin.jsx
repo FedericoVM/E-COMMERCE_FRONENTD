@@ -1,7 +1,7 @@
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook"
 
 const ComponentePreciosTablaAdmin = ({producto}) =>{
-    const {formatPrecio, formatPrecioDescuento, productosHome} = ProductosHook()
+    const {formatPrecio, formatPrecioDescuento} = ProductosHook()
     return (
         <div className="m-0">
             <div className="m-0 d-flex flex-column-reverse justify-content-evenly align-items-center">
@@ -11,7 +11,7 @@ const ComponentePreciosTablaAdmin = ({producto}) =>{
             </p>
             </div>
             <p className="text-success m-0">
-                {formatPrecioDescuento(productosHome, producto._id)}
+                {formatPrecioDescuento(producto.precio, producto.descuento)}
             </p>
         </div>
     )

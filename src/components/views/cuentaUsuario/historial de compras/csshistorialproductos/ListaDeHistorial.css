@@ -1,20 +1,65 @@
+.row-tabs-historial button{
+    color: black !important;
+    font-size: 1.05rem;
+    transform-origin: bottom;
+    transition: 0.2s ease-in-out;
+}
+
+.row-tabs-historial .nav-link.active{
+    color: rgb(155, 27, 187) !important;
+    background-color: rgb(248, 243, 248);
+    font-weight: 500;
+    transform: scaleY(1.1);
+}
+
+.row-tabs-historial li button{
+    border-color: #913175 !important;
+}
+
+#justify-tab-example-tab-todos, #justify-tab-example-tab-aprobados, #justify-tab-example-tab-pendientes{
+    border-right: none !important;
+}
+
+@media (768px <= width <= 826px), (width <= 531px) {
+    .row-tabs-historial{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+    #justify-tab-example-tab-aprobados{
+    border-right: 1px solid !important;
+}
+}
+
+.componente-contenedor-listas-historial ul{
+    background-color: white;
+    z-index: 100;
+}
+
+.lista-historial-vacia{
+    min-height: 350px;
+}
+
+.contenedor-padre-historial-compras{
+    border: 1px #913175 solid !important;
+}
+
 .contenedor-tabla-historial-compras{
-    max-height: 80vh !important;
-    overflow: auto;
+    height: 73vh !important;
     min-width: 440px !important;
 }
 
 .texto-td-historial-compras{
-    font-weight: 600;
+    font-size: 1.02rem;
 }
 
 .thead-fake-historial-compras{
+    position: sticky;
     background-color: #913175;
     color: white;
-    font-weight: 600;
+    font-weight: 500;
     height: 40px;
     z-index: 10;
-    font-size: 1.06rem;
     border-left: 2px solid #913175;
     border-right: 2px solid #913175;
     border-top: 2px solid #913175;
@@ -28,28 +73,65 @@
     height: 20px;
 }
 
-.tr-detalles{
-    border-left: 2px solid #913175 !important;
-    border-right: 2px solid #913175 !important;
-    border-top: 2px solid #913175 !important;
-}
-
 .caja-info{
-    border-left: 2px solid #913175 !important;
-    border-right: 2px solid #913175 !important;
     border-bottom: 2px solid #913175 !important;
 }
 
-.acordion-info-historial button{
-    background-color: rgb(134, 107, 134) !important;
-    color: white !important;
+.approved button{
+    border-color: rgb(70, 216, 34) !important;
 }
 
-.acordion-info-historial button::after{
+.in_process button{
+    border-color: rgb(231, 228, 34) !important;
+}
+
+.rejected button{
+    border-color: rgb(243, 45, 45) !important;
+}
+
+.acordion-info-button-historial button{
+    border: solid 2px;
+    color: black !important;
+}
+
+.acordion-info-button-historial .accordion-button[aria-expanded="true"]::after {
+    position: absolute;
+    margin: 0 !important;
+    right: 20px;
     height: 15px !important;
     width: 15px !important;
     background-image: none !important;
-    border-left: 2px solid white;
-    border-bottom: 2px solid white;
-    transform: rotate(314deg) translate(0px, -8px) !important;
+    border-left: 2px solid rgb(245, 68, 236);
+    border-bottom: 2px solid rgb(245, 68, 236);
+  transform: rotate(136deg) translate(4px,-2px)
+}
+
+.acordion-info-button-historial .accordion-button[aria-expanded="false"]::after{
+    margin: 0 !important;
+    right: 20px;
+    position: absolute;
+    height: 15px !important;
+    width: 15px !important;
+    background-image: none !important;
+    border-left: 2px solid rgb(245, 68, 236);
+    border-bottom: 2px solid rgb(245, 68, 236);
+    transform: rotate(314deg) translate(2px, -5px) !important;
+}
+
+.approved button::before{
+    content: "Aprobado -";
+    font-size: 1.02rem;
+    margin-right: 5px;
+}
+
+.in_process button::before{
+    content: "En espera -";
+    font-size: 1.02rem;
+    margin-right: 5px;
+}
+
+.rejected button::before{
+    content: "Rechazado -";
+    font-size: 1.02rem;
+    margin-right: 5px;
 }

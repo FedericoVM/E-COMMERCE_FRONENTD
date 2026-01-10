@@ -1,13 +1,7 @@
-import { useEffect, useState, useReducer, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { UseProductos } from "./UseProductos";
 import instance from "../../axios/instance";
-import ProductoReducer from "./ProductoReducer";
 import {toast} from "sonner"
-import {
-  FILTRAR_CARRITO_A_MOSTRAR,
-  FILTRAR_FAVORITOS_A_MOSTRAR,
-  RESET_CARRITO_Y_FAVORITOS
-} from "./typesProductos";
 
 const ProductosProvider = ({ children }) => {
   
@@ -17,7 +11,9 @@ const ProductosProvider = ({ children }) => {
   const [currentPageTablet, setCurretPageTablet] = useState(1);
   const [currentPageMobile, setCurretPageMobile] = useState(1);
   const [errorMercado, setErrorMercado] = useState(null);
-  const [modalCompraCard, setModalCompraCard] = useState(false)
+  const [modalCompraCard, setModalCompraCard] = useState(false);
+  const [bloquearCarritoBotones, setBloquearCarritoBotones] = useState(false)
+  const [productoAComprar, setProductoAComprar] = useState('')
 
   const paginateWeb = (pageNumber) =>{
     setCurretPageWeb(pageNumber)
@@ -31,16 +27,6 @@ const ProductosProvider = ({ children }) => {
     setCurretPageMobile(pageNumber)
   }
 
-  const initialStateProductContext = {
-    productosCarritoAMostrar: [],
-    productosFavoritosAMostrar: [],
-  };
-
-  const [state, dispatchProduct] = useReducer(
-    ProductoReducer,
-    initialStateProductContext
-  );
-
   const obtenerProductos = async () => {
     try {
       const res = await instance.get("/productos");
@@ -50,48 +36,6 @@ const ProductosProvider = ({ children }) => {
     }
   };
 
-  const filtrarCarritoAMostrarProducto = (carrito, productos) => {
-    let resultado = [];
-
-    if (carrito.length > 0) {
-      carrito.forEach((producto) => {
-        let productosExistentes = productos.some((prod) => {
-          return prod._id === producto.productos;
-        });
-
-        if (productosExistentes) {
-          productos.find((c) => {
-            if (producto.productos === c._id) {
-              let productoCarrito = {
-                id: producto._id,
-                imagen: c.imagen,
-                nombre: c.nombre,
-                precio: c.precio,
-                stock: c.stock,
-                cantidad: producto.cantidad,
-                idProducto: c._id
-              };
-              resultado.push(productoCarrito);
-            }
-          });
-        } else {
-          let productoCarrito = {
-            id: producto._id,
-            imagen: "No Disponible",
-            nombre: "No Disponible",
-            precio: "No Disponible",
-            cantidad: 0,
-            stock: "No Disponible",
-            idProducto: producto._id
-          };
-          resultado.push(productoCarrito);
-        }
-      });
-      dispatchProduct({ type: FILTRAR_CARRITO_A_MOSTRAR, payload: resultado });
-    } else {
-      dispatchProduct({ type: FILTRAR_CARRITO_A_MOSTRAR, payload: resultado})
-    }
-  };
 
   const agregarAlCarrito = async (productId, obtenerCarritoUsuario, tokenUser, usuarioEnLinea) => {
     if(usuarioEnLinea === false) {
@@ -104,7 +48,7 @@ const ProductosProvider = ({ children }) => {
     }
   
   const nuevoProductoCarrito = {
-    productos: productId
+    idProducto: productId
   }
 
     try {
@@ -112,26 +56,11 @@ const ProductosProvider = ({ children }) => {
         obtenerCarritoUsuario(tokenUser)
         toast.success(resultado.data.mensaje)
     } catch (error) {
+      console.log(error);
+      
        toast.error(error.data.mensaje)
     }
   }
-
-  const filtrarFavoritosAMostrarProducto = (productos, favoritos) => {
-    let resultado = [];
-
-    if (favoritos.length > 0) {
-      productos.forEach((p) => {
-        favoritos.find((favorito) => {
-          if (p._id === favorito.productos) {
-            resultado.push(p);
-          }
-        });
-      });
-      dispatchProduct({ type: FILTRAR_FAVORITOS_A_MOSTRAR, payload: resultado });
-    } else {
-      dispatchProduct({type: FILTRAR_FAVORITOS_A_MOSTRAR, payload: resultado})
-    }
-  };
 
   const agregarAFavoritos = async (productiId, obtenerUsuarioFavoritos, tokenUser, usuarioEnLinea) => {
 
@@ -157,15 +86,6 @@ const ProductosProvider = ({ children }) => {
     }
   }
 
-  const cambiarBotonFavorito = useMemo(()=>{
-    return (usuarioEnLinea, productosFavoritosAMostrar, idProducto) =>{
-      if(usuarioEnLinea && productosFavoritosAMostrar.length > 0) {
-        return productosFavoritosAMostrar.some(e => e._id === idProducto)
-      }
-      return false
-    }
-  },[state.productosFavoritosAMostrar])
-
   const eliminarDeFavoritos = async (idProducto, tokenUser, obtenerUsuarioFavoritos) => {
 
     const config = {
@@ -183,12 +103,7 @@ const ProductosProvider = ({ children }) => {
     }
   };
 
-  const resetCarritoYFavoritos = () => {
-    dispatchProduct({type: RESET_CARRITO_Y_FAVORITOS, payload: initialStateProductContext})
-  }
-
-  const comprarProducto = async (idProducto, tokenUser) =>{
-
+  const comprarProducto = async ({idProducto, tokenUser, navigate, setState}) =>{
     if(!tokenUser){
       return toast.warning('Tiene que iniciar sesion')
     }
@@ -205,11 +120,15 @@ const ProductosProvider = ({ children }) => {
     }
 
     try {
-      const pago = await instance.post("/mercadoPago/payment",productoAComprar, config)
-      if (pago) {
-        window.location.href = `${pago.data.redirecttUrl}`
-      }
+      const pago = await instance.post("/mercadoPago/crear-producto-payment-order",productoAComprar, config)
+        setErrorMercado(null)
+        setModalCompraCard(false)
+        setProductoAComprar(pago.data.producto)
+      if (pago && navigate) navigate(`/completar-pago/${pago.data.producto._id}`)
+      if (setState) setState(true)
+
     } catch (error) {
+      if(setState) setState(true)
       setErrorMercado(error.response)
     }
   } 
@@ -220,24 +139,18 @@ const ProductosProvider = ({ children }) => {
       currency: "ARS",
       minimumFractionDigits: 0,
     }).format(precio)
-    return formatoARetornar
+    return formatoARetornar.replace(/\s/g, "")
   }
 
-  const formatPrecioDescuento = (productos, productoId, cantidad = 1) =>{
+  const formatPrecioDescuento = (precio, descuento, cantidad = 1) =>{
+
     let precioDescuento = 0;
-    let descuento = 0;
-
-    const encontrarProducto = productos.find((element)=>{
-      return element._id === productoId
-    })
     
-    if (encontrarProducto.descuento < 10 ) {
-      descuento =+ Number(`0.0${encontrarProducto.descuento}`)
+    if (descuento < 10 ) {
+      precioDescuento =+ (precio-(precio * Number(`0.0${descuento}`))) * cantidad
     } else { 
-      descuento =+ Number(`0.${encontrarProducto.descuento}`)
+      precioDescuento =+ (precio-(precio * Number(`0.${descuento}`))) * cantidad
     }
-
-    precioDescuento =+ (encontrarProducto.precio - (encontrarProducto.precio * descuento)) * cantidad
     
     let precioARetornar = Intl.NumberFormat("es-AR", {
       style: "currency",
@@ -245,7 +158,7 @@ const ProductosProvider = ({ children }) => {
       minimumFractionDigits: 0,
     }).format(precioDescuento)
     
-    return precioARetornar
+    return precioARetornar.replace(/\s/g, "")
   }
   
   const filtrarProductosCategoria = ( productos, setProductos, categoria) =>{
@@ -264,19 +177,12 @@ const ProductosProvider = ({ children }) => {
   return (
     <UseProductos.Provider
       value={{
-        productosCarritoAMostrar: state.productosCarritoAMostrar,
-        productosFavoritosAMostrar: state.productosFavoritosAMostrar,
         productosHome,
-        setProductosHome,
         obtenerProductos,
         filtrarProductosCategoria,
-        filtrarCarritoAMostrarProducto,
         agregarAlCarrito,
-        filtrarFavoritosAMostrarProducto,
         agregarAFavoritos,
         eliminarDeFavoritos,
-        cambiarBotonFavorito,
-        resetCarritoYFavoritos,
         formatPrecio,
         formatPrecioDescuento,
         buscarProductos,
@@ -291,7 +197,10 @@ const ProductosProvider = ({ children }) => {
         errorMercado,
         setErrorMercado,
         modalCompraCard,
-        setModalCompraCard
+        setModalCompraCard,
+        setBloquearCarritoBotones,
+        bloquearCarritoBotones,
+        productoAComprar
       }}
     >
       {children}

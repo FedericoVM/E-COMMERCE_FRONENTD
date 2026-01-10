@@ -3,33 +3,34 @@ import { MdShoppingCart } from "react-icons/md";
 import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 import "./destacado-card.css";
-import { Link } from "react-router-dom";
-import ModalEsperaPagoBack from "../Modal espera pago/ModalEsperaPagoBack";
+import { Link, useNavigate } from "react-router-dom";
 import EliminarFavorito from "../../layout/boton favorito/EliminarFavorito";
 import AgregarFavorito from "../../layout/boton favorito/AgregarFavorito";
 
 const DestacadoCards = ({ post }) => {
+
+  const navigate = useNavigate();
+
   const {
-    productosHome,
     formatPrecio,
     formatPrecioDescuento,
     agregarAlCarrito,
     agregarAFavoritos,
     eliminarDeFavoritos,
-    cambiarBotonFavorito,
-    productosFavoritosAMostrar,
     comprarProducto,
   } = ProductosHook();
   const {
     obtenerUsuarioFavoritos,
+    cambiarBotonFavorito,
     tokenUser,
     obtenerCarritoUsuario,
     usuarioEnLinea,
+    usuarioFavoritos
   } = UserHook();
 
   const favoritoExistenteDes = cambiarBotonFavorito(
     usuarioEnLinea,
-    productosFavoritosAMostrar,
+    usuarioFavoritos,
     post._id
   );
 
@@ -48,7 +49,7 @@ const DestacadoCards = ({ post }) => {
               <p className="m-0 precio-sin-descuento mx-1">{formatPrecio(post.precio)}</p>
             </div>
             <p className="m-0 text-center text-white">
-              {formatPrecioDescuento(productosHome, post._id)}
+              {formatPrecioDescuento(post.precio, post.descuento)}
             </p>
           </div>
           {favoritoExistenteDes ? 
@@ -84,15 +85,7 @@ const DestacadoCards = ({ post }) => {
             >
               <MdShoppingCart className="fs-4" />
             </Button>
-            {/*<ModalEsperaPagoBack
-              comprarProducto={() => {
-                comprarProducto(post._id, tokenUser);
-              }}
-              classPropiedad={
-                "opacity-75 fs-6 boton-comprar-destacado"
-              }
-            />*/}
-            <Button className="opacity-75 fs-6 boton-comprar-destacado" onClick={()=>{comprarProducto(post._id, tokenUser)}}>Comprar</Button>
+            <Button className="opacity-75 fs-6 boton-comprar-destacado" onClick={()=>{comprarProducto({idProducto:post._id, tokenUser, navigate})}}>Comprar</Button>
           </div>
         </Card.Body>
       </Card>

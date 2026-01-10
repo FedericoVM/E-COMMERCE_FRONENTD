@@ -14,7 +14,7 @@ const PrecioFavoritosListaDestacado = ({ producto }) => {
         </p>
       </div>
       <p className="precio-con-desc-lista-favorito m-0">
-        {formatPrecioDescuento(productosHome, producto._id)}
+        {formatPrecioDescuento(producto.precio, producto.descuento)}
       </p>
     </div>
   );

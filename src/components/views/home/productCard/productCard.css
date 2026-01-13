@@ -44,17 +44,18 @@
     color: rgb(63, 61, 61);
   }
   
-  .boton-favorito {
+  .boton-favorito-agregar, .boton-favorito-eliminar {
     font-size: 1.2rem;
     background: rgba(182, 180, 180, 0.671);
     border: none;
     color: rgb(174, 66, 207);
     position: absolute;
+    right: 0px !important;
   }
   
   .card-img {
     height: 8rem;
-    width: 100%;
+    width: 95% !important;
   }
   
   .card {
@@ -116,15 +117,9 @@
   }
 }
 
-.boton-favorito:hover {
+.boton-favorito-agregar:hover , .boton-favorito-eliminar:hover {
   background: rgba(155, 153, 153, 0.671);
   color: rgb(174, 66, 207);
-  .corazon-vacio{
-    display: none;
-  }
-  .corazon-lleno{
-    display:inline;
-  }
 }
 
 .corazon-lleno{

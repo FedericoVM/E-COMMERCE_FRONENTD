@@ -8,8 +8,7 @@ const TablaInfoHistorial = ({productos}) =>{
     const {formatPrecio} = ProductosHook()
     
     return (
-        <div>
-            <Table bordered style={{ tableLayout: 'fixed', width: '100%' }} className="m-0 tabla-info-historial">
+            <Table bordered className="m-0 tabla-info-historial">
                 <thead>
                     <tr>
                         <th colSpan={2}></th>
@@ -19,7 +18,7 @@ const TablaInfoHistorial = ({productos}) =>{
                     </tr>
                 </thead>
                 <tbody>
-                    {productos.map((produ, index) => (
+                    {productos && productos.map((produ, index) => (
                         <tr key={index} className="">
                             <td className="px-0 text-center" colSpan={2}><img className="imagen-tabla-info-historial" src={produ.imagen}/></td>
                             <td colSpan={5} className="align-self-center text-center td-producto-nombre-info-historial"><Link className="texto-hover-tabla-info-historial" to={`/producto/${produ.producto_id}`}>{produ.nombre}</Link></td>
@@ -29,7 +28,6 @@ const TablaInfoHistorial = ({productos}) =>{
                     ))}
                 </tbody>
             </Table>
-        </div>
     )
 }
 

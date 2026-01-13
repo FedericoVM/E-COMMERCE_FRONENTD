@@ -1,6 +1,6 @@
 import { Button, Card } from "react-bootstrap";
 import {FaCartArrowDown} from "react-icons/fa"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./productCard.css";
 import { UserHook } from "../../../../context/Contexto de Usuarios/UserHook";
 import { ProductosHook } from "../../../../context/Contexto de Productos/ProductosHook";
@@ -10,16 +10,18 @@ import AgregarFavorito from "../../../layout/boton favorito/AgregarFavorito";
 import EliminarFavorito from "../../../layout/boton favorito/EliminarFavorito";
 
 const ProductCard = ({ p }) => {
-  
-  const { obtenerUsuarioFavoritos, tokenUser, obtenerCarritoUsuario, usuarioEnLinea} =
-    UserHook();
-  const { formatPrecio, agregarAlCarrito, agregarAFavoritos, eliminarDeFavoritos, cambiarBotonFavorito, productosFavoritosAMostrar, comprarProducto} = ProductosHook();
 
-  const favoritoExistente = cambiarBotonFavorito(usuarioEnLinea, productosFavoritosAMostrar, p._id)
+  const navigate = useNavigate()
+  
+  const { obtenerUsuarioFavoritos, tokenUser, obtenerCarritoUsuario, usuarioEnLinea, usuarioFavoritos, cambiarBotonFavorito} =
+    UserHook();
+  const { formatPrecio, agregarAlCarrito, agregarAFavoritos, eliminarDeFavoritos, comprarProducto} = ProductosHook();
+
+  const favoritoExistente = cambiarBotonFavorito(usuarioEnLinea, usuarioFavoritos, p._id)
 
   return (
     <Card className="card cards-productos">
-      <div className="img-contenedor-card d-flex justify-content-center align-self-center col-12 col-sm-10 col-md-12">
+      <div className="img-contenedor-card d-flex justify-content-center align-self-center col-12">
         <Card.Img
           className="card-img container border-bottom"
           variant="top"
@@ -62,7 +64,7 @@ const ProductCard = ({ p }) => {
             >
                <FaCartArrowDown/>
             </button>
-            <Button className='col-7 col-sm-11 col-md-6 col-lg-7 boton-comprar-card p-1 m-1' onClick={()=>comprarProducto(p._id, tokenUser)}>Comprar</Button>
+            <Button className='col-7 col-sm-11 col-md-6 col-lg-7 boton-comprar-card p-1 m-1' onClick={()=>comprarProducto({idProducto:p._id, tokenUser, navigate})}>Comprar</Button>
           </div>
           </div>
         </div>

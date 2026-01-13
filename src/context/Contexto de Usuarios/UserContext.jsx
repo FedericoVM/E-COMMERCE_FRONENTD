@@ -1,4 +1,4 @@
-import { useState, useReducer} from "react";
+import { useState, useReducer, useMemo} from "react";
 import { UseUser } from "./UseUser";
 import instance from "../../axios/instance";
 import UserReducer from "./UserReducer";
@@ -22,6 +22,7 @@ const UserProvider = ({ children }) => {
   const [botonBloquear, setBotonBloquear] = useState(false)
   const [showModalCarrito, setShowModalCarrito] = useState(false)
   const [brilloModalCarrito, setBrilloModalCarrito] = useState(false)
+  const [costoTotalCarrito, setCostoTotalCarrito] = useState(0)
 
   const handleCloseModalCarrito = (state) =>{
     if(!tokenUser){
@@ -37,8 +38,8 @@ const UserProvider = ({ children }) => {
 
   const initialStateUser = {
     usuarioInfo: null,
-    usuarioCarrito: null,
-    usuarioFavoritos: null,
+    usuarioCarrito: [],
+    usuarioFavoritos: [],
     usuarioEnLinea: false,
     usuarioRol: [],
     usuarioHistorialCompras: null
@@ -72,13 +73,20 @@ const UserProvider = ({ children }) => {
       const carrito = await instance.get("/carrito", config);
       dispatch({ type: OBTENER_USER_CARRITO, payload: carrito.data });
     } catch (error) {
+      console.log(error);
+      
       return toast.error(error.response.data);
     }
   };
 
-  const actualizarCarrito = async (e, id, cantidad, producto) => {
-    let operacion = e.target.name;
-    let cant = { cantidad: cantidad };
+  const actualizarCarrito = async (e, id, cantidad, stateBloqueo) => {
+    
+    if(stateBloqueo) return toast.warning('No puede modificar su carrito mientras esta en esta ventana.')
+    if(cantidad === 0) return toast.warning('La cantidad no puede ser 0')
+    let cant = { 
+          cantidad: cantidad,
+          operacion: e.target.name
+         };
 
     const config = {
       headers: {
@@ -86,35 +94,24 @@ const UserProvider = ({ children }) => {
       },
     };
 
-    if (operacion === "sumar") {
-      if (cant.cantidad === producto.stock) {
-        return toast.warning(
-          "No puede agregar mas cantidad. LLego al limite de stock del producto"
-        );
-      } else {
-        cant = { cantidad: (cantidad += 1) };
-      }
-    } else {
-      if (cantidad === 1) {
-        return toast.warning("La cantidad minima es 1");
-      } else {
-        cant = { cantidad: (cantidad -= 1) };
-      }
-    }
-
     try {
       let resultado = await instance.put(`/carrito/${id}`, cant, config);
+      
+      if(resultado.request.status === 202) toast.error(resultado.data.message)
       obtenerCarritoUsuario(tokenUser);
     } catch (error) {
       if(error.response.request.status === 400){
-      toast.error(error.response.data.mensaje);
+      toast.error(error.response.data.message);
       return obtenerCarritoUsuario(tokenUser)
       }
-      toast.error(error.response.data.mensaje)
+      toast.error(error.response.data.message)
     }
   };
 
-  const eliminarProductoDelCarrito = async (id) => {
+  const eliminarProductoDelCarrito = async (id, stateBloqueo) => {
+
+    if(stateBloqueo) return toast.warning('No puede modificar su carrito mientras esta en esta ventana.')
+
     const config = {
       headers: {
         authorization: `Bearer ${tokenUser}`,
@@ -153,17 +150,16 @@ const UserProvider = ({ children }) => {
     };
     try {
       const historial = await instance.get(`/mercadoPago/payment-history/${email}`,config)
-      dispatch({ type: OBTENER_USUARIO_HISTORIAL_COMPRAS, payload: historial.data})
+      dispatch({ type: OBTENER_USUARIO_HISTORIAL_COMPRAS, payload: historial.data.reverse()})
     } catch (error) {
-      dispatch({ type: OBTENER_USUARIO_HISTORIAL_COMPRAS, payload: error.response.data})
+      
     }
   }
 
-  const deslogin = async (resetCarritoYFavoritos, navigate, setUsuariosAdmin) => {
+  const deslogin = async (navigate, setUsuariosAdmin) => {
 
     localStorage.clear();
     dispatch({type: RESET_USUARIO, payload: initialStateUser})
-    resetCarritoYFavoritos()
     setTokenUser(null)
     if (setUsuariosAdmin) {
       setUsuariosAdmin(null)
@@ -171,6 +167,15 @@ const UserProvider = ({ children }) => {
     navigate('/')
     return toast("Sesion finalizada")
   }
+
+  const cambiarBotonFavorito = useMemo(()=>{
+      return (usuarioEnLinea, productosFavoritosAMostrar, idProducto) =>{
+        if(usuarioEnLinea && productosFavoritosAMostrar.length > 0) {
+          return productosFavoritosAMostrar.some(e => e._id === idProducto)
+        }
+        return false
+      }
+    },[state.usuarioFavoritos])
 
   const fechaDeCompra = (data) =>{
     const fecha = new Date(Number(data))
@@ -218,7 +223,10 @@ const UserProvider = ({ children }) => {
         handleCloseModalCarrito,
         brilloModalCarrito,
         setBrilloModalCarrito,
-        fechaDeCompra
+        fechaDeCompra,
+        setCostoTotalCarrito,
+        costoTotalCarrito,
+        cambiarBotonFavorito
       }}
     >
       {children}

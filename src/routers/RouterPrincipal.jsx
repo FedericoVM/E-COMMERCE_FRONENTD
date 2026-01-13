@@ -26,12 +26,15 @@ import { ProductosHook } from "../context/Contexto de Productos/ProductosHook";
 import { useEffect, useState } from "react";
 import Nosotros from "../components/views/nosotros/Nosotros";
 import ModalDePagoParaLasCards from "../components/views/home/modal de pago/ModalDePagoParaLasCards";
+import ConfirmarPagoCarrito from "../components/views/confirmarPagoBricks/confimarPagoBricksCarrito/ConfirmarPagoCarrito";
+import CompletarPagoProducto from "../components/views/confirmarPagoBricks/completar compra producto/CompletarPagoProducto";
+import AutoScrollTop from "../components/layout/auto scroll top/AutoScrollTop";
 
 export const RouterPrincipal = () => {
 
   const {usuarioRol, usuarioFavoritos} = UserHook()
 
-  const {productosHome, filtrarFavoritosAMostrarProducto} = ProductosHook()
+  const {productosHome} = ProductosHook()
 
   const [productosFiltrados, setProductosFiltrados] = useState([])
 
@@ -60,18 +63,13 @@ export const RouterPrincipal = () => {
     filtrarProductosSinStock(productosHome)
   }, [productosHome])
 
-  useEffect(()=>{
-    if (usuarioRol.length > 0) {
-      filtrarFavoritosAMostrarProducto(productosHome, usuarioFavoritos)
-    }
-  },[usuarioFavoritos])
-
   return (
     <div className="d-flex flex-column">
       <ModalDePagoParaLasCards/>
       <BrowserRouter>
       <Toaster richColors closeButton position="bottom-right"/>
         < Header/>
+        <AutoScrollTop/>
         <Routes className="flex-grow">
           <Route path="/" element={<Home productos={productosFiltrados}/>}/>
           <Route path="/computacion" element={<Computacion productos={productosFiltrados}/>}/>
@@ -91,6 +89,8 @@ export const RouterPrincipal = () => {
             <Route path="/cuenta-usuario" element={<CuentaUsuario/>}/>
             <Route path="/favoritos" element={<Favoritos/>}/>
             <Route path="/cambiarPassword" element={<CambiarContrasenia/>}/>
+            <Route path="/comprar-carrito" element={<ConfirmarPagoCarrito/>}/>
+            <Route path="/completar-pago/:id" element={<CompletarPagoProducto/>}/>
           </Route>
           
           <Route element={<RutaProtegidaAdmin autenticado={usuarioRol.includes("admin")}/>}>

@@ -34,7 +34,7 @@
      overflow: auto;
  }
  
- .boton-favorito{
+ .boton-favorito-agregar, .boton-favorito-eliminar{
      position: absolute;
      right: 0px;
      top: 0px;
@@ -117,4 +117,10 @@ input[type=number] {
 
 .background-paginas{
     background-color: rgb(248, 241, 248) !important;
+}
+
+.swal2-timer-progress-bar {
+  height: 15px !important;
+  border-radius: 4px;
+  background: #731e7e !important;
 }

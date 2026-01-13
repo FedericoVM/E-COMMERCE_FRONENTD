@@ -37,7 +37,7 @@ const Header = () => {
     obtenerUsuarioFavoritos,
     dispatch,
   } = UserHook();
-  const { resetCarritoYFavoritos, setBuscarProductos, productosHome } = ProductosHook();
+  const { setBuscarProductos, productosHome } = ProductosHook();
   const { setUsuariosAdmin } = AdminHook();
 
   const handleSubmit = (e) => {
@@ -59,7 +59,7 @@ const Header = () => {
       array.forEach((element) => {
         
         let productoEncontrado = productos.find((e)=>{
-          return e._id === element.productos
+          return e._id === element.idProducto
         })
 
         if(!productoEncontrado){
@@ -102,7 +102,6 @@ const Header = () => {
         dispatch({ type: USUARIO_EN_LINEA, payload: true });
         setTimeout(() => {
           deslogin(
-            resetCarritoYFavoritos,
             navigate,
             tokenUser,
             setUsuariosAdmin
@@ -110,7 +109,7 @@ const Header = () => {
             setCantidadCarrito(null);
         }, usuarioInfo.expiracion - usuarioInfo.iat);
       } else {
-        deslogin(resetCarritoYFavoritos, navigate, tokenUser, setUsuariosAdmin);
+        deslogin(navigate, tokenUser, setUsuariosAdmin);
         setCantidadCarrito(null);
       }
     }

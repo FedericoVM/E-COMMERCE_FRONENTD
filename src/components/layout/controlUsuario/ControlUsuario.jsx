@@ -1,7 +1,6 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate } from "react-router-dom";
 import { UserHook } from '../../../context/Contexto de Usuarios/UserHook';
-import { ProductosHook } from '../../../context/Contexto de Productos/ProductosHook';
 import "./controlUsuario.css"
 import { NavDropdown } from 'react-bootstrap';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
@@ -12,7 +11,6 @@ const ControlUsuario = ( ) => {
   const [nombreUsuario, setNombreUsuario] = useState(null)
 
   const {usuarioInfo, deslogin} = UserHook()
-  const {resetCarritoYFavoritos} = ProductosHook()
 
   const seleccionarPrimerNombre = () =>{
     let nombre = usuarioInfo.nombre.split(" ")
@@ -39,7 +37,7 @@ const ControlUsuario = ( ) => {
           >
             <DropdownItem className='control-usuario-nav-items' onClick={miCuenta}>Mi cuenta</DropdownItem>
             <Dropdown.Divider/>
-            <DropdownItem className='control-usuario-nav-items' onClick={()=> deslogin(resetCarritoYFavoritos, navigate)}>Salir</DropdownItem>
+            <DropdownItem className='control-usuario-nav-items' onClick={()=> deslogin(navigate)}>Salir</DropdownItem>
           </NavDropdown>
       </div>
       <div className=''>

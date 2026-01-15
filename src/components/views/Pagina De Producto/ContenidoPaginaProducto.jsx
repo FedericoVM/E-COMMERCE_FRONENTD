@@ -9,11 +9,11 @@ import ModalEsperaPagoBack from "../Modal espera pago/ModalEsperaPagoBack";
 
 const ContenidoPaginaProducto = ({ productoAMostrar }) => {
 
-  const { obtenerUsuarioFavoritos, tokenUser, usuarioEnLinea, obtenerCarritoUsuario} =
+  const { obtenerUsuarioFavoritos, tokenUser, usuarioEnLinea, obtenerCarritoUsuario, usuarioFavoritos,  cambiarBotonFavorito} =
     UserHook();
-  const {agregarAFavoritos, eliminarDeFavoritos, agregarAlCarrito, comprarProducto, cambiarBotonFavorito, productosFavoritosAMostrar, formatPrecio} = ProductosHook();
+  const {agregarAFavoritos, eliminarDeFavoritos, agregarAlCarrito, comprarProducto, formatPrecio} = ProductosHook();
 
-  const favoritoExistente = cambiarBotonFavorito(usuarioEnLinea, productosFavoritosAMostrar, productoAMostrar._id)
+  const favoritoExistente = cambiarBotonFavorito(usuarioEnLinea, usuarioFavoritos, productoAMostrar._id)
 
   return (
     <div className="d-flex justify-content-center align-items-center flex-column">

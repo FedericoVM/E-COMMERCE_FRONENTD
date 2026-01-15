@@ -14,7 +14,7 @@ const ListaFavoritos = ({
 }) => {
 
   const {tokenUser, obtenerUsuarioFavoritos} = UserHook()
-  const {formatPrecio, eliminarDeFavoritos, currentPageMobile, paginateMobile, productosFavoritosAMostrar} = ProductosHook()
+  const {formatPrecio, eliminarDeFavoritos, currentPageMobile, paginateMobile} = ProductosHook()
 
   return (
     <>

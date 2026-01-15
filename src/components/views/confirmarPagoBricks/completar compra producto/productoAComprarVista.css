@@ -1,0 +1,34 @@
+.imagen-de-producto-a-comprar{
+    height: 200px;
+    width: 190px;
+}
+
+.descripcion-producto-a-comprar{
+    white-space: pre-wrap;
+    overflow: auto;
+    height: 180px;
+}
+
+.producto-a-comprar-nombre{
+    color: rgb(65, 64, 64);
+}
+
+.contenedor-precios-producto-a-comprar p{
+    font-size: 1.8rem !important;
+    border-bottom: 2px solid rgb(202, 124, 202) !important;
+    border-top: none !important
+}
+
+.seccion-descripcion-producto-a-comprar{
+    background-color: rgb(230, 228, 227);
+}
+
+.titulo-descripcion-producto-a-comprar{
+    font-size: 1.1rem;
+    color: rgb(78, 78, 78);
+    text-decoration: underline;
+}
+
+.producto-a-comprar-marca{
+    font-size: 1.2rem;
+}

@@ -46,8 +46,8 @@ const CuentaUsuario = () => {
                 </div>
             </div>
             </section>
-            <section className='col-11 col-md-7 d-flex flex-column bg-white p-3 border seccion-contenedor-historial-compras'>
-                <h3 className='mb-0 col-12 titulos-de-paginas text-center'>Historial de compras</h3>
+            <section className='col-11 col-md-7 d-flex flex-column bg-white p-sm-3 border seccion-contenedor-historial-compras'>
+                <h3 className='col-12 titulos-de-paginas text-center m-0 py-3 py-sm-0 pb-sm-3 pb-md-3'>Historial de compras</h3>
                 {usuarioHistorialCompras !== null ? <HistorialDeCompras/>: <AnimacionCargando/>}
             </section>
             </div>

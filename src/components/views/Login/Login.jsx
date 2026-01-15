@@ -109,14 +109,14 @@ const Login = ( ) => {
               </Button>
               <Form.Group className="mt-2" >
                 No tienes cuenta?
-                <Button disabled={botonBloquear} variant="link" onClick={() => {setShowLogin(false); handleShowModal(valuesM[0], setFullScreenRegistro, setShowRegistro)}} className="link-form ms-2">
+                <Button disabled={botonBloquear} variant="link" onClick={() => {resetErrorMensaje(); handleShowModal(valuesM[0], setFullScreenRegistro, setShowRegistro)}} className="link-form ms-2">
                   Registrate
                 </Button>
               </Form.Group>
             </Form>
             <Form.Group>
                 Olvidaste la contraseña?
-                <Button disabled={botonBloquear} variant="link" onClick={() => {setShowLogin(false); navigate('recuperar-contrasenia')}} className="link-form ms-2">
+                <Button disabled={botonBloquear} variant="link" onClick={() => {resetErrorMensaje(); navigate('recuperar-contrasenia')}} className="link-form ms-2">
                   Recuperar Contraseña
                 </Button>
               </Form.Group> 

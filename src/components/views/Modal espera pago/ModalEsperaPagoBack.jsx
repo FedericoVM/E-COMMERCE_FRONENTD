@@ -10,14 +10,15 @@ import ErrorPago from './ErrorPago';
 const ModalEsperaPagoBack = ({comprarProducto, classPropiedad}) =>{
 
   const {errorMercado, setErrorMercado} = ProductosHook();
-  const {tokenUser, setBrilloModalCarrito} = UserHook()
+  const {handleCloseModalCarrito, tokenUser, setBrilloModalCarrito} = UserHook()
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
     setShow(false);
-    setErrorMercado(null)
-    setBrilloModalCarrito(false)
+    setErrorMercado(null);
+    setBrilloModalCarrito(false);
+    handleCloseModalCarrito(false)
   };
   const handleShow = () => setShow(true);
 
@@ -28,7 +29,7 @@ const ModalEsperaPagoBack = ({comprarProducto, classPropiedad}) =>{
     }
     handleShow()
     setBrilloModalCarrito(true)
-    await comprarProducto();
+    await comprarProducto(handleClose);
   }
 
     return(
@@ -50,7 +51,7 @@ const ModalEsperaPagoBack = ({comprarProducto, classPropiedad}) =>{
             {errorMercado === null?  <Spinner/>: <ErrorPago/>}
           </Modal.Body>
           <Modal.Footer>
-            <Button disabled={errorMercado == null ? true : false} onClick={handleClose}>
+            <Button onClick={handleClose}>
               Close
             </Button>
           </Modal.Footer>

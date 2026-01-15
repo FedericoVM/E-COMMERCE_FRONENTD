@@ -12,7 +12,7 @@ const PaginaProductoPrecioDesc = ({ producto }) => {
       </p>
       <div className="d-flex flex-row justify-content-center justify-content-md-evenly col-12 contenedor-precio-descuento align-items-center">
         <p className="precio-con-descuento-pagina-producto m-0">
-          {formatPrecioDescuento(productosHome, producto._id)}
+          {formatPrecioDescuento(producto.precio, producto.descuento)}
         </p>
         <p className="descuento-pagina-producto mx-2 mx-md-0 m-0">{producto.descuento}% OFF</p>
       </div>

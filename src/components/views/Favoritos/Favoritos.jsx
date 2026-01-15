@@ -1,14 +1,14 @@
 import Paginacion from "../paginacion/Paginacion";
-import { ProductosHook } from "../../../context/Contexto de Productos/ProductosHook";
 import FavoritosVacio from "./FavoritosVacio";
+import { UserHook } from "../../../context/Contexto de Usuarios/UserHook";
 
 const Favoritos = ( ) => {
 
-  const {productosFavoritosAMostrar} = ProductosHook()
+  const {usuarioFavoritos} = UserHook()
 
   return (
     <div className="d-flex justify-content-center my-3">
-      {productosFavoritosAMostrar.length > 0 ? <Paginacion lista={productosFavoritosAMostrar} card="favoritos"/> : <FavoritosVacio/>}
+      {usuarioFavoritos.length > 0 ? <Paginacion lista={usuarioFavoritos} card="favoritos"/> : <FavoritosVacio/>}
     </div>
   );
 };

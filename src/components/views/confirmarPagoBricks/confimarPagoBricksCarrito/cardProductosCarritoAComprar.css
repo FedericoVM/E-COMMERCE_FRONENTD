@@ -1,0 +1,72 @@
+.contenedor-carrito-a-comprar{
+    border: 2px violet solid;
+}
+
+.cantidad-marca-card-compra > div > p:first-child, .precio-card-compra > div > p:first-child {
+    color: rgb(102, 102, 102);
+    text-decoration:underline;
+}
+
+@media(width < 420px){
+
+    .contenedor-caracteristicas-card-compra{
+        align-items: center !important;
+    }
+
+    .cantidad-marca-card-compra{
+        flex-direction: column !important;
+        width: 55%;
+    }
+
+    .precio-card-compra{
+        width: 45% !important;
+    }
+}
+
+@media (width >= 420px){
+.contenedor-carrito-a-comprar{
+    border: 2px violet solid;
+    height: 125px;
+}
+}
+
+.imagen-carrito-a-comprar{
+    height: 90px;
+    width: 80px;
+}
+
+.nombre-card-compra-carrito{
+    font-size: 1.2rem;
+    color: rgb(68, 68, 68);
+}
+
+.contenedor-caracteristicas-card-compras{
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    
+}
+
+.contenedor-caracteristicas-card-compras > p:first-child {
+    font-size: 0.5rem;
+    color: rgb(75, 74, 74);
+    margin-bottom: 0px !important;
+}
+
+.precio-sin-descuento-card-compra{
+    font-size: 0.7rem;
+    text-decoration: line-through;
+}
+
+.precio-con-descuento-card-compra{
+    font-size: 0.9rem;
+}
+
+.precio-card-no-destacado-compra{
+    font-size: 0.9rem;
+}
+
+.descuent-card-compra{
+    font-weight: 500;
+    color: rgb(81, 136, 90);
+}

@@ -3,7 +3,7 @@ import { BsSuitHeartFill } from "react-icons/bs"
 
 const EliminarFavorito = ({eliminarFavorito}) =>{
     return (
-        <Button variant="primary" className="boton-favorito" onClick={()=>{eliminarFavorito()}}>
+        <Button variant="primary" className="boton-favorito-eliminar" onClick={()=>{eliminarFavorito()}}>
             <BsSuitHeartFill/>
         </Button>
     )

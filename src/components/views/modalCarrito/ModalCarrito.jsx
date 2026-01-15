@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -13,55 +12,54 @@ import instance from "../../../axios/instance";
 import ModalEsperaPagoBack from "../Modal espera pago/ModalEsperaPagoBack";
 import "./modalCarrito.css";
 import { FaShoppingCart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const ModalCarrito = () => {
-  const [precioTotal, setPrecioTotal] = useState(null);
+  
+  const navigate = useNavigate();
 
   const {
     usuarioCarrito,
+    botonBloquear,
     showModalCarrito,
     setShowModalCarrito,
     handleCloseModalCarrito,
     usuarioInfo,
     tokenUser,
-    brilloModalCarrito
+    brilloModalCarrito,
+    costoTotalCarrito,
+    setCostoTotalCarrito
   } = UserHook();
   const {
-    productosHome,
-    filtrarCarritoAMostrarProducto,
-    productosCarritoAMostrar,
     formatPrecio,
     setErrorMercado,
   } = ProductosHook();
 
   const handleClose = () => setShowModalCarrito(false);
 
-  const sumarTotalCarrito = (productosArray, productos) => {
+  const sumarTotalCarrito = (productosArray) => {
     let total = 0;
     if (productosArray) {
       productosArray.forEach((element) => {
-        let productoFind = productos.find((e) => {
-          return e._id === element.idProducto;
-        });
 
-        if(!productoFind) {
+        if(!element) {
           return total += 0
         }
         
-        if(productoFind.stock === 0) {
+        if(element.stock === 0) {
           return total += 0
         }
 
-        if (productoFind.destacado === true) {
-          if (productoFind.descuento < 10) {
+        if (element.destacado === true) {
+          if (element.descuento < 10) {
             total +=
-              (productoFind.precio -
-                productoFind.precio * Number(`0.0${productoFind.descuento}`)) *
+              (element.precio -
+                element.precio * Number(`0.0${element.descuento}`)) *
               element.cantidad;
           } else {
             total +=
-              (productoFind.precio -
-                productoFind.precio * Number(`0.${productoFind.descuento}`)) *
+              (element.precio -
+                element.precio * Number(`0.${element.descuento}`)) *
               element.cantidad;
           }
         } else {
@@ -70,49 +68,46 @@ const ModalCarrito = () => {
       });
     }
 
-    setPrecioTotal(total);
+    setCostoTotalCarrito(total);
   };
 
-  const comprarProductosCarrito = async () => {
+  const comprarProductosCarrito = async (setHandleShow) => {
     const config = {
       headers: {
         authorization: `Bearer ${tokenUser}`,
       },
     };
 
-    const usuarioCarrito = {
+    const usuarioCarritoFront = {
       email: usuarioInfo.email,
+      carritoFront: usuarioCarrito
     };
 
     try {
       const pagoCarrito = await instance.post(
-        "/mercadoPago/paymentCarrito",
-        usuarioCarrito,
+        "/mercadoPago/crear-carrito-payment-order",
+        usuarioCarritoFront,
         config
       );
+      
       if (pagoCarrito) {
-        window.location.href = `${pagoCarrito.data.redirecttUrl}`;
+        navigate('/comprar-carrito');
+        setHandleShow()
       }
     } catch (error) {
       setErrorMercado(error.response);
+      console.log(error);
+      
       toast.warning("Algo Paso.");
     }
   };
 
   useEffect(() => {
-    if (usuarioCarrito) {
-      filtrarCarritoAMostrarProducto(usuarioCarrito, productosHome);
+    if (usuarioCarrito.length === 0 ) {
+      return setCostoTotalCarrito(null);
     }
-    if (usuarioCarrito === null) {
-      setPrecioTotal(null);
-    }
+    sumarTotalCarrito(usuarioCarrito);
   }, [usuarioCarrito]);
-
-  useEffect(() => {
-    if (productosCarritoAMostrar) {
-      sumarTotalCarrito(productosCarritoAMostrar, productosHome);
-    }
-  }, [productosCarritoAMostrar]);
 
   return (
     <>
@@ -138,13 +133,9 @@ const ModalCarrito = () => {
         </Modal.Header>
         <Modal.Body className="body-modal overflow-auto">
           <ListGroup as="ol" className="gap-2">
-            {productosCarritoAMostrar.length > 0 ? (
-              productosCarritoAMostrar.map((producto, index) =>
-                producto === null ? (
-                  <p>Borrado</p>
-                ) : (
-                  <CardCarrito producto={producto} key={index} />
-                )
+            {usuarioCarrito.length > 0 ? (
+              usuarioCarrito.map((producto) =>
+                  <CardCarrito producto={producto} key={producto.idProducto} />
               )
             ) : (
               <CarritoVacio />
@@ -155,7 +146,7 @@ const ModalCarrito = () => {
           <div className="d-flex p-0 m-0 footer-total-tex-carrito-modal flex-row align-items-center justify-content-evenly container col-6 col-sm-4 col-md-7">
             <FormLabel className="total-text-label m-0">Total:</FormLabel>
             <FormLabel className="total-text m-0">
-              {precioTotal !== 0 ? `${formatPrecio(precioTotal)}` : "0"}
+              {costoTotalCarrito !== 0 ? `${formatPrecio(costoTotalCarrito)}` : "0"}
             </FormLabel>
           </div>
           <div className="d-flex col-6 col-sm-4 col-md-5 footer-botones-carrito-modal m-0 p-0 flex-row justify-content-evenly">

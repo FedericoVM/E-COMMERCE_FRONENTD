@@ -7,6 +7,14 @@
     cursor: pointer;
 }
 
+.pagination li button {
+    width: 30px;
+}
+
+.inicio-lista-admin{
+    width: 50px !important
+}
+
 .pagination-boton-menos{
     border-right: none;
 }

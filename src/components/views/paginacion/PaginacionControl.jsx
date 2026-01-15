@@ -12,8 +12,13 @@ const PaginacionControl = ({ postsPerPage, totalPosts, paginate, currentPage }) 
       <nav className="d-flex justify-content-center mt-3">
         <ul className='pagination'>
           <li className='page-item' disabled={currentPage <= 1 ? true : false}>
-            <button onClick={() => paginate(1)} disabled={currentPage <= 1 ? true : false} className='page-link pagination-boton-menos'>
+            <button onClick={() => paginate(1)} disabled={currentPage <= 1 ? true : false} className='page-link pagination-boton-menos px-0 inicio-lista-admin'>
               {"|<<"}
+            </button>
+          </li>
+          <li className={currentPage == 1 ? 'd-none':'page-item'} disabled={currentPage <= 1 ? true : false}>
+            <button onClick={() => paginate(currentPage - 1)} disabled={currentPage <= 1 ? true : false} className='page-link pagination-boton-menos px-0'>
+              {"<"}
             </button>
           </li>
           <li className={currentPage <= 1 ? 'd-none' : 'page-itemr'}>
@@ -31,8 +36,13 @@ const PaginacionControl = ({ postsPerPage, totalPosts, paginate, currentPage }) 
               {currentPage + 1}
             </a>
           </li>
+          <li className={currentPage == pageNumbers.length ? 'd-none' : 'page-item'} disabled={currentPage >= pageNumbers.length ? true : false}>
+            <button onClick={() => paginate(currentPage + 1)} disabled={currentPage >= pageNumbers.length ? true : false} className='page-link pagination-boton-mas px-0'>
+              {">"}
+            </button>
+          </li>
           <li className='page-item' disabled={currentPage >= pageNumbers.length ? true : false}>
-            <button onClick={() => paginate(pageNumbers.length)} disabled={currentPage >= pageNumbers.length ? true : false} className='page-link pagination-boton-mas'>
+            <button onClick={() => paginate(pageNumbers.length)} disabled={currentPage >= pageNumbers.length ? true : false} className='page-link pagination-boton-mas px-0 inicio-lista-admin'>
               {">>|"}
             </button>
           </li>

@@ -13,9 +13,6 @@ const ProductosSinStock = () =>{
         return mapearConProductosHome
     })
 
-    console.log(productosSinStock[0]);
-    
-
     return (
         <>
         <p className="titulo-productos-sin-stock">Los siguientes productos no tienen stock</p>

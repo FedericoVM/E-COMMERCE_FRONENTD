@@ -10,10 +10,6 @@
     text-overflow: ellipsis !important;
 }
 
-.tabla-info-historial{
-    border-color: rgb(134, 107, 134) !important;
-}
-
 .tabla-info-historial tbody tr:nth-child(2):hover{
     cursor: pointer;
     color: rgb(49, 48, 48) !important;
@@ -26,4 +22,9 @@
 
 .texto-hover-tabla-info-historial:hover{
     color: #913175;
+}
+
+.tabla-info-historial{
+    table-layout: fixed;
+    width: 100%;
 }

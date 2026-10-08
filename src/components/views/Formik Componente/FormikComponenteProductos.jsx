@@ -44,7 +44,7 @@ const FormikComponente = ({ onSubmit, productoEdit}) => {
   const [initialValuesForm, setInitialValuesForm] = useState(valoresIniciales())
 
   return (
-    <div className="d-flex col-11 col-sm-10 justify-content-center">
+    <div className="d-flex col-12 justify-content-center">
       <Formik
         initialValues={initialValuesForm}
         validationSchema={schemaCrearProducto}
@@ -58,7 +58,7 @@ const FormikComponente = ({ onSubmit, productoEdit}) => {
           resetForm,
           validateForm
         }) => (
-          <Form className="form col-12 col-lg-8 d-flex flex-column">
+          <Form className="form col-12 d-flex flex-column">
             <Custominput
             name="inputToSchema"
             type="text"

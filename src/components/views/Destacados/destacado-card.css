@@ -1,6 +1,5 @@
 .imagen-destacado{
-    height: 12rem;
-    width: 14rem;
+    height: 11rem;
 }
 
 .contenedor-precios-destacado{
@@ -49,10 +48,6 @@
     border-radius: 2%;
 }
 
-.card-destacado-body{
-    height: 10rem !important;
-}
-
 .boton-comprar-destacado, .boton-carrito-destacado{
     background-color: #864072 !important;
     border-color: #864072 !important;
@@ -65,6 +60,12 @@
     color: white !important;
 }
 
-.descripcion-card-producto{
+.descripcion-card-producto-destacados{
     color: rgb(77, 76, 76);
+    height: 12vh;
+     overflow: auto;
+}
+
+.card-destacado{
+    height: 21rem !important;
 }

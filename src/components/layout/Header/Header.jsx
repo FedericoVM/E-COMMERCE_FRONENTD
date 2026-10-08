@@ -19,12 +19,15 @@ import { ProductosHook } from "../../../context/Contexto de Productos/ProductosH
 import { AdminHook } from "../../../context/Contexto de Admin/AdminHook";
 import { useEffect, useState } from "react";
 import { USUARIO_EN_LINEA } from "../../../context/Contexto de Usuarios/typesUser";
-import { Offcanvas, PopoverBody } from "react-bootstrap";
+import { Offcanvas } from "react-bootstrap";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 
 const Header = () => {
+  
   const [cantidadCarrito, setCantidadCarrito] = useState(null);
-  const navigate = useNavigate();
+
+  const navigate = useNavigate()
+
   const {
     usuarioEnLinea,
     usuarioCarrito,
@@ -46,11 +49,11 @@ const Header = () => {
     let aBuscar = e.target.search.value;
 
     if (aBuscar.length > 3) {
-      setBuscarProductos(aBuscar);
+      navigate(`/?search=${encodeURIComponent(aBuscar.trim())}`)
     } else {
       return toast.warning("Se necesitan mas caracteres");
     }
-    navigate("/busqueda");
+    
   };
 
   const totalProductosCarrito = (array, productos) => {
@@ -77,7 +80,10 @@ const Header = () => {
   };
 
   const irAVentana = (destino) =>{
-    return navigate(`/${destino}`)
+    if(destino === "destacado"){
+      return navigate('/?destacado=true')
+    }
+    return navigate(`/?categoria=${destino}`)
   } 
 
   useEffect(() => {
@@ -184,18 +190,18 @@ const Header = () => {
                 </div>
               </div>
               <Nav className="m-0 navbar-items-header d-md-flex justify-content-md-around">
-                <div className="col-md-2 col-lg-3 d-flex justify-content-md-center justify-content-lg-end">
+                <div className="col-md-2 col-lg-3 d-flex my-2 justify-content-md-center justify-content-lg-end">
                 <NavDropdown
                   title="Categorias"
                   className="btn-hover boton-select-header"
                 >
-                  <DropdownItem className="nav-drop-down" onClick={() => {irAVentana("computacion")}}>
+                  <DropdownItem className="nav-drop-down" onClick={() => irAVentana("Computacion")}>
                       Computacion
                   </DropdownItem>
-                  <DropdownItem className="nav-drop-down" onClick={() => {irAVentana("electrodomesticos")}}>
+                  <DropdownItem className="nav-drop-down" onClick={() => irAVentana("Electrodomesticos")}>
                       Electrodomesticos
                   </DropdownItem>
-                  <DropdownItem className="nav-drop-down" onClick={() => {irAVentana("aireLibre")}}>
+                  <DropdownItem className="nav-drop-down" onClick={() => irAVentana("Aire Libre")}>
                       Aire Libre
                   </DropdownItem>
                   </NavDropdown>
@@ -207,12 +213,12 @@ const Header = () => {
                   >
                     Home
                   </NavLink>
-                  <NavLink
-                    className="text-decoration-none btn-hover px-md-1 px-lg-2 text-secondary"
-                    to="/destacados"
+                  <button
+                    className="text-decoration-none btn-hover text-start m-0 p-0 px-md-1 px-lg-2"
+                    onClick={()=>irAVentana("destacado")}
                   >
                     Destacados
-                  </NavLink>
+                  </button>
                   <NavLink
                     className="text-decoration-none btn-hover px-md-1 px-lg-2 text-secondary"
                     to="/contacto"

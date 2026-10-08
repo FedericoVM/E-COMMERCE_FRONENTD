@@ -72,13 +72,13 @@ export const RouterPrincipal = () => {
         <AutoScrollTop/>
         <Routes className="flex-grow">
           <Route path="/" element={<Home productos={productosFiltrados}/>}/>
-          <Route path="/computacion" element={<Computacion productos={productosFiltrados}/>}/>
+          
           <Route path="/electrodomesticos" element={<Electrodomesticos productos={productosFiltrados}/>}/>
           <Route path="/aireLibre" element={<AireLibre productos={productosFiltrados}/>}/>
           <Route path="/contacto" element={<Contacto/>}/>
           <Route path="/destacados" element={<Destacados productos={productosFiltrados}/>}/>
           <Route path="/producto/:id" element={<PaginaProducto/>}/>
-          <Route path="/busqueda" element={<VentanaDeBusqueda productos={productosFiltrados}/>}/>
+          <Route path="/buscar" element={<VentanaDeBusqueda productos={productosFiltrados}/>}/>
           <Route path="/recuperar-contrasenia" element={<RecupContrasenia/>}/>
           <Route path="/recuperacion-contrasenia/:token" element={<RecuperarContrasenia/>}/>
           <Route path="/usuario/:id/verify/:token" element={<VerificarUsuario/>}/>

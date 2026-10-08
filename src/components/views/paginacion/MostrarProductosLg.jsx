@@ -15,14 +15,14 @@ const MostrarProductosLg = ({ currentPosts, totalPosts, page }) => {
                 </Col>
             ))}
         </Row>
-        <div className="d-flex justify-content-center d-none mx-0 d-md-none d-lg-flex align-items-center">
+        {/*<div className="d-flex justify-content-center d-none mx-0 d-md-none d-lg-flex align-items-center">
                 <PaginacionControl
                     postsPerPage={page}
                     totalPosts={totalPosts}
                     paginate={paginateWeb}
                     currentPage={currentPageWeb}
                 />
-            </div>
+            </div>*/}
         </div>
     )
 }

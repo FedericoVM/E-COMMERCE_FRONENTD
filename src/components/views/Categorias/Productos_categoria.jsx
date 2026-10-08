@@ -1,4 +1,3 @@
-import React from 'react'
 import Paginacion from '../paginacion/Paginacion';
 import Publicidad from '../home/Publicidad/Publicidad';
 

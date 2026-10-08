@@ -36,13 +36,15 @@ const DestacadoCards = ({ post }) => {
 
   return (
     <div className="mx-1 contenedor-card-destacado">
-      <Card className="col-12">
+      <Card className="col-12 card-destacado">
         <div className="d-flex justify-content-center">
+          <div>
           <Card.Img
-            className="border-bottom imagen-destacado"
+            className="border-bottom imagen-destacado container p-4"
             variant="top"
             src={post.imagen}
           />
+          </div>
           <div className="contenedor-precios-destacado rounded">
             <div className="d-flex flex-row align-items-center">
               <p className="m-0 porcentaje-card-destacado">-{post.descuento}%</p>
@@ -66,11 +68,11 @@ const DestacadoCards = ({ post }) => {
                 </Card.Title>
               </div>
             </Link>
-            <p className="border-bottom mx-2 rounded descripcion-card-producto">
+            <p className="border-bottom mx-2 rounded descripcion-card-producto-destacados my-0">
               {post.descripcion}
             </p>
           </div>
-          <div className="d-flex justify-content-around">
+          <div className="d-flex justify-content-around my-1">
             <Button
               variant="warning"
               className="opacity-75 w-25 boton-carrito-destacado"

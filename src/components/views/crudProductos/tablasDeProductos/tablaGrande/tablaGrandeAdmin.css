@@ -1,0 +1,124 @@
+.imagen-overlay-admin .tooltip-inner{
+    background-color: rgb(168, 100, 185) !important;
+}
+
+.imagen-overlay-admin .tooltip-arrow::before{
+    border-right-color: rgb(168, 100, 185) !important;
+}
+
+.th-admin-tabla-grande-nombre{
+    text-align: center;
+    text-decoration: underline;
+    width: 210px !important;
+    border-color: rgb(214, 137, 229) !important
+}
+
+.boton-ver-tabla-grande-admin{
+    background-color: white !important;
+}
+
+.boton-ver-tabla-grande-admin:hover{
+    background-color: rgb(25, 135, 84) !important;
+}
+
+.boton-editar-tabla-grande-admin{
+    background-color: white;
+    padding: 3px 3px 3px 3px !important;
+    color: rgb(55, 168, 83) !important;
+    border-color: rgb(55, 168, 83) !important;
+    font-weight: 500;
+    align-content: center;
+}
+
+.boton-editar-tabla-grande-admin:hover{
+    color: white !important;
+    background-color: rgb(55, 168, 83) !important;
+}
+
+.th-admin-tabla-grande-imagen{
+    height: 2rem !important;
+    width: 80px;
+    text-align: center;
+    text-decoration: underline;
+    border-color: rgb(214, 137, 229) !important
+}
+
+.th-admin-tabla-grande-precio{
+    width: 120px;
+    text-align: center;
+    text-decoration: underline;
+    border-color: rgb(214, 137, 229) !important
+}
+
+.th-admin-tabla-grande-stock{
+    text-align: center;
+    text-decoration: underline;
+    width: 60px;
+    border-color: rgb(214, 137, 229) !important
+}
+
+.th-admin-tabla-grande-acciones{
+    width: 130px;
+    text-align: center;
+    text-decoration: underline;
+    border-color: rgb(214, 137, 229) !important
+}
+
+.columnas-lista-grande-admin{
+    width: 100% !important;
+    table-layout: fixed;
+}
+
+.tabla-grande-arrow-contenedor-admin{
+    height: 2rem !important;
+}
+
+.producto-no-destacado-text{
+    align-content: center;
+}
+
+.producto-destacado-text{
+    align-content: center;
+    color: rgb(17, 138, 6) !important;
+    font-weight: 500;
+    text-align: center;
+}
+
+.marca-hover-img-admin{
+    font-weight: 500;
+}
+
+.precio-anterior-a-descuento{
+    text-decoration: line-through;
+    text-align: center;
+}
+
+.nombre-tabla-grande-admin {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fila-destacad-tabla-grande{
+    background-color: rgb(218, 240, 216);
+}
+
+.contenedor-lista-grande-admin{
+    max-height: 90vh;
+    min-height: 20vh;
+    overflow: auto;
+    border-color: rgb(214, 137, 229) !important;
+}
+
+.columnas-lista-grande-admin thead{
+    position: sticky;
+    top: 0px;
+}
+
+.columnas-lista-grande-admin thead tr th{
+    background-color: rgb(243, 236, 243);
+}
+
+.columnas-lista-grande-admin tbody tr td{
+    border-color: rgb(214, 137, 229) !important;
+}

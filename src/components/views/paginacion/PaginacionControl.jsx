@@ -1,48 +1,48 @@
+import { useSearchParams } from "react-router-dom";
+import UseFiltrosProductos from "../../../filtrosParamsHook/UseFiltrosProductos"
 import "./csspaginacion/paginationControl.css"
+import UseHookMediaQuery from "../../layout/hookMediaQuery/UseHookMediaQuery";
 
-const PaginacionControl = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
-  const pageNumbers = [];
+const PaginacionControl = ({ totalPaginas }) => {
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pageNumbers.push(i);
+  const {categoria, destacado, pagina} = UseFiltrosProductos();
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  const paginaANavegar = (paginaNueva) =>{
+
+    const nuevosParams = new URLSearchParams(searchParams)
+
+    nuevosParams.set("pagina", String(paginaNueva))
+
+    setSearchParams(nuevosParams)
   }
 
   return (
     <div className='container d-flex justify-content-center'>
       <nav className="d-flex justify-content-center mt-3">
         <ul className='pagination'>
-          <li className='page-item' disabled={currentPage <= 1 ? true : false}>
-            <button onClick={() => paginate(1)} disabled={currentPage <= 1 ? true : false} className='page-link pagination-boton-menos px-0 inicio-lista-admin'>
+          <li className='page-item' disabled={pagina <= 1 ? true : false}>
+            <button onClick={() => paginaANavegar(1)} disabled={pagina <= 1 ? true : false} className='page-link pagination-boton-menos px-0 inicio-lista-admin'>
               {"|<<"}
             </button>
           </li>
-          <li className={currentPage == 1 ? 'd-none':'page-item'} disabled={currentPage <= 1 ? true : false}>
-            <button onClick={() => paginate(currentPage - 1)} disabled={currentPage <= 1 ? true : false} className='page-link pagination-boton-menos px-0'>
-              {"<"}
-            </button>
-          </li>
-          <li className={currentPage <= 1 ? 'd-none' : 'page-itemr'}>
-            <a onClick={() => paginate(currentPage - 1)} className='page-link pagination-boton-anterior'>
-              {currentPage - 1}
+          <li className={pagina <= 1 ? 'd-none' : 'page-itemr'}>
+            <a onClick={() => paginaANavegar(pagina - 1)} className='page-link pagination-boton-anterior'>
+              {pagina - 1}
             </a>
           </li>
           <li className='page-item'>
-            <a onClick={() => paginate(currentPage)} className={currentPage ? 'pagina-actual page-link' : 'page-link'}>
-              {currentPage}
+            <a onClick={() => paginaANavegar(pagina)} className={pagina ? 'pagina-actual page-link' : 'page-link'}>
+              {pagina}
             </a>
           </li>
-          <li className={currentPage >= pageNumbers.length ? 'd-none' : 'page-item'}>
-            <a onClick={() => paginate(currentPage + 1)} className='page-link pagination-boton-posterior'>
-              {currentPage + 1}
+          <li className={pagina >= totalPaginas ? 'd-none' : 'page-item'}>
+            <a onClick={() => paginaANavegar(pagina + 1)} className='page-link pagination-boton-posterior'>
+              {pagina + 1}
             </a>
           </li>
-          <li className={currentPage == pageNumbers.length ? 'd-none' : 'page-item'} disabled={currentPage >= pageNumbers.length ? true : false}>
-            <button onClick={() => paginate(currentPage + 1)} disabled={currentPage >= pageNumbers.length ? true : false} className='page-link pagination-boton-mas px-0'>
-              {">"}
-            </button>
-          </li>
-          <li className='page-item' disabled={currentPage >= pageNumbers.length ? true : false}>
-            <button onClick={() => paginate(pageNumbers.length)} disabled={currentPage >= pageNumbers.length ? true : false} className='page-link pagination-boton-mas px-0 inicio-lista-admin'>
+          <li className='page-item' disabled={pagina >= totalPaginas ? true : false}>
+            <button onClick={() => paginaANavegar(totalPaginas)} disabled={pagina >= totalPaginas ? true : false} className='page-link pagination-boton-mas px-0 inicio-lista-admin'>
               {">>|"}
             </button>
           </li>

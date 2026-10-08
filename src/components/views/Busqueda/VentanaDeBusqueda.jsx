@@ -3,12 +3,22 @@ import { ProductosHook } from "../../../context/Contexto de Productos/ProductosH
 import { Col, Row } from "react-bootstrap"
 import Paginacion from "../paginacion/Paginacion"
 import ProductoNoEncontrado from "../../layout/producto no encontrado/ProductoNoEncontrado"
+import { useSearchParams } from "react-router-dom"
+import ApiQueryHook from "../../../queryApi/ApiQueryHook"
 
 const VentanaDeBusqueda = ({productos}) => {
 
     const [productosEncontrados, setProductosEncontrados] = useState([])
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const {buscarProductos} = ProductosHook()
+
+    const valorProductoABuscar = searchParams.get("search") ?? undefined
+
+    const {data, isLoading, error} = ApiQueryHook({search: valorProductoABuscar})
+
+    console.log(data);
+    
 
     const filtrarProductosBusqueda = (arrayProductos) => {
         let productoEncontrado = arrayProductos.filter((producto)=> {
@@ -27,7 +37,7 @@ const VentanaDeBusqueda = ({productos}) => {
         <div>
             <Row className=" mx-0 d-flex">
           <Col lg={12}>
-            {productosEncontrados.length > 0 ? <Paginacion lista={productosEncontrados} card={"card"}/> : <ProductoNoEncontrado/>}
+            { !isLoading ? <Paginacion lista={productosEncontrados} card={"card"}/> : <ProductoNoEncontrado/>}
           </Col>
         </Row>
         </div>

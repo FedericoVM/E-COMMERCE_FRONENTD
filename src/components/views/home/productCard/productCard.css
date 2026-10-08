@@ -46,16 +46,15 @@
   
   .boton-favorito-agregar, .boton-favorito-eliminar {
     font-size: 1.2rem;
-    background: rgba(182, 180, 180, 0.671);
+    background: rgba(88, 88, 88, 0.671);
     border: none;
-    color: rgb(174, 66, 207);
+    color: rgb(248, 203, 252);
     position: absolute;
     right: 0px !important;
   }
   
   .card-img {
     height: 8rem;
-    width: 95% !important;
   }
   
   .card {

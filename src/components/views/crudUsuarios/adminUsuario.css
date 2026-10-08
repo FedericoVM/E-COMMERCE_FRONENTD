@@ -37,13 +37,13 @@
 
 .boton-cambiar-modal-eliminar-cambiar-user{
     background-color: white;
-    color: rgb(216, 7, 111);
-    border-color: rgb(216, 7, 111);
+    color: rgb(250, 28, 57);
+    border-color: rgb(250, 28, 57);
     font-weight: 500;
 }
 
 .boton-cambiar-modal-eliminar-cambiar-user:hover{
-    background-color: rgb(216, 7, 111);
+    background-color: rgb(250,28,57);
     color: white;
-    border-color: rgb(216, 7, 111);
+    border-color: rgb(250, 28, 57);
 }

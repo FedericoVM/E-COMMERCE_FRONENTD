@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProductosCategorias from "../Productos_categoria";
 import { ProductosHook } from "../../../../context/Contexto de Productos/ProductosHook";
 import CargandoProductos from "../../../layout/cargando productos/CargandoProductos";
+import UseHookMediaQuery from "../../../layout/hookMediaQuery/UseHookMediaQuery";
 
 const Electrodomesticos = ({productos}) => {
 
   const [electrodomesticoProductos, setElectrodomesticoProductos] = useState([])
-  
+
   const {filtrarProductosCategoria} = ProductosHook()
 
   useEffect(()=>{

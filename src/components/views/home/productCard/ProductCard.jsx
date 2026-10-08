@@ -22,11 +22,13 @@ const ProductCard = ({ p }) => {
   return (
     <Card className="card cards-productos">
       <div className="img-contenedor-card d-flex justify-content-center align-self-center col-12">
-        <Card.Img
-          className="card-img container border-bottom"
-          variant="top"
-          src={p.imagen}
-        />
+        <div>
+          <Card.Img
+            className="card-img p-2 border-bottom"
+            variant="top"
+            src={p.imagen}
+          />
+        </div>
         {p.destacado && <Card.Title className="text-decoration-line-through px-1 fw-semibold title-precio rounded">
           {formatPrecio(p.precio)}
         </Card.Title>}

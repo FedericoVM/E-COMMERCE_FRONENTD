@@ -1,15 +1,26 @@
-import Paginacion from '../paginacion/Paginacion';
+import UseHookMediaQuery from "../../layout/hookMediaQuery/UseHookMediaQuery";
+import DestacadosEscritorioPag from "./escritorioMedia/DestacadosEscritorioPag";
+import DestacadosMobilePag from "./mobileMedia/DestacadosMobilePag";
+import DestacadosTabletPag from "./tabletMedia/DestacadosTabletPag";
 
-const Destacados = ({productos}) => {
+const Destacados = ({ productosHome }) => {
 
-  const nuevoArray = productos.filter(producto => producto.destacado === true)
+  const { pantallaTablet, pantallaMobile } = UseHookMediaQuery();
+
+  const Layout = pantallaMobile
+    ? DestacadosMobilePag
+    : pantallaTablet
+      ? DestacadosTabletPag
+      : DestacadosEscritorioPag;
 
   return (
-    <div className='d-flex flex-column w-100' style={{minHeight: '100vh'}}>
-        <h2 className='text-center align-self-center my-2 titulos-de-paginas rounded'>Destacados</h2>
-        <Paginacion card="destacados" lista={nuevoArray}/>
+    <div className="d-flex flex-column justify-content-start align-items-center col-12 mt-3">
+      <h2 className="text-center align-self-center titulos-de-paginas m-0 rounded">
+        Destacados
+      </h2>
+      {<Layout productos={productosHome}/>}
     </div>
-  )
-}
+  );
+};
 
-export default Destacados
+export default Destacados;

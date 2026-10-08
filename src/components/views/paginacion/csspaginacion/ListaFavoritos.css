@@ -15,15 +15,16 @@
 }
 
 .boton-eliminar-pagina-favoritos, .boton-modal-eliminar-producto-user{
+    padding-bottom: 1px, 4px, 1px, 4px !important;
     background-color: white !important;
-    color: rgb(219, 129, 44);
-    border-color: rgb(219, 129, 44);
+    color: rgb(230, 80, 80);
+    border-color: rgb(230, 80, 80);;
 }
 
 .boton-eliminar-pagina-favoritos:hover, .boton-modal-eliminar-producto-user:hover{
-    background-color:  rgb(219, 129, 44) !important;
+    background-color:  rgb(230, 80, 80)!important;
     color: white !important;
-    border-color: rgb(219, 129, 44) !important;;
+    border-color: rgb(230, 80, 80) !important;;
 }
 
 .boton-cambiar-rol-user:hover, .boton-editar-producto:hover{
@@ -37,6 +38,7 @@
     color: rgb(216, 7, 111);
     border-color: rgb(216, 7, 111);
     font-weight: 500;
+    padding: 0px !important;
 }
 
 .cabecera-de-fila{
@@ -89,7 +91,7 @@
     }    
 }
 
-.th-codigo, .th-acciones, .th-categoria{
+.th-codigo, .th-acciones{
     width: 130px !important;
 }
 
@@ -97,8 +99,8 @@
     width: 230px !important;
 }
 
-.th-precio, .th-marca{
-    width: 100px;
+.th-precio{
+    width: 150px;
 }
 
 .th-stock{
@@ -110,10 +112,10 @@
 }
 
 .td-tabla-imagen{
-    height: 4rem !important;
+    height: 3rem !important;
 }
 
-.td-tabla-acciones, .td-tabla-categoria{
+.td-tabla-acciones{
     overflow: hidden;
     text-overflow: ellipsis !important;
     align-content: center;
@@ -127,7 +129,7 @@
     text-overflow: ellipsis !important;
 }
 
-.td-tabla-marca, .td-tabla-precio{
+.td-tabla-precio{
     align-content: center;
     white-space: nowrap;
     overflow: hidden;

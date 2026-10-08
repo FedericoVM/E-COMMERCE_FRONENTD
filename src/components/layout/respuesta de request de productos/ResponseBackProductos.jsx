@@ -1,11 +1,12 @@
+import MostrarProductosLg from "../../views/paginacion/MostrarProductosLg"
 import Paginacion from "../../views/paginacion/Paginacion"
 import ProductoNoEncontrado from "../producto no encontrado/ProductoNoEncontrado"
 
-const ResponseBackProductos = ({productosHome}) =>{
+const ResponseBackProductos = ({productosHome, productosQueryFn}) =>{
     
     return (
         <>
-        {productosHome.length > 0 ? <Paginacion lista={productosHome} card={"card"}/> : <ProductoNoEncontrado/>}
+        {productosQueryFn.productos.length > 0 ? <MostrarProductosLg currentPosts={productosQueryFn.productos}/> : <ProductoNoEncontrado/>}
         </>
     )
 }
